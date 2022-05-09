@@ -1,0 +1,115 @@
+<!DOCTYPE html><html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><LINK href="..\..\style\style.css" rel="stylesheet" type="text/css"><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [['$','$'], ['\(','\)']],
+            processEscapes: true
+        }
+        });
+    </script><title>Castle meet Cannon: What to do after you lose?</title></head>
+<body>
+<div class='box_container'>
+<div class='text_container'>
+<h2><a href='../../index.html'>Ethan Heilman</a></h2><br\><a href='../../index.html'>Main</a> || <a href='../ls/index.html'>Writing</a><br/><br/><hr/>
+</div>
+</div>
+<div class='box_container'>
+<div class='text_container'>
+<h1>Castle meet Cannon: What to do after you lose?</h1><p>07-25-2012 9:10AM (ET) </p><hr /><p><img alt="" src="figs/tumblr_m6vl6sutRz1qf5p6p.jpg" /></p>
+<p>Most strategies are based around winning but what happens if you can't win? </p>
+<p><a href="http://ethanheilman.tumblr.com/post/27452522888/fflipit-an-interesting-game">In my last post I talked about flipIt.</a>
+One of the things that fascinates me about flipIt is it forces you to think about what you do when defense is impossible.
+In this post I'll explore the evolution of fortress and castle building from the 12 Century to WW1 and it's implications for network security.</p>
+<p><strong>Early Fortifications</strong></p>
+<p><img alt="" src="figs/tumblr_m6viw048cH1qf5p6p.jpg" /></p>
+<p>Fortifications in 12th Century and before (pretty much all the way into the classical era) were designed to keep enemy soldiers outside the perimeter of the fort (such a fort is picture above).
+Doors were recognized as weak points which could be set on fire or smashed in and so the fortifications were designed to protect these vulnerable areas by reducing their surface area and allowing defenders to concentrate projectile and other violence against attackers approaching the doors.
+The more robust fortifications had two static lines of defense. 
+If the first wall was breached the defenders could fall back to a second inner wall.
+Often to the fortification's credit attackers choose to starve the defenders out rather than attempt to breach the walls.
+Winning was successfully holding a static perimeter.</p>
+<p><strong>Device Fort</strong></p>
+<p><img alt="A device fort" src="figs/tumblr_m6vjoam7ZW1qf5p6p.jpg" /></p>
+<p>With the introduction of gun powder and use of cannons in Europe, fortifications came under greater threat. 
+The general response was to mitigate the effect of cannons through rounder thicker walls, lower towers, and to place cannons on the wall themselves to provide a deadly response to the besieging cannons.
+In 1539 Henry VIII carried out such a program of fort modernization in Southern Europe and these fortifications became known as <a href="http://en.wikipedia.org/wiki/Device_Forts">device forts</a>. A device fort is pictured above, notice the thick circular squat walls designed for deflecting gunpowder weapons.</p>
+<p><strong>Star Forts</strong></p>
+<p><img alt="" src="figs/tumblr_m6vk5xs4N81qf5p6p.jpg" /></p>
+<p>Unfortunately for defenders cannons kept getting stronger and building thicker castle walls hit a point of diminishing returns in terms of defensive utility and increasing cost. 
+While cannons can easily destroy castle walls, (re)building castle walls is a extremely expensive. 
+Furthermore stone and brick walls are static lines of defense that, by design, can not be easily moved to react to changes.
+A fort which was once strategically important is now left defending nothing of value.</p>
+<p>The last of this approach of increasingly expensive threat mitigation was the beautiful star fort (shown above). 
+Star forts had very short thick angled walls to defect projectiles and overlapping fields of fire to create a <a href="http://en.wikipedia.org/wiki/Standoff_distance">stand off</a> distance.</p>
+<p><strong>Game Over:</strong>
+Again the power of cannons and artillery increased making even star forts highly vulnerable. 
+Relying on the idea that walls could create an effective perimeter to keep attackers out now guaranteed failure.
+Defenders could no longer maintain an unbreakable perimeter.
+They had lost, and what happened next as interesting and successful as it's results were terrible.</p>
+<p><strong>Trench Warfare</strong></p>
+<p><img alt="" src="figs/tumblr_m6vkygFWiQ1qf5p6p.jpg" /></p>
+<p>The solution was <a href="http://en.wikipedia.org/wiki/Trench_warfare">trench warfare</a>. 
+Trenches are cheap to build and repair.
+A defender can afford to build <a href="http://en.wikipedia.org/wiki/Defence_in_depth">many lines of trenches if the first series of trenches are taken</a>.
+Additionally if a particular trench position is destroyed or overwhelmed, new trench formations can be built quickly to respond to the changing dynamic. 
+Combined with machine guns and barbed wire, trench warfare tilted the balance of war strongly in favor of defenders<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup>.</p>
+<p><strong>Resiliency over Robustness:</strong> 
+Perimeters were still impossible to defend, defenders still always lost, but it did not matter since new perimeters could be built before an attacker could take advantage of their success<sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup>. </p>
+<p>This was the triumph of <a href="http://www.resilientcommunities.com/you-choose-the-strategy-robust-or-resilient/">resiliency of humans + shovels over the robustness of stone walls</a>.
+If losing is cheap enough you can still always lose and end up winning.</p>
+<p><strong>Stonewalls and Firewalls</strong></p>
+<p><img alt="" src="figs/tumblr_m6vm1cOGz71qf5p6p.png" /></p>
+<p>This arms race of perimeter defense with increased cost and decreasing effectiveness has been mirrored in network security.</p>
+<ul>
+<li>
+<p>First we tried securing of our networks by requiring credentials to gain access and reducing surface area (protecting doors).</p>
+</li>
+<li>
+<p>After that failed we added <a href="http://en.wikipedia.org/wiki/Chroot">chroot jails</a>, firewalls, automatic updates and <a href="http://en.wikipedia.org/wiki/Intrusion_detection_system">IDS</a>(second lines of defense, making the walls thicker). We added <a href="http://en.wikipedia.org/wiki/Virtual_private_network">VPNs</a>, <a href="http://en.wikipedia.org/wiki/Sandbox_(computer_security)">sandboxing</a>, and <a href="http://en.wikipedia.org/wiki/Trusted_Computing">trusted computing chips</a> creating star forts with multiple static fallback positions.</p>
+</li>
+</ul>
+<p>While all of these protections raise the security of our networks they are fundamentally based on holding a series of static perimeters. 
+They are designed to raise the cost of an attack, but they also raise the complexity and cost of defending.</p>
+<p>All the money that google spends on defending their network perimeter was completely defeated by an <a href="http://en.wikipedia.org/wiki/Operation_Aurora#Attack_analysis">IE zero day</a>.</p>
+<p><strong>Some Ideas</strong></p>
+<p>We need to accept the fact that there is <a href="http://www.veracode.com/blog/2009/06/the-mobius-defense-%E2%80%93-an-impetus-for-application-security/">no such thing as a secure perimeter</a><sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>, that all of our most trusted systems will be repeatedly compromised, that defenders can never win.
+What do we do after we have lost?
+Reduce the cost of losing to the point that losing becomes affordable.</p>
+<p>This list is written in goal -&gt; method format.</p>
+<ul>
+<li>Increase the speed and the decrease the cost of recovering from a compromise -&gt; we have a factory reset button on mobile phones why not on servers.</li>
+<li>Decrease the cost of data loss -&gt; protect data rather than perimeters<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>.</li>
+<li>Don't be dependent any on part of your network -&gt; release <a href="http://www.codinghorror.com/blog/2011/04/working-with-the-chaos-monkey.html">the chaos monkey!</a></li>
+<li>Stay alert -&gt; use tools to process, analyze and view log files even when nothing is going wrong. Add log files to your feedback loop, they are your eyes.</li>
+<li>Hedge system integrity checks with things you don't control -&gt; use google analytics to check your work, send checksums of files by email to a gmail account who's password no one knows and is stored in a company safe.</li>
+<li>Stay nimble -&gt; value software/hardware that can be easily and quickly altered/changed ( see <a href="http://en.wikipedia.org/wiki/Unix_philosophy">the unix philosophy</a> ), create the same system twice with two teams randomly fall over between the two systems, build layers of abstract to allow rapid transitions.</li>
+<li>Increase organisational agility -&gt;  try multiple approaches to the same problem in parallel rather than in series. allow people to take risks, provide a space for people to change their minds without looking bad, <a href="http://en.wikipedia.org/wiki/Power_to_the_edge">make decisions locally and quickly and then iterate on the feedback</a>,</li>
+</ul>
+<p><strong>tl;dr</strong>
+Central claim is that: (1). After a certain point in an arms race security strategies based on increasing the cost that an attacker must pay to succeed hit diminishing returns. 
+(2). After this point the best strategy is to reduce the cost that a defender must pay when an attack succeeds.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>Can anyone point me to a working link for Herzog's talk "The Mobius Defense" slides. I read them a few years ago but all the links to it seem dead.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>The idea that perimeters are easily broken so instead make everything a perimeter has been tried <a href="http://en.wikipedia.org/wiki/Bunkers_in_Albania">as a national ground warfare strategy in Albania</a>.&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p>The reader should be careful to note that trench warfare was not the final development in defensive tactics and it was been quickly eclipsed by new offensive strategies including <a href="http://en.wikipedia.org/wiki/Maneuver_warfare">maneuver warfare</a> (which predates trench warfare), <a href="http://en.wikipedia.org/wiki/Infiltration_tactics">infiltration tactics</a> (which was developed in response to trench warfare) and <a href="http://en.wikipedia.org/wiki/Aerial_warfare">aerial warfare</a> (which renders trench warfare <a href="http://en.wikipedia.org/wiki/Gulf_War_air_campaign#Vulnerability_of_Iraq_to_air_attacks">suicide</a> without sufficient air defense).
+That being said, trench warfare with the addition of other tactics remains widely used in modern conflicts almost unchanged from its initial conception.&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:4">
+<p>This strategy can also be seen in the development of armored knights. 
+In response to gunpowder weapons, <a href="http://en.wikipedia.org/wiki/Personal_armor">personal armor</a> was strengthened (using new alloys) and thickened.
+This hit diminishing returns at which point armies switched to large numbers of unarmored conscripts.&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div><hr /></div>
+</div>
+<br/>
+<div class='box_container'>
+<div class='text_container'>
+<p>NEXT <a href="..\5\index.html">A Look at Security Through Obesity</a> </p> </p><p>PREV <a href="..\3\index.html">FlipIt: An Interesting Game</a> </p> </p></div>
+</body></html>

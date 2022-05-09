@@ -1,0 +1,92 @@
+<!DOCTYPE html><html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><LINK href="..\..\style\style.css" rel="stylesheet" type="text/css"><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [['$','$'], ['\(','\)']],
+            processEscapes: true
+        }
+        });
+    </script><title>A Response to Wertheimer's 'Encryption and the NSA Role in International Standards'.</title></head>
+<body>
+<div class='box_container'>
+<div class='text_container'>
+<h2><a href='../../index.html'>Ethan Heilman</a></h2><br\><a href='../../index.html'>Main</a> || <a href='../ls/index.html'>Writing</a><br/><br/><hr/>
+</div>
+</div>
+<div class='box_container'>
+<div class='text_container'>
+<h1>A Response to Wertheimer's 'Encryption and the NSA Role in International Standards'.</h1><p>01-14-2015 6:43PM ET </p><hr /><p><strong>Update 3:</strong>
+Our response has been published in the Notices of the AMS as <a href="http://www.ams.org/notices/201506/rnoti-p613.pdf">a letter to the editor</a>.</p>
+<p><strong>Update 2:</strong>
+Peter Woit has <a href="http://www.math.columbia.edu/~woit/wordpress/?p=7457">written a blog post reacting to Dr. Wertheimer's letter in the AMS</a>.</p>
+<p><strong>Update:</strong> Matthew Green has just written <a href="http://blog.cryptographyengineering.com/2015/01/hopefully-last-post-ill-ever-write-on.html">a response to Dr. Wertheimer letter</a>.</p>
+<p>In a recent letter to the American Mathematical Society titled <a href="http://www.ams.org/notices/201502/rnoti-p165.pdf">'Encryption and the NSA Role in International Standards'</a>, <a href="http://en.wikipedia.org/wiki/Michael_Wertheimer">Dr. Wertheimer</a>, a former NSA Mathematician and Research Directer, works very hard to leave the impression that the NSA did not place a backdoor in the <a href="http://blog.cryptographyengineering.com/2013/09/the-many-flaws-of-dualecdrbg.html">DUAL_EC_DRBG algorithm</a>. He never directly says that though because the evidence is so overwhelming to the contrary. Instead he chooses to engage in what can only be called aggressive and willfully misleading:</p>
+<ol>
+<li>
+<p>He produces a history of the development of DUAL_EC_DRBG that neglects any facts about the NSA designing it for the purposes of subverting encryption. He does not mention what internal NSA documents called “a challenge in finesse” to get NIST to accept it<sup id="fnref:0"><a class="footnote-ref" href="#fn:0">1</a></sup>.<br />
+To further his deception he never once mentions the overwhelming public evidence provided by Snowden that DUAL EC was intentionally backdoored by the NSA<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">2</a></sup>. He mentions nothing about the 10 million dollars the NSA paid to have RSA make the backdoored algorithm, DUAL_EC_DRBG, the default in RSA's library<sup id="fnref:10"><a class="footnote-ref" href="#fn:10">11</a></sup>.
+Are such <a href="http://en.wikipedia.org/wiki/Lie#Lying_by_omission">"sins of omission"</a> acceptable behavior by a mathematician in a mathematical publication<sup id="fnref:11"><a class="footnote-ref" href="#fn:11">12</a></sup>? </p>
+</li>
+<li>
+<p>He suggests strongly, but never says, that the NSA does not backdoor encryption, <a href="http://ethanheilman.tumblr.com/post/70646748808/a-brief-history-of-nsa-backdoors">which we know to be false</a>.</p>
+</li>
+</ol>
+<p>The most problematic is the statement that:</p>
+<blockquote>
+<p>"[..] we realize that our advocacy for the DUAL_EC_DRBG casts suspicion on the broader body of work NSA has done to promote secure standards. Indeed, some colleagues have extrapolated this single action to allege that NSA has a broader agenda to “undermine Internet encryption.” A fair reading of our track record speaks otherwise." - <a href="http://www.ams.org/notices/201502/rnoti-p165.pdf">'Encryption and the NSA Role in International Standards'</a> </p>
+</blockquote>
+<p>A "fair reading" is a very strange test, but the NSA's advocacy for controlling cryptographic research, subverting internet encryption and sabotaging standards speaks quite clearly towards its broad agenda.</p>
+<p>The NSA's own history talks about shortening the DES key length so they could break it<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">3</a></sup>. That is, the NSA willfully created insecure standards. This takes place with the backdrop of the NSA's earlier blacklisting of <a href="http://en.wikipedia.org/wiki/Horst_Feistel">Feistel</a> (the inventor of DES) so he couldn't find employment researching block ciphers<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">4</a></sup>. </p>
+<p>ProPublica quotes an NSA document 'One goal in the agency’s 2013 budget request was to “influence policies, standards and specifications for commercial public key technologies,"'<sup id="fnref:6"><a class="footnote-ref" href="#fn:6">7</a></sup> for the purposes of exploitation. In that same document the NSA discusses their successes in backdooring web and VPN encryption hardware to gain further exploitation capabilities<sup id="fnref:5"><a class="footnote-ref" href="#fn:5">6</a></sup>.</p>
+<p>The NSA's own leaked documents clearly shows a broad agenda of undermining internet encryption.  Dr. Wertheimer, as both a former Technical Director of NSA’s Signals Intelligence Directorate and former Director of Research at NSA<sup id="fnref:7"><a class="footnote-ref" href="#fn:7">8</a></sup>, must know this.</p>
+<p>He concludes his letter with:</p>
+<p>"During those formative years I had many opportunities to present results at AMS conferences, and I remember the warm embrace of colleagues who encouraged and supported my studies. I felt then, and I feel now, a connection to the mathematics community that goes beyond scholarship."</p>
+<p>He is trying to make fools of that same community which showed him such warmth and friendship. This lack of respect and forthrightness to a community which nurtured him saddens me<sup id="fnref:8"><a class="footnote-ref" href="#fn:8">9</a></sup>. It shows how the NSA's relationship with the Mathematical community is morally corrosive. 
+It turns colleagues, friends and communities into <a href="http://en.wikipedia.org/wiki/Confidence_trick#Terminology">marks</a><sup id="fnref:9"><a class="footnote-ref" href="#fn:9">10</a></sup>.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:0">
+<p>'The N.S.A. wrote the standard and aggressively pushed it on the international group, privately calling the effort “a challenge in finesse.”
+“Eventually, N.S.A. became the sole editor,” the memo says.' - <a href="http://www.nytimes.com/2013/09/06/us/nsa-foils-much-internet-encryption.html?pagewanted=all">N.S.A. Able to Foil Basic Safeguards of Privacy on Web</a>&#160;<a class="footnote-backref" href="#fnref:0" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:1">
+<p>"Classified N.S.A. memos appear to confirm that the fatal weakness, discovered by two Microsoft cryptographers in 2007, was engineered by the agency." - <a href="http://www.propublica.org/article/the-nsas-secret-campaign-to-crack-undermine-internet-encryption">Revealed: The NSA’s Secret Campaign to Crack, Undermine Internet Security</a>&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>"NSA worked closely with IBM to strengthen the algorithm against all except brute force attacks and to strengthen substitution tables, called S-Boxes. Conversely, NSA tried to convince IBM to reduce the length of the key from 64-bit to 48-bits. Ultimately, they compromised on a 56-bit key." <a href="http://cryptome.org/0001/nsa-meyer.htm">Book III: Retrenchment and Reform</a> by Tom Johnson&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p>Some details of this are in <a href="https://books.google.com/books?id=Vje8TRcLlycC&amp;lpg=PA138&amp;ots=rF2KcUz71z&amp;dq=Feistel%20biography&amp;pg=PA138#v=onepage&amp;q=Feistel%20biography&amp;f=false">An Introduction to Cryptography, Second Edition By Richard A. Mollin </a>&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:4">
+<p>"The Clipper Chip was a chipset developed and promoted by the US Government. It was intended for the implementation in secure voice equipment, such as crypto phones, and required users to give their cryptographic keys in escrow to the government. This would allow law enforcement agencies to decrypt any traffic for surveillance and intelligence purposes." - <a href="http://www.cryptomuseum.com/crypto/usa/clipper.htm">Crypto Museum Clipper Chip</a>&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:5">
+<p>"(TS//SI//REL TO USA, FVEY) Complete enable for [REDACTED] encryption chips used in Virtual Private Network and Web encryption devices [CCP_00009]" - <a href="http://www.nytimes.com/interactive/2013/09/05/us/documents-reveal-nsa-campaign-against-encryption.html?_r=1&amp;">(U) COMPUTER NETWORK OPERATIONS (U) SIGINT ENABLING </a>&#160;<a class="footnote-backref" href="#fnref:5" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+<li id="fn:6">
+<p>'One goal in the agency’s 2013 budget request was to “influence policies, standards and specifications for commercial public key technologies,” the most common encryption method.' - <a href="http://www.propublica.org/article/the-nsas-secret-campaign-to-crack-undermine-internet-encryption">Revealed: The NSA’s Secret Campaign to Crack, Undermine Internet Security</a>&#160;<a class="footnote-backref" href="#fnref:6" title="Jump back to footnote 7 in the text">&#8617;</a></p>
+</li>
+<li id="fn:7">
+<p><a href="http://www.casl.umd.edu/sites/default/files/wertheimer_bio.pdf">Wertheimer Bio</a>&#160;<a class="footnote-backref" href="#fnref:7" title="Jump back to footnote 8 in the text">&#8617;</a></p>
+</li>
+<li id="fn:8">
+<p>One might excuse his behavior if he was being compelled to testify and the maintenance of the secrecy of this backdoor was of great national importance, but he choose to write his letter to the AMS and the backdoor is already well known. This is merely deceit for the sake of PR.&#160;<a class="footnote-backref" href="#fnref:8" title="Jump back to footnote 9 in the text">&#8617;</a></p>
+</li>
+<li id="fn:9">
+<p>Consider how the NSA also manipulated NIST to get the backdoored standard approved. Damaging the credibility of an organisation which thought itself a partner of the NSA.&#160;<a class="footnote-backref" href="#fnref:9" title="Jump back to footnote 10 in the text">&#8617;</a></p>
+</li>
+<li id="fn:10">
+<p>"Undisclosed until now was that RSA received $10 million in a deal that set the NSA formula as the preferred, or default, method for number generation in the BSafe software, according to two sources familiar with the contract. Although that sum might seem paltry, it represented more than a third of the revenue that the relevant division at RSA had taken in during the entire previous year, securities filings show." - <a href="http://www.reuters.com/article/2013/12/20/us-usa-security-rsa-idUSBRE9BJ1C220131220">Exclusive: Secret contract tied NSA and security industry pioneer</a>&#160;<a class="footnote-backref" href="#fnref:10" title="Jump back to footnote 11 in the text">&#8617;</a></p>
+</li>
+<li id="fn:11">
+<p>Would it be acceptable for someone to publish a paper that suggested that there was no primes larger than 5, and wittingly neglected to mention 7?&#160;<a class="footnote-backref" href="#fnref:11" title="Jump back to footnote 12 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div><hr /></div>
+</div>
+<br/>
+<div class='box_container'>
+<div class='text_container'>
+<p>NEXT <a href="..\21\index.html">How many IP addresses can a DNS query return?</a> </p> </p><p>PREV <a href="..\19\index.html">Are IP Address Allocations Property?</a> </p> </p></div>
+</body></html>

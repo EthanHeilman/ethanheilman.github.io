@@ -1,0 +1,54 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html><head><META http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+
+<title>Eclipse Attacks on Bitcoin’s Peer-to-Peer Network</title>
+
+<body>
+
+
+<div style="width: 780px;margin-left: auto; margin-right: auto">
+<center>
+<font size="6" face="Century Gothic"><b><i>Eclipse Attacks on Bitcoin’s Peer-to-Peer Network</i></b><br>
+</font>
+<font size="3" face="Century Gothic">Ethan Heilman*    Alison Kendler*   Aviv Zohar†   Sharon Goldberg*  <br>
+*Boston University   †Hebrew University
+</font>
+
+</center>
+
+<div style="float:left">
+	<img src="eclipseicon3.png">
+</div>
+
+<div style="margin-left:5cm">
+	<p>
+	<font size="3" face="Century Gothic">
+	<br>
+	<b>Abstract:
+	</b></font>   
+	We present eclipse attacks on bitcoin&#39;s peer-to-peer network. Our attack allows an adversary controlling a sufficient number of IP addresses to monopolize all connections to and from a victim bitcoin node. The attacker can then exploit the victim for attacks on bitcoin&#39;s mining and consensus system, including N-confirmation double spending, selfish mining, and adversarial forks in the blockchain. We take a detailed look at bitcoin’s peer-to-peer network, and quantify the resources involved in our attack via probabilistic analysis, Monte Carlo simulations, measurements and experiments with live  bitcoin nodes. Finally, we present countermeasures, inspired by botnet architectures, that are designed to raise the bar for eclipse attacks while preserving the openness and decentralization of bitcoin’s current network architecture.
+
+</div>
+
+<div style="float:left">
+<p>
+<b><font size="3" face="Century Gothic">Papers:</font></b>
+<ul>
+
+<li><b>Eclipse Attacks on Bitcoin’s Peer-to-Peer Network</b><br>
+Ethan Heilman, Alison Kendler, Aviv Zohar, Sharon Goldberg.  ePrint Archive Report 2015/263. March 2015.<br>
+<a href="http://eprint.iacr.org/2015/263.pdf">paper</a>.    
+
+</li></ul>
+
+<p>
+This material is based upon work supported by the US National Science Foundation under Grant 1350733. Any opinions, findings and conclusions or recommendations expressed in this material are those of the authors and do not necessarily reflect the views of the sponsors.
+
+</div>
+
+</div>
+
+
+
+</body>
+</html>

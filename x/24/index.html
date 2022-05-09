@@ -1,0 +1,30 @@
+<!DOCTYPE html><html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><LINK href="..\..\style\style.css" rel="stylesheet" type="text/css"><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [['$','$'], ['\(','\)']],
+            processEscapes: true
+        }
+        });
+    </script><title>Breaking the Crypto used in IOTA</title></head>
+<body>
+<div class='box_container'>
+<div class='text_container'>
+<h2><a href='../../index.html'>Ethan Heilman</a></h2><br\><a href='../../index.html'>Main</a> || <a href='../ls/index.html'>Writing</a><br/><br/><hr/>
+</div>
+</div>
+<div class='box_container'>
+<div class='text_container'>
+<h1>Breaking the Crypto used in IOTA</h1><p>09-17-2017 1:11PM (ET) </p><hr /><p>Neha Narula, Tadge Dryja, Madars Virza, and I just published a <a href="https://github.com/mit-dci/tangled-curl/blob/master/vuln-iota.md">report detailing cryptographic vulnerabilities</a> we found in <a href="https://iota.org/">IOTA's</a> hash function <a href="https://github.com/iotaledger/ccurl">Curl</a> which could allow an attacker to forge IOTA signatures in a chosen message setting. We disclosed these vulnerabilities to the IOTA developers. The <a href="https://blog.iota.org/upgrades-updates-d12145e381eb">IOTA developers deployed changes on Aug 7</a> which replaced Curl in part of their signature algorithm with a hash function they named <a href="https://github.com/iotaledger/kerl">Kerl</a>. This change fixes our signature forgery attack.</p>
+<p>I have a passion for designing, studying and attacking cryptographic hash functions. I participated in the <a href="https://en.wikipedia.org/wiki/SHA-3">NIST contest to propose a design for SHA-3</a> during which I broke the cryptographic hash function <a href="https://en.wikipedia.org/wiki/Spectral_Hash">Spectral Hash</a> and produced <a href="http://www.ecrypt.eu.org/hash2011/proceedings/hash2011_16.pdf">a proof</a> that the cryptographic hash function <a href="https://groups.csail.mit.edu/cis/md6/">MD6</a> resists standard differential cryptanalysis attacks. </p>
+<p>I am also a cryptocurrency geek and researcher. My research includes <a href="https://www.internetsociety.org/sites/default/files/ndss2017_01-3_Heilman_paper.pdf">developing attacks on Bitcoin which leads to improvements to the security of Bitcoin’s P2P network</a> and designing the protocol <a href="https://www.internetsociety.org/sites/default/files/ndss2017_01-3_Heilman_paper.pdf">TumbleBit for private scalable payments on Bitcoin</a>.</p>
+<p>So when I heard that a cryptocurrency, IOTA, had rolled their own cryptographic hash function which piqued my interest as it combined both my research interests.</p>
+<p>I worked with a team at MIT’s DCI (Digital Currency Initiative) to examine the security of Curl as deployed in IOTA. What we found was that Curl was highly vulnerable to differential cryptanalysis.  We also found that the way Curl was being used to sign payments in IOTA allowed us to forge signatures in a chosen message setting.</p>
+<p>I first learned how to apply differential cryptanalysis when I took a class with Ron Rivest at MIT. <a href="https://en.wikipedia.org/wiki/Differential_cryptanalysis">Developed in the 1980s Differential cryptanalysis</a> is one of the most easily applied and powerful techniques in breaking hash functions. Naturally, the first thing I looked into was Curl’s vulnerability to differential cryptanalysis. It appeared to be highly vulnerable. Working together, we developed attacks which took only a few minutes of compute time to break the security of Curl.</p>
+<p>After disclosing how our differential cryptanalysis attack can led to signature forgery attacks, the IOTA developers merged changes into IOTA which <a href="https://blog.iota.org/upgrades-updates-d12145e381eb">replaced some uses of Curl in the IOTA signature algorithm with a new hash function they named Kerl</a>. Curl is still used in other parts of the IOTA code base. As cryptocurrencies requires very strong cryptographic guarantees I would feel far more comfortable if IOTA replaced all their in-house developed cryptography with standardized and publicly-vetted cryptography.</p>
+<p>For all the details please read <a href="https://github.com/mit-dci/tangled-curl/blob/master/vuln-iota.md">our report here</a>.</p><hr /></div>
+</div>
+<br/>
+<div class='box_container'>
+<div class='text_container'>
+<p>NEXT <a href="..\25\index.html">The Design of Arwen’s Ethereum Escrow Smart Contract</a> </p> </p><p>PREV <a href="..\23\index.html">Is PlayStation 4 Network Traffic Especially Difficult to Decrypt?</a> </p> </p></div>
+</body></html>

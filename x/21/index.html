@@ -1,0 +1,55 @@
+<!DOCTYPE html><html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><LINK href="..\..\style\style.css" rel="stylesheet" type="text/css"><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [['$','$'], ['\(','\)']],
+            processEscapes: true
+        }
+        });
+    </script><title>How many IP addresses can a DNS query return?</title></head>
+<body>
+<div class='box_container'>
+<div class='text_container'>
+<h2><a href='../../index.html'>Ethan Heilman</a></h2><br\><a href='../../index.html'>Main</a> || <a href='../ls/index.html'>Writing</a><br/><br/><hr/>
+</div>
+</div>
+<div class='box_container'>
+<div class='text_container'>
+<h1>How many IP addresses can a DNS query return?</h1><p>02-13-2015 3:15PM (ET) </p><hr /><p>While creating a DNS zone file I begin to wonder how big I could make it before DNS would break. Could I map five hundred, ten thousand, one million IP addresses to a domain name? Is there a single number or would this number change depending on implementation details? It turns out there is, in fact, a single number, which across all standards compliment implementations is the maximum<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup> but that this number depends on the length of your domain name.</p>
+<p><img alt="wireshark capture" src="figs/tumblr_inline_nbe9tcvlmS1qf5p6p.png" /></p>
+<h1>DNS queries.</h1>
+<p>To make a DNS query a client will send a UDP packet asking the DNS server for the IP addresses of a particular domain name.
+If the response is 512 bytes or smaller, the server will just put the IP addresses in a UDP packet and send it back to the client<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.</p>
+<p>Otherwise, if the DNS response contains so many IP addresses that it can not fit in a single 512 byte UDP packet the server will send the client a UDP packet with the truncated flag set to tell the client that the response is too big and to retry over TCP.
+The client on receiving end of a UDP packet with a truncated flag can open a TCP connection with the DNS server and continue the DNS query.</p>
+<h1>The maximum number of IP addresses.</h1>
+<p>4095 is the maximum possible number of IP addresses returned by a DNS query.
+Lets look at why.
+A large DNS response must fit into a single TCP packet.
+TCP packets only reserve 2 bytes for the packet size. Thus, TCP packets can't hold more than $2^16=65536$ bytes<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>.
+Since the domainname is included in the DNS response, the shorter the domainname the more room for IP addresses. Using the shortest valid domain name possible a.io (4 characters), there is a 13 byte overhead. Each IP address returned uses 16 bytes (as IPv4 is only 4 bytes this includes additional information), giving us the equation:</p>
+<p>$$\mbox{size of response}=13+(16 \times \mbox{# IP addresses}) \mbox{ bytes}$$</p>
+<p>Solving this for 65439 bytes gives us 4095 ip addresses.</p>
+<p><strong>EDIT:</strong> <a href="https://twitter.com/colmmacc">Colmmacc on twitter</a> sent me <a href="https://twitter.com/colmmacc/status/573386950218031104">a correction</a>, initially I had said 4094 IP addresses, but it is actually 4095 IP address. I have fixed this in the post. Looking at ealier versions of my notes (<a href="https://twitter.com/Ethan_Heilman/status/507625759012179968">and tweets</a>) I see that I had 4095 as well but must have accidently changed it at some point. <a href="https://twitter.com/colmmacc">Colmmacc</a> also points out some very interesting methods to shorten the domain name to fit more IP addresseses but I haven't tried them yet see below:</p>
+<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/Ethan_Heilman">@Ethan_Heilman</a> also if you use "." as the domain, and avoid compressed labels, you can get to 5,956 A records in a single response. 12 + 11x</p>— Colm MacCárthaigh (@colmmacc) <a href="https://twitter.com/colmmacc/status/573388453909536769">March 5, 2015</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>This is not strictly true. The DNS standards in RFCs allow DNS server to reply with UDP packets larger than 512 bytes, but often implementations use 512 as the cut off since older DNS standards set the cut off at 512 bytes. For instance <a href="http://tools.ietf.org/html/rfc5966">RFC-5966</a> says: 'TCP [..] is often used for messages whose sizes exceed the DNS protocol's original 512-byte limit.'&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>65536 bytes is also the maximum packet size for UDP, so even if a DNS server was willing to deliver really large responses over UDP, you would face the same limit.&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p>Although your milage may vary. Bind, at least with the small amount of RAM I had, did not work well with very large zone files. Tests instead were conducted with a purpose built DNS server.&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div><hr /></div>
+</div>
+<br/>
+<div class='box_container'>
+<div class='text_container'>
+<p>NEXT <a href="..\22\index.html">A Brief Examination of Hacking Team’s Crypter: core-packer.</a> </p> </p><p>PREV <a href="..\20\index.html">A Response to Wertheimer's 'Encryption and the NSA Role in International Standards'.</a> </p> </p></div>
+</body></html>

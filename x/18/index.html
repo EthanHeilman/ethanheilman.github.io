@@ -1,0 +1,131 @@
+<!DOCTYPE html><html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><LINK href="..\..\style\style.css" rel="stylesheet" type="text/css"><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [['$','$'], ['\(','\)']],
+            processEscapes: true
+        }
+        });
+    </script><title>On the NSA's Thinking Behind the Decision to Backdoor a US Cryptographic Standard.</title></head>
+<body>
+<div class='box_container'>
+<div class='text_container'>
+<h2><a href='../../index.html'>Ethan Heilman</a></h2><br\><a href='../../index.html'>Main</a> || <a href='../ls/index.html'>Writing</a><br/><br/><hr/>
+</div>
+</div>
+<div class='box_container'>
+<div class='text_container'>
+<h1>On the NSA's Thinking Behind the Decision to Backdoor a US Cryptographic Standard.</h1><p>11-12-2014 6:46PM (ET) </p><hr /><p><img alt="https://www.flickr.com/photos/nitot/12248961183" src="figs/tumblr_inline_neskr6W3fw1qf5p6p.jpg" /></p>
+<blockquote>
+<p>“The road to developing this standard was smooth once the journey began, [..] However, beginning the journey was a challenge in finesse.” - <a href="http://bits.blogs.nytimes.com/2013/09/10/government-announces-steps-to-restore-confidence-on-encryption-standards/?src=twrhp&amp;_r=0">NSA memo on backdooring US Cryptographic Standards</a></p>
+</blockquote>
+<p>The NSA’s thinking on backdoors has never been publicly revealed.
+In this article using the Whitehouse's own vulnerability disclosure process and <a href="https://en.wikipedia.org/wiki/Guess">informed speculation</a> I will try to understand the NSA's decision to backdoor the US cryptographic standard, known as <a href="http://en.wikipedia.org/wiki/Dual_EC_DRBG">Dual EC DRBG</a>.</p>
+<h1>Dual EC DRBG Refresher</h1>
+<p>In the early 2000's<sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup> as part of the <a href="http://www.theguardian.com/world/2013/sep/05/nsa-gchq-encryption-codes-security">NSA's project to break and weaken cryptography</a>, known as the <a href="https://en.wikipedia.org/wiki/Bullrun_(decryption_program)">BULLRUN program</a>, the agency proposed an algorithm which they had secretly backdoored as an <a href="https://en.wikipedia.org/wiki/American_National_Standards_Institute">ANSI (American National Standards Institute)</a> standard<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>.
+The ANSI standard was then published as a NIST standard.
+This backdoored algorithm was the Dual Elliptic Curve Deterministic Random Bit Generator or Dual EC DRBG.
+The backdoor was designed such that it was only usable by someone that had access to a backdoor key but that the existence of this backdoor key was deniable.
+The idea being that only the NSA would have this backdoor key, giving them an ability to break cryptographic systems that used Dual EC DRBG, while those systems would remain safe from other adversaries.
+Since no one would know that the NSA had this ability people would continue to use communications systems protected by this technology and the NSA could listen in.
+For full details of the backdoor anyone interested should read Matthew Green's excellent blog entry <a href="http://blog.cryptographyengineering.com/2013/09/the-many-flaws-of-dualecdrbg.html">The Many Flaws of Dual EC DRBG</a> which I will be drawing heavily from.</p>
+<p>After getting Dual EC DRBG standardized the NSA then paid RSA 10 million dollars to make Dual EC DRBG the default option in their BSAFE cryptography library.</p>
+<blockquote>
+<p>Undisclosed until now was that RSA received $10 million in a deal that set the NSA formula as the preferred, or default, method for number generation in the BSafe software, according to two sources familiar with the contract. Although that sum might seem paltry, it represented more than a third of the revenue that the relevant division at RSA had taken in during the entire previous year, securities filings show. - <a href="http://www.reuters.com/article/2013/12/20/us-usa-security-rsa-idUSBRE9BJ1C220131220">Exclusive: Secret contract tied NSA and security industry pioneer</a></p>
+</blockquote>
+<p>It is an interesting question as to whether RSA payoff was executed by elements of the NSA that knew BSafe was backdoored, as such an action could constitute a covert action inside the US by an intelligence organisation with a supposedly foreign mandate and a possible crime.
+It is at least plausible that members of the NSA, unaware of the backdoor, felt that promoting Dual EC DRBG  would strengthen the cybersecurity of the US.
+This is one of those inherent dangers when an actor poisons their supply chain with backdoors.
+How does the NSA balance keeping the backdoor secret and protecting US Government communication.
+Tracking all the technologies an organisation as large and diverse at the US government uses seems like an impossible task.</p>
+<p><img alt="The BULLRUN Program" src="figs/tumblr_inline_nexvmd4Ytt1qf5p6p.jpg" /></p>
+<h1>Speculation on the NSA's Thinking.</h1>
+<p>Since none of the NSA's thinking on the Dual EC DRBG has been leaked or published, we are going to use the governments vulnerability disclosure decision making process as a window into how the NSA evaluates risks and benefits trade-offs with regard to backdoors<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.
+The decision making process was published on April 2014, as <a href="http://www.whitehouse.gov/blog/2014/04/28/heartbleed-understanding-when-we-disclose-cyber-vulnerabilities">'Understanding When We Disclose Cyber Vulnerabilities'</a><sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup>.
+It was written by <a href="http://www.whitehouse.gov/blog/author/Michael%20Daniel">Michael Daniel the Special Assistant to the President and Cybersecurity Coordinator</a>, who in both his current role and previous roles has had extensive experience overseeing the intelligence community's cybersecurity operations.</p>
+<p>'Understanding When We Disclose Cyber Vulnerabilities' lays out factors or questions to determine the cost and benefits of not disclosing a security vulnerability.
+We will examine each of these factors as they relate to the Dual EC DRBG backdoor.
+The statements expressed in response to the questions are my own views on how the NSA might think about an answer.</p>
+<p><strong>How much is the vulnerable system used in the core internet infrastructure, in other critical infrastructure systems, in the US economy, and/or in national security systems?</strong></p>
+<p>Using standardized cryptography, especially NIST standardized cryptography, is considered best practice throughout the core internet infrastructure, the US commercial ecosystem and the national security systems.
+Dual EC DRBG has the potential to be used in all of these situations. </p>
+<p><strong>Does the vulnerability, if left unpatched, impose significant risk? How much harm could an adversary nation or criminal group do with knowledge of this vulnerability?</strong></p>
+<p>To reframe this question in a cryptographic context, does this backdoor impose significant risk?
+Unlike a software vulnerability, knowledge is not sufficient to exploit. 
+Instead it can only be exploited by parties which have the backdoor key.
+That is, the risk could have been viewed as the product of two numbers, the damage done if adversaries learned the key and the probability that adversaries would learn the key.
+The NSA could view the backdoor as low risk if they could keep the key secret<sup id="fnref:6"><a class="footnote-ref" href="#fn:6">6</a></sup>. This despite the enormous damage to US communications security an attacker with the key would do.</p>
+<p>Unfortunately as we will discuss below, the backdoor introduced critical security flaws into Dual EC DRBG, making it possible for adversaries to exploit Dual EC DRBG, in a limited fashion, without the key.</p>
+<p>An additional risk which the NSA may not have considered is that the very fact that the NSA backdoored a US cryptographic standard could seriously degrade trust in the US Government, ANSI, NIST and US companies.
+This is exacerbated by the fact that the NSA paid a US company to make this backdoor their default.
+From a geopolitical context it also creates a precedent for other countries and companies engaging in this sort of tactic harming global and US security<sup id="fnref:10"><a class="footnote-ref" href="#fn:10">10</a></sup>.</p>
+<p><strong>How likely is it that we would know if someone else was exploiting it?</strong></p>
+<p>It is a passive attack so it is completely undetectable without <a href="https://en.wikipedia.org/wiki/Counterintelligence#Offensive_counterintelligence_operations">offensive counterintelligence</a> efforts.</p>
+<p><strong>How badly do we need the intelligence we think we can get from exploiting the vulnerability? Are there other ways we can get it?</strong></p>
+<p>Not badly, since getting the backdoor supported and deployed would happen over a period of years, suggesting that it was not developed for an immediate intelligence task.
+On the time scale of years there are always alternative ways to get intelligence.
+As the backdoor was indiscriminate it is not specific to a particular intelligence target.</p>
+<p><strong>Could we utilize the vulnerability for a short period of time before we disclose it?</strong></p>
+<p>In fact the longer the backdoor exists, the more systems support it and the more effective it becomes.
+Disclosure would be counterproductive and would carry high costs to credibility and trust.
+The Dual EC DRBG was intended as a long term capability. </p>
+<p><strong>How likely is it that someone else will discover the vulnerability?</strong></p>
+<p>One assumes that the NSA believed that it was unlikely someone would discover the backdoor, as it would be pointless to release the backdoor if it would be quickly discovered (people avoid backdoored crypto).
+On the other hand the backdoor was so obvious it was noticed shortly after it was proposed as a standard<sup id="fnref:5"><a class="footnote-ref" href="#fn:5">5</a></sup> and later rediscovered twice by cryptographers<sup id="fnref:7"><a class="footnote-ref" href="#fn:7">7</a></sup>. 
+Not only that but Certicom, the company from whom the NSA licensed the backdoor, published a patent<sup id="fnref:8"><a class="footnote-ref" href="#fn:8">8</a></sup> for a technique that disables the backdoor used in Dual EC DRBG. 
+This patent explicitly mentions the backdoor.</p>
+<p><strong>Can the vulnerability be patched or otherwise mitigated?</strong></p>
+<p>The NSA could make a simple modification to Dual EC DRBG on government systems to disable the backdoor.
+The difficulty would be auditing, finding, and patching all the software that government systems rely on that might use Dual EC DRBG.</p>
+<p><img alt="NSA shaping the commercial encryption market" src="figs/tumblr_inline_ney84szR9X1qf5p6p.png" /></p>
+<h1>Conclusions:</h1>
+<p>The NSA probably concluded that the fact that the backdoor couldn't be exploited without the secret key made it low risk.
+The NSA's caviler attitude toward involving US standards bodies in its deception campaign suggests that the agency may not have weighed the risk and damage to trust that would occur if the backdoor was discovered, despite the fact that the backdoor was not "well hidden".
+Could it be that the NSA focused on immediate technical dimensions without strategic and policy considerations?</p>
+<p>Designing backdoors into cryptosystems generally weakens them.
+This is also the case with Dual EC DRBG as
+Design flaws<sup id="fnref:9"><a class="footnote-ref" href="#fn:9">9</a></sup> were introduced into Dual EC DRBG for the backdoor to work.
+Thus, even if the key was not revealed and the backdoor was never discovered, the security of systems that used Dual EC DRBG would still be weakened.
+I'm not sure what is a scarier possibility, that the NSA knew about these design flaws and released the backdoor anyways, or that the NSA was so sloppy as to not recognize the danger these flaws posed in the first place.</p>
+<h1>Related Entries</h1>
+<p>I have covered <a href="http://ethanheilman.tumblr.com/post/70646748808/a-brief-history-of-nsa-backdoors">NSA backdoors before on this blog</a> and discussed <a href="http://ethanheilman.tumblr.com/post/28951702391/imagining-a-secure-backdoor-cipher">a possible design of a secure backdoor</a>.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>Using the NSA's vulnerabilities disclosure decision making procedure seems like a good fit for backdoors as well, but a very real possibility exists that the NSA has a completely different doctrine for backdoors. If so, then the conclusions we reach here could be well off the mark.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>A NIST backdoor is seems like an <a href="https://en.wikipedia.org/wiki/Own_goal">"own goal"</a> for the NSA. The NIST standards are intended for US use, especially the US government use. One would think that they were concentrate their efforts on weakening foreign crypto standards rather than US, but we have yet to see any evidence of that. Furthermore using a trusted US company, such as RSA, as the "infection vector" endangers the trust in US companies that the US software export economy is built on. It seems plausible that the primary target of the backdoor could be US commercial communications.&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p>The NSA posted this guide to dispel various rumors that they knew about the heartbleed vulnerability, but choose not to warn the internet community so that they could use the vulnerability offensively.&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:4">
+<p>"A complete history of Dual EC DRBG would begin with NSA's drive to include it in the ANSI X9.82 DRBG standard, with a standardization process kicked off in the early 2000s. The draft ANSI standard includes Dual EC DRBG with all of the known parameters, along with several additional elliptic curve parameters that were not included in the NIST standards." - <a href="http://blog.cryptographyengineering.com/2013/12/a-few-more-notes-on-nsa-random-number.html">A few more notes on NSA random number generators</a>&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:5">
+<p>"P and Q can be generated to insert a backdoor. Issue was first raised in an X9 meeting" - <a href="http://cryptome.org/2013/12/800-90-dual-ec-drbg.pdf">John Kelsey slides about the Dual EC standardization process</a>&#160;<a class="footnote-backref" href="#fnref:5" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:6">
+<p>I am highly suspect of the US Governments ability to protect its key materials given past failures such as <a href="https://en.wikipedia.org/wiki/John_Anthony_Walker">John Anthony Walker</a> who gave the Soviet Union the cryptographic keys used by the US navy and manuals allowing them to reconstruct Navy cipher machines. - <a href="fas.org/irp/eprint/heath.pdf">AN ANALYSIS OF THE SYSTEMIC SECURITY WEAKNESSES OF THE U.S. NAVY FLEET BROADCASTING SYSTEM, 1967-1974, AS EXPLOITED BY CWO JOHN WALKER</a> by Laura J. Heath.&#160;<a class="footnote-backref" href="#fnref:6" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+<li id="fn:7">
+<p>Two different teams of cryptographers independently discovered that Dual EC DRBG could be backdoored: <a href="http://eprint.iacr.org/2006/117">2006</a> and <a href="http://rump2007.cr.yp.to/15-shumow.pdf">2007</a>.&#160;<a class="footnote-backref" href="#fnref:7" title="Jump back to footnote 7 in the text">&#8617;</a></p>
+</li>
+<li id="fn:8">
+<p>"An elliptic curve random number generator avoids escrow keys by choosing a point Q on the elliptic curve as verifiably random." - <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=US&amp;NR=2007189527&amp;KC=&amp;FT=E&amp;locale=en_EP">Elliptic curve random number generation</a>&#160;<a class="footnote-backref" href="#fnref:8" title="Jump back to footnote 8 in the text">&#8617;</a></p>
+</li>
+<li id="fn:9">
+<p>"Due to some quirks in the mathematics of the field operations, an attacker can now predict the next bits of Dual-EC output with a fairly small -- but non-trivial -- success probability, in the range of 0.1%. While this number may seem small to non-cryptographers, it's basically a hanging offense for a cryptographic random number generator where probability of predicting a future bit should be many orders of magnitude lower."  - <a href="http://blog.cryptographyengineering.com/2013/09/the-many-flaws-of-dualecdrbg.html">The Many Flaws of Dual_EC_DRBG</a>&#160;<a class="footnote-backref" href="#fnref:9" title="Jump back to footnote 9 in the text">&#8617;</a></p>
+</li>
+<li id="fn:10">
+<p>This is one of the greatest dangers of this whole episode. If France, Russia, China, Poland, Japan etc all start using their intelligence agencies to insert vulnerabilities into the standards that protect internet communications it will greatly complicate already failing network security efforts.&#160;<a class="footnote-backref" href="#fnref:10" title="Jump back to footnote 10 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div><hr /></div>
+</div>
+<br/>
+<div class='box_container'>
+<div class='text_container'>
+<p>NEXT <a href="..\19\index.html">Are IP Address Allocations Property?</a> </p> </p><p>PREV <a href="..\17\index.html">Definitions of COLLECTION within the Intelligence Community and the Law.</a> </p> </p></div>
+</body></html>

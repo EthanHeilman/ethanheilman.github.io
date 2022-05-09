@@ -1,0 +1,114 @@
+<!DOCTYPE html><html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><LINK href="..\..\style\style.css" rel="stylesheet" type="text/css"><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [['$','$'], ['\(','\)']],
+            processEscapes: true
+        }
+        });
+    </script><title>Why Google Should Customize your Gmail Login Page to Prevent Phishing.</title></head>
+<body>
+<div class='box_container'>
+<div class='text_container'>
+<h2><a href='../../index.html'>Ethan Heilman</a></h2><br\><a href='../../index.html'>Main</a> || <a href='../ls/index.html'>Writing</a><br/><br/><hr/>
+</div>
+</div>
+<div class='box_container'>
+<div class='text_container'>
+<h1>Why Google Should Customize your Gmail Login Page to Prevent Phishing.</h1><p>10-19-2012 9:46PM (ET) </p><hr /><p><img alt="" src="figs/tumblr_m88zv6NNwc1qf5p6p.jpg" /></p>
+<p><strong>Disclaimer:</strong> The following post is uses Gmail and <a href="http://en.wikipedia.org/wiki/Google_Account">Google Accounts</a> as a punching bag, but these problems discussed are both widely known, universal to identity providers on the web and not Google's fault.
+Gmail has just been chosen to play the victim only due to it's popularity and general <a href="http://en.wiktionary.org/wiki/bestness">bestness</a>.</p>
+<p>Password <a href="http://en.wikipedia.org/wiki/Phishing">phishing</a> attacks have been going on for <a href="http://en.wikipedia.org/wiki/Phishing#cite_note-8">over 25 years</a> and the situation has only gotten worse.
+This post argues that by using a browser plugin to customize login pages on the client, attacks will have significantly greater difficulty forging believable login pages.</p>
+<h2>Two Phishing Attacks</h2>
+<p>I will argue this point by first showing two phishing attacks which would probably fool a fairly sophisticated computer user.
+These attacks are almost definitely not novel and are probably used in the wild. 
+Compare these attacks to <a href="http://www.identitytheftkiller.com/prevent-phishing-scams.php">typical advice on preventing phishing</a>.
+Consider the following two attacks:</p>
+<p><strong>Fake OAuth page:</strong> 
+Websites will often allow users to authenticate with their <a href="https://support.google.com/accounts/bin/answer.py?hl=en&amp;answer=112802">google account</a> using <a href="http://en.wikipedia.org/wiki/OAuth">OAuth</a>.
+If they are not logged into their Google account already it will ask them to login<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.
+The workflow looks like this:</p>
+<ol>
+<li><a href="http://en.wikipedia.org/wiki/Alice_and_Bob">Alice</a> goes to a site that appears to have content that Alice wants. </li>
+<li>To access the content Website requires that Alice authenticates with her Google account before making a purchase.</li>
+<li>Alice clicks 'authenticate with Google' and is taken to a Google accounts login screen.</li>
+<li>Alice enters her username and password and is then allowed into the site.</li>
+</ol>
+<p>Eve wants to steal Alice's password so she setups up a website as above but in step 3 Alice is sent to a fake, but realistic looking gmail login page.
+Alice just gave her username and password away.
+Eve can interactively check if Alice's provided a real username/password by supplying it to Gmail to see if it works.
+If Alice had <a href="http://en.wikipedia.org/wiki/Two-factor">Two-Factor authentication</a> setup Eve can merely request a verification code from Alice as part of the login request.
+In fact if Eve wants to change the password and lock Alice out of her own account she can claim that the first verification code that Alice supplied (as part of her second factor) was incorrect and ask for a second one (loading the page for 60 seconds to wait for the first verification token to expire).</p>
+<p><img alt="" src="figs//tumblr_m85pk3K7wi1qf5p6p.png" /></p>
+<p><strong>Tabnapping:</strong>
+Gmail has a habit of signing users out of their gmail accounts, which has trained users to sign back in at random points during the day.
+This can be exploited by crafting a page which when it <a href="http://paulirish.com/2009/jquery-idletimer-plugin/">detects that the user is inactive or idle</a> it transforms into a fake gmail page saying that user has been logged out and that they should login again. This general approach is called <a href="http://en.wikipedia.org/wiki/Tabnabbing">tabnapping</a>.</p>
+<ol>
+<li>Eve sents Alice a link to a fake Google Doc.</li>
+<li>Alice opens link and goes to bed, while she is sleeping the fake Google Doc rewrites itself so that it looks like a "you've been logged out, please login here" Google page.</li>
+<li>Alice wakes up, checks her laptop, logs into the fake Google login page. Game over.</li>
+</ol>
+<h2>Objections</h2>
+<p><strong>Alice should be able to notice that she is signed into Google in other tabs:</strong> 
+As [Google says]:(http://www.google.com/about/company/rewardprogram.html)
+&gt;"At this time, the <a href="http://scarybeastsecurity.blogspot.com/2010/01/logout-xsrf-significant-web-app-bug.html">ability of malicious web sites to log users out of unrelated web applications is essentially unavoidable</a>; it is a consequence of how the web is designed, and cannot be reliably prevented by any single website."
+This means that Eve can log Alice out of her Google Account. 
+In fact Eve can keep logging Alice out until Alice logs into Eve's fake Google Account.</p>
+<p><strong>Alice can tell the difference between the fake login page and the real login page by inspecting the URL:</strong>
+Unfortunately there are <a href="http://en.wikipedia.org/wiki/IDN_homograph_attack">really effective ways</a> of making fake but undetectable urls (see also <a href="http://en.wikipedia.org/wiki/URL_redirector#Manipulating_visitors">URL redirecting</a>).</p>
+<p><strong>Alice uses HTTPS so she is safe:</strong> 
+Phishing sites legally acquire valid HTTPS certificates.
+HTTPS offers zero protection in this scenario, other than the minimal cost to request a cert for a domain they control.</p>
+<h2>A Solution</h2>
+<p>The crux of the problem is that users have no way<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup> of telling a real Google accounts or Gmail login page from a fake one since the styling of a login page can be easily copied.</p>
+<p><strong>Customize/Skin the Login Page:</strong>
+Users will often skin or customize the look of the internal gmail web application by choosing a theme. Google should force new users to choose a unique skin for their 'trusted' home computer and persist this skin even when they are not signed into their Gmail account so that the skin will be applied to the login screen for their Gmail account.
+This skin would persist on the client <sup id="fnref:5"><a class="footnote-ref" href="#fn:5">5</a></sup>, so an attacker would not be able to learn it by querying Google.
+Since the attacker can't learn the skin that user is using, the attacker can't replicate what the user expects to see.
+Thus the attacker will have difficulty fooling the user<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup>.
+An example skin is shown below.</p>
+<p><img alt="" src="figs//tumblr_m85s07tle61qf5p6p.png" /></p>
+<p><strong>qr-codes:</strong> For added security the page could display a qr-code which the user could scan with their mobile phone to log themselves in without typing in a password.
+<a href="http://corp.galois.com/isaac-potoczny-jones/">Isaac Potoczny-Jones</a> has a neat <a href="http://corp.galois.com/blog/2011/1/5/quick-authentication-using-mobile-devices-and-qr-codes.html">blog post on using qr-codes as authentication</a><sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup>.</p>
+<h2>Problems</h2>
+<p>There are several problems with training users to use the look of a website to determine its trustworthiness. </p>
+<ul>
+<li>The unique skin is now acting as a authentication to the user, but browsers and security models are not designed to protect how gmail looks to a user. Screen sharing skype sessions, xss attacks and photos could expose the look of the skin which then an attacker could copy.
+Since the user now trusts login pages that have their unique skin they will be easier to fool if the skin is compromised. </li>
+</ul>
+<p>This is a real risk, but users already use the look of a webpage to judge it's trustworthiness. Most phishing attacks are not targeted and  this would stop these sorts of attacks and seriously complicate more advanced attack.</p>
+<ul>
+<li>The unique skin can not persist across clients. The first time a user uses a computer they have to login to a plain page or a page which has the skin of another user.</li>
+</ul>
+<p>This solution probably wouldn't be that useful for people that use many different computers. </p>
+<ul>
+<li>Chrome already has this functionality in <a href="http://support.google.com/chrome/bin/answer.py?hl=en&amp;answer=185277">that you can sign into chrome.</a>. Since you are signing into the browser rather than into webpage phishing is impossible.</li>
+</ul>
+<p>Unfortunately, signing into Google Chrome does not automatically sign you into all your Google Accounts. 
+Passwords can be saved in Google Chrome, but there are numerous ways to trick someone into entering their password into a realistic looking login screen.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>For an example how legitimate sites do this go to <a href="goodreads.com">goodreads.com</a> in safe/incognito mode and click on the "sign in using Google" button.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>Yes, yes, they can check the certificate of the page and maybe catch a poorly generated cert, but how many times do you check the certificate of the page when you login to Gmail?&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p>All users can be fooled given enough time and effort.&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:4">
+<p>I don't see any reason why Google is not doing this already. They support Two-Factor authentication. While qr-auth is as vulnerable as username/password schemes, a successful attack only steals a one-use token rather than a username and password. This would be perfect for situations in which someone is concerned about a keylogger. In fact if you combine qr-auth with a browser plugin it becomes more secure than username/password schemes since the plugin can verify if the page is gmail or not.&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:5">
+<p>This is really the tricky part as an attacker can wipe browser cookies at will. One surefire way would be to use a browser plugin or use the Google Chrome Sync functionality.&#160;<a class="footnote-backref" href="#fnref:5" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div><hr /></div>
+</div>
+<br/>
+<div class='box_container'>
+<div class='text_container'>
+<p>NEXT <a href="..\10\index.html">Three Great Games I Played at the Boston Festival of Indie Games</a> </p> </p><p>PREV <a href="..\8\index.html">BrainCookies, Johnny Mnemonic, and Other Uses for 'Neuroscience Meets Cryptography'</a> </p> </p></div>
+</body></html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html><html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><LINK href="..\..\style\style.css" rel="stylesheet" type="text/css"><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [['$','$'], ['\(','\)']],
+            processEscapes: true
+        }
+        });
+    </script><title>SHAKE: or On Naming a NIST Standard</title></head>
+<body>
+<div class='box_container'>
+<div class='text_container'>
+<h2><a href='../../index.html'>Ethan Heilman</a></h2><br\><a href='../../index.html'>Main</a> || <a href='../ls/index.html'>Writing</a><br/><br/><hr/>
+</div>
+</div>
+<div class='box_container'>
+<div class='text_container'>
+<h1>SHAKE: or On Naming a NIST Standard</h1><p>02-13-2014 9:56PM (ET) </p><hr /><p><img alt="http://www.flickr.com/photos/beglen/5500030995/sizes/z/" src="figs/tumblr_inline_mzo9t0tpuS1qf5p6p.jpg" /></p>
+<p>Back in 2012 I was involved in a discussion on the NIST SHA3 discussion list about possible names for the standard. It might seem obvious that SHA3 should be called SHA3, but SHA3 has several output sizes: 224, 256, 384, and 512 bits. </p>
+<p>One proposal, which was suggested, and evidently adopted as the official name, was SHA3-[output size]. I objected to this naming convention on the following grounds:</p>
+<ol>
+<li>
+<p><strong>Meaning:</strong> SHA3 is not necessary more secure that SHA2. We may discover a critical break in SHA3 and will need to communicate the idea that SHA3 is not better than SHA2. Higher numbers imply better, names are value neutral.</p>
+</li>
+<li>
+<p><strong>Uniqueness:</strong> SHA3 is not an unambiguous search string. There is a  hash function named SHA-384 which is likely to be referred to in code as SHA384 (hyphens are forbidden in functions names in python see 5). This name collision will cause problems with 'find and replace' code changes. </p>
+</li>
+<li>
+<p><strong>Readability:</strong> SHA3 may become something that you don't want in your code base due to a successful attack. Programmers may use various aliases for SHA3 (SHA3_encryptor, SHA3512, SHA512_3, etc). Doing string searches to audit code bases for uses of SHA3 is complicated by it's similarity with SHA2. More importantly attempting to read code to understand what hash function is being used would be helped by a very distinctive name.</p>
+</li>
+<li>
+<p><strong>Typos:</strong> Having different hash functions that are only one or two characters away from each other will almost certainly result in security failures as a result of typos. For example in the past we saw a typo cause the '<a href="http://it.slashdot.org/story/08/05/13/1533212/debian-bug-leaves-private-sslssh-keys-guessable">The Debian OpenSSL Disaster</a>'. </p>
+</li>
+<li>
+<p><strong>Hyphens are bad:</strong> There is a whole class of interesting failure modes when ever you use a hyphen in name read by a computer:</p>
+</li>
+<li>many word processing programs will collapse two hyphens into an extra long hyphen that is not visually distinguishable from a hyphen, </li>
+<li>hyphens often acts as a 'does not contain' character in search engines, </li>
+<li>
+<p>hyphens are used as the subtract operator in many programming languages <a href="http://stackoverflow.com/questions/2064329/why-python-does-not-allow-hyphens">(hyphens named variables do not play well with ruby or python)</a>.   What does a programmer do when they can't name a variable SHA-3-512? Do they use SHA3512? See objection 2.</p>
+</li>
+<li>
+<p><strong>Regex matching:</strong> Many programmers will match these strings using regex. They shouldn't. but they will because Ruby and perl-like languages make it too easy to pass up. The composition of letters, hyphen, numbers is likely to result in interesting bugs as hyphens are a special character in regex and need to be escaped.</p>
+</li>
+</ol>
+<p>I proposed that we should choose a string which is: unique, easily searchable, and unlikely to be confused by autocomplete or a code search tool. While creating a fool-proof hash name is impossible, we should try to make it fool-resistant.  </p>
+<p>I proposed four rules:</p>
+<ol>
+<li>
+<p>There should always be a "typo difference" of at least two characters between each name.</p>
+</li>
+<li>
+<p>Truncation from one name to another should never result in a valid name (avoiding regex, find-and-replace, accidental backspace and copy-paste bugs).</p>
+</li>
+<li>
+<p>A simple transposition of two characters within the name should not result in another valid name.
+One of the most common typos and <a href="http://www.mrc-cbu.cam.ac.uk/people/matt.davis/cmabridge/">one that human pattern recognition is terrible at finding.</a></p>
+</li>
+<li>
+<p>The names when read aloud should have a distinctive unique and obvious pronunciation to avoid confusion in voice conversations. </p>
+</li>
+</ol>
+<p>Since at this point KECCAK had been announced as the winner of the SHA3 contest, I proposed the following name: SHAKE[output bits], so SHAKE224, SHAKE256, SHAKE284, SHAKE512.</p>
+<p>It received some interest on the mailing list but I didn't think much was going to come of it. SHA3-x was the most obvious name and despite my objections had a number of advantages. I was certainly, and pleasantly surprised when John Kelsey of NIST announced that SHA3 would be two algorithms. One would be a drop in replacement for SHA2 and named SHA3 and <a href="http://www.chesworkshop.org/ches2013/presentations/CHES2013_Invited_2_SHA3.pdf">the other would allow secure output truncation and be called SHAKE256 and SHAKE512.</a></p>
+<p>For the record I see nothing that officially credits me with this name and it is obvious enough that someone could have independently discovered it, but searching the NIST mailing list I am the first and only person to have suggested this name, so I think it is likely that I have named a NIST standard.</p><hr /></div>
+</div>
+<br/>
+<div class='box_container'>
+<div class='text_container'>
+<p>NEXT <a href="..\16\index.html">GCHQ Deception Slides Cribbed from Bell and Whaley's Book 'Cheating and Deception' (1982)</a> </p> </p><p>PREV <a href="..\14\index.html">Defending an Unowned Internet: Dissecting the Question of the Social Good of Communication Security</a> </p> </p></div>
+</body></html>

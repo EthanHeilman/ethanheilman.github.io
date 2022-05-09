@@ -1,0 +1,59 @@
+![neuro things](figs/tumblr_m8ko4khL0k1qf5p6p.jpg)
+
+In ['Neuroscience Meets Cryptography: Designing Crypto Primitives Secure Against Rubber Hose Attacks'](http://bojinov.org/professional/usenixsec2012-rubberhose.pdf)  Bojinov, Sanchez, Reber,  Boneh, and Lincoln introduce a system for using [implicit learning](http://en.wikipedia.org/wiki/Implicit_learning) to store passwords in people's subconscious.
+Because the person does not consciously know the password they will be unable to reveal it even if under legal coercion, interrogation or torture.
+This post will informally introduce the system and then look at some off-label uses for this and related techniques.
+
+## Neuroscience Meets Cryptography
+
+**To learn a password:** The user plays a game very similar to Guitar Hero for 30 minutes, the game implicitly teaches the user to perform certain actions in certain situations (think something like muscle memory). The game records that they were taught certain subconscious behaviors.
+
+**Authentication:** The game tests the users ability to play the game for 15 minutes. The responses of the player are dependent on some of the behaviors they subconsciously learned. 
+Thereby the game can learn what password the player was taught.
+
+The player does not consciously know the password. 
+The learning phase and the authentication system are done in a controlled environment so that no one can watch the player play. 
+The player does not have the ability to reveal the password, so the player can not be made to reveal the password, nor can an attacker learn the password using a game without first knowing the password[^1].
+
+## Alternative Uses
+
+![A big cookie](figs/tumblr_m8ko86ZTUZ1qf5p6p.jpg)
+
+**Brain Cookies:** 
+One alternative use of this technology would be to use it to covertly record uniquely identifying information in people's subconscious. 
+The immediate use of this that jumps out is a replacement for browser cookies.
+Website forces users to solve [captchas](http://en.wikipedia.org/wiki/CAPTCHA) to download content. 
+The captchas can be implicit learning devices similar to the system above or they can be trivia questions such as "Who is the 23rd president?" or which of these shapes fit together that rely on explicit learning.
+Once a user has learned a fact or game, the speed and accuracy at which they answer that question or play that game can be used as identifying information.
+A big enough set of questions/abilities should be able to uniquely identify a person covertly.
+So the website does exactly that an tracks users using their own subconscious.
+
+**Anti-Cheating:**
+A serious problem facing games such as Poker or [World Of Warcraft](http://en.wikipedia.org/wiki/World_of_Warcraft) is how to prevent cheating by [collusion](http://en.wikipedia.org/wiki/Collusion) or by automation.
+For example: consider a game in which you want to tell if any of the player avatars are being controlled the same player. 
+Get each avatar to perform game tasks to implicitly trains each player with a different password and then test each avatar to determine if any of the players have multiple passwords.
+
+Or better yet use such a system to determine if a human or bot is playing the game (implicit learning as [Turing test](http://en.wikipedia.org/wiki/Turing_test)). 
+Games such as World of Warcraft attempt to prevent players from using [bots](http://en.wikipedia.org/wiki/Glider_(bot)).
+Since a bot is not going to display implicit learning (or usually any learning for that matter), a game can covertly test if any of the players are computers or not by building an implicit learning task into the game mechanics.
+It is possible to build implicit learning into a computer program, but it is unlikely that a bot maker would consider such an attack in their threat model. Of course this means that the success of such a detection system depends on it's complete secrecy from the bot makers, but it should not be difficult to build such a detection system such that it would look like a normal part of the game with the actual detection logic existing outside the client[^2].
+
+![Johnny Mnemonic](figs/tumblr_m8ko5htq5l1qf5p6p.jpg)
+
+**Johnny Mnemonic/Subconscious Stenography:**
+Use the method in the paper, but instead of storing a password in someones subconscious, store a piece of secret information. 
+The person with this information could act as a data courier similar to the protagonist of the short story [Johnny Mnemonic](http://en.wikipedia.org/wiki/Johnny_Mnemonic). 
+In fact the courier or [mule](http://en.wikipedia.org/wiki/Mule_(smuggling)) might not even know they have this data stored inside of them they just played a game.
+The courier could pass through national borders with nothing incriminating to be found[^3].
+
+
+[^1]: Or so the paper argues: 
+&gt; "[..] the attacker intercepts trained users and subjects each one to queries, [..] ( [to succeed] this amounts to about one year of nonstop testing per user which will either interfere with the user’s learned password rendering the user useless to the attacker, or alert security administrators due to the user’s absence prompting a revocation of the credentials). Hence, even after capturing u = 100 users, the attacker’s success probability is only $2^{-16}$
+Further complicating the attacker’s life is the fact that subjecting a person to many random SISL games may obliterate the learned sequence or cause the person to learn an incorrect sequence thereby making extraction impossible. " - 'Neuroscience Meets Cryptography: Designing Crypto Primitives Secure Against Rubber Hose Attacks'
+
+[^2]: Who knows maybe Blizzard is already doing this.
+
+[^3]: Bot net nodes could use this as a very sneaky [covert channel](http://en.wikipedia.org/wiki/Covert_channel). A botnet uploads a hacked copies of video games to [piratebay](http://thepiratebay.se/). Players play the games, implicitly learning messages and passing  the messages to the other games. 
+
+
+![brains](figs/tumblr_m8ko95ZrIi1qf5p6p.jpg)

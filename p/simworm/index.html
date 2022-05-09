@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+<button type="button" onclick="init(createPerson, createBuildings, createTargets, worm)">Run Simple</button>
+<button type="button" onclick="init(createBUPerson, createBUBuildings, createBUTargets, worm)">Run BU</button>
+<button type="button" onclick="worm = runWildfireWorm">Use Wildfire Worm</button>
+<button type="button" onclick="worm = runLineWorm">Use Line Worm</button>
+<button type="button" onclick="worm = runCompassWorm">Use Compass Worm</button>
+<button type="button" onclick="reset()">Reset</button>
+<button type="button" onclick="runtests()">test</button>
+
+
+<div id="canvas-container">
+</div>
+
+<script type="text/javascript" src="matter-0.8.0.js"></script>
+<script type="text/javascript" src="simworm.js"></script>
+
+<script>
+var worm = runCompassWorm;
+</script>
+     
+</body>
+</html>

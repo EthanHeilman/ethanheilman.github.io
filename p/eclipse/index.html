@@ -1,0 +1,84 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html><head><META http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+
+<title>Eclipse Attacks on Bitcoin’s Peer-to-Peer Network</title>
+
+<body>
+
+
+<div style="width: 780px;margin-left: auto; margin-right: auto">
+<center>
+<font size="6" face="Century Gothic"><b><i>Eclipse Attacks on Bitcoin’s Peer-to-Peer Network</i></b><br>
+</font>
+<font size="3" face="Century Gothic"> <A HREF="http://cs-people.bu.edu/heilman">Ethan Heilman*</A>    Alison Kendler*   Aviv Zohar†   <A HREF="https://www.cs.bu.edu/~goldbe/">Sharon Goldberg*</A>  <br>
+*Boston University   †Hebrew University
+</font>
+
+</center>
+
+<div style="float:left">
+	<img src="eclipseicon3.png">
+</div>
+
+<div style="margin-left:5cm">
+	<p>
+	<font size="3" face="Century Gothic">
+	<br>
+	<b>Abstract:
+	</b></font>   
+	We present eclipse attacks on bitcoin&#39;s peer-to-peer network. Our attack allows an adversary controlling a sufficient number of IP addresses to monopolize all connections to and from a victim bitcoin node. The attacker can then exploit the victim for attacks on bitcoin&#39;s mining and consensus system, including N-confirmation double spending, selfish mining, and adversarial forks in the blockchain. We take a detailed look at bitcoin’s peer-to-peer network, and quantify the resources involved in our attack via probabilistic analysis, Monte Carlo simulations, measurements and experiments with live  bitcoin nodes. Finally, we present countermeasures, inspired by botnet architectures, that are designed to raise the bar for eclipse attacks while preserving the openness and decentralization of bitcoin’s current network architecture.
+
+</div>
+
+<div style="float:left">
+<p>
+<b><font size="3" face="Century Gothic">Papers:</font></b>
+<ul>
+
+<li><b>Eclipse Attacks on Bitcoin’s Peer-to-Peer Network</b><br>
+Ethan Heilman, Alison Kendler, Aviv Zohar, Sharon Goldberg. <br>
+Our paper is avaliable on eprint <a href="http://eprint.iacr.org/2015/263.pdf">Report 2015/263</a>.<br>    
+We will be presenting this research at the 24th USENIX Security Symposium, Washington, DC., August 2015.<br>
+
+
+
+</li></ul>
+
+<b><font size="3" face="Century Gothic">Status of our Proposed Fixes:</font></b>
+<ul>
+
+<li><b>Countermeasures 1, 2, and 6</b><br>
+Implemented by Bitcoin devs and deployed in Bitcoin Core v0.10.1<br>
+<a href="https://bitcoin.org/en/release/v0.10.1">Bitcoin core release notes</a>.
+
+<li><b>Countermeasure 3: test-before-evict</b><br>
+Added to Bitcoin Core v0.17.0<br>
+<a href="https://github.com/bitcoin/bitcoin/pull/9037">Pull Request #9037</a>.<br>
+
+<li><b>Countermeasure 4: Feeler connections</b><br>
+Added to Bitcoin Core v0.13.1<br>
+<a href="https://github.com/bitcoin/bitcoin/pull/8282">Pull Request #8282</a>.
+	
+<li><b>Countermeasure 5: Anchor connections</b><br>
+Added to Bitcoin Core v0.21.0<br>
+<a href="https://github.com/bitcoin/bitcoin/pull/17428">Pull Request #17428</a>.
+		
+</li></ul>
+
+
+
+<p>
+This material is based upon work supported by the US National Science Foundation under Grant 1350733. Any opinions, findings and conclusions or recommendations expressed in this material are those of the authors and do not necessarily reflect the views of the sponsors.
+
+</div>
+
+<!--
+"The battle between intelligence and deception is the efforts of one side to establish as many channels as possible through which to observe the opponent, in the hope that he may fail to block at least some of these channels, while the opponent may in addition try to send false, and preferably consistent, signals in as many channels as possible." R.V Jones
+-->
+
+</div>
+
+
+
+</body>
+</html>

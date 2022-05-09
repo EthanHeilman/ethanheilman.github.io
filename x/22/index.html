@@ -1,0 +1,166 @@
+<!DOCTYPE html><html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><LINK href="..\..\style\style.css" rel="stylesheet" type="text/css"><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [['$','$'], ['\(','\)']],
+            processEscapes: true
+        }
+        });
+    </script><title>A Brief Examination of Hacking Team’s Crypter: core-packer.</title></head>
+<body>
+<div class='box_container'>
+<div class='text_container'>
+<h2><a href='../../index.html'>Ethan Heilman</a></h2><br\><a href='../../index.html'>Main</a> || <a href='../ls/index.html'>Writing</a><br/><br/><hr/>
+</div>
+</div>
+<div class='box_container'>
+<div class='text_container'>
+<h1>A Brief Examination of Hacking Team’s Crypter: core-packer.</h1><p>09-09-2015 10:33AM (ET) </p><hr /><p><strong><em>Update:</em></strong> <a href="http://samvartaka.github.io/malware/2015/09/13/hackingteam-crypter/">Jos Wetzels just released an awesome blog post</a> which analyzes weaknesses in core-packer's cryptography. Jos Wetzels uses these weaknesses to build <a href="https://github.com/samvartaka/malware/blob/master/hackingteam_core_packer/core_packer_detect.py">a proof-of-concept which defeats core-packer's protection</a>.</p>
+<p><img alt="Executable Camouflage" src="figs/tumblr_inline_ntf0vjARo31qf5p6p_540.png" /></p>
+<blockquote>
+<p>It is EASY to bypass commonplace protection systems such as antivirus systems - <a href="https://wikileaks.org/hackingteam/emails/emailid/1142540">David Vincenzetti, CEO of Hacking Team</a><sup id="fnref:11"><a class="footnote-ref" href="#fn:11">11</a></sup></p>
+</blockquote>
+<p>In this blog entry we investigate how Italian malware vendor <a href="https://en.wikipedia.org/wiki/Hacking_Team">Hacking Team</a> obfuscated their malware, specifically the custom software they developed for
+this task called core-packer<sup id="fnref:13"><a class="footnote-ref" href="#fn:13">12</a></sup>. This analysis was a joint project between <a href="https://twitter.com/dubbelyew">Will Cummings</a> and <a href="https://twitter.com/Ethan_Heilman">Ethan Heilman</a>.</p>
+<p>In July 2015 <a href="http://www.ibtimes.co.uk/hacking-team-hacked-spy-tools-sold-oppressive-regimes-sudan-bahrain-kazakhstan-1509460">Hacking Team’s source code and internal documents were leaked online</a> by <a href="https://twitter.com/GammaGroupPR">Phineas Fisher</a><sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup> after compromising their network. When source code from the leak <a href="https://github.com/hackedteam">was posted to github</a> we decided to exercise our curiosity about the techniques they used to obfuscate their malware. The Hacking Team leak provides a rare and topical view<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> into the world of malware vendors catering to repressive governments<sup id="fnref:5"><a class="footnote-ref" href="#fn:5">5</a></sup>.</p>
+<h2>What are Packers and Crypters?</h2>
+<p>Packers and crypters are tools which <a href="https://blog.malwarebytes.org/intelligence/2013/03/obfuscation-malwares-best-friend/">alter malware to frustrate signature based Anti-Virus detection and  analysis</a>. They are a crude form of software camouflage.</p>
+<p><em>Packer</em> refers to the fact that a packer uses compression to "pack" an executable into a smaller size. Sometimes this is used solely to reduce file size, but for malware this packing serves a second purpose of making the malware harder to detect and analyze<sup id="fnref:18"><a class="footnote-ref" href="#fn:18">17</a></sup>. <em>Crypters</em> provide a similar anti-analysis function but use encryption instead of compression. Both Crypters and packers wrap the malware so that when it is run, it is unpacked or decrypted<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup>. This behavior is similar to how a <a href="https://en.wikipedia.org/wiki/Self-extracting_archive">self extracting zip</a> file works, except that this de-obfuscation process happens only in memory, whereas self-extracting zips write the uncompressed contents to disk.</p>
+<p>To de-obfuscate the malware once it is run, a stub is added to the obfuscated program. <em>The stub</em> contains all the necessary instructions and cryptographic keys to unpack or decrypt the obfuscated program. When an obfuscated program is run, the stub is run first. Once the stub finishes unpacking/decrypting the malware, the stub passes control to the now de-obfuscated program. The stub is often looks innocent since it only performs a single task.</p>
+<p>In the graphic below, we show how a crypter can be used to bypass an Anti-Virus scan for malware.
+<img alt="Bypassing AV with the core-packer" src="figs/tumblr_inline_ntppeg5qc61qf5p6p_540.gif" /></p>
+<p>The idea behind both of these techniques (packing/crypting) is to make it difficult for anti-malware tools to inspect the obfuscated program without running it. Modern Anti-Virus (AV) will attempt to automatically unpack malware, emulating its execution until the malicious payload is revealed and can be scanned. Crypters can include methods to bypass this, some more sophisticated than others: some authors will simply delay decryption of the payload long enough that it becomes impractical for the AV to perform this type of dynamic analysis<sup id="fnref:15"><a class="footnote-ref" href="#fn:15">14</a></sup>.</p>
+<h2>What is core-packer?</h2>
+<p>Core-packer is a crypter developed by Hacking Team (while core-packer bares the name “packer” it is in fact a crypter<sup id="fnref:6"><a class="footnote-ref" href="#fn:6">6</a></sup>). Core-packer can be compiled to both a 32-bit and 64-bit <a href="https://en.wikipedia.org/wiki/Portable_Executable">windows executable</a>. The behavior of the 32-bit and 64-bit versions differs, the 32-bit version obfuscates executables, whereas the 64-bit version is only capable of handling DLLs.</p>
+<h2>Core-packer in Four Steps:</h2>
+<p><img alt="The four steps of crypting." src="figs/tumblr_inline_ntppf0rByF1qf5p6p_540.gif" /></p>
+<p>The target exe, is the malware which the packer is obfuscating. The <a href="https://github.com/hackedteam/core-packer">core-packer source has been posted to github</a>. We will be linking to relevant lines of code. Our analysis focuses on the 32-bit core-packer crypting an executable, some of the steps are different under other configurations (64bit, DLLs). The last commit to core-packer was Sept. 2013, so they may have phased it out in favor of off the shelf solutions<sup id="fnref:17"><a class="footnote-ref" href="#fn:17">16</a></sup>.</p>
+<p><strong>Step One: Stub Extraction.</strong>
+Core-packer has the stub compiled into itself. Upon being run core-packer <a href="https://github.com/hackedteam/core-packer/blob/master/core-packer/main32.cpp#L638">searches through its process memory to find the stub</a> (named pUnpackerCode in the source code). It identifies the stub code using one of four section names depending on configuration: peexe32, peexe64, pedll32, pedll64.
+<img alt="pUnpackerCode" src="figs/tumblr_inline_ntg9bkNzqm1qf5p6p_540.png" /></p>
+<p>Once it finds the stub it extracts it so that it can perform step two.</p>
+<p><strong>Step Two: Stub Injection.</strong></p>
+<p>Core-packer loads the target exe into memory and <a href="https://github.com/hackedteam/core-packer/blob/master/core-packer/main32.cpp#L976">injects the stub into the target exe</a>.
+<img alt="Injection" src="figs/tumblr_inline_ntg671Ddg51qf5p6p_540.png" /></p>
+<p><strong>Step Three: Encrypt Target Exe’s Data and Executable Sections.</strong></p>
+<p>Core-packer <a href="https://github.com/hackedteam/core-packer/blob/master/core-packer/main32.cpp#L687">computes a random encryption key</a>. It then uses this key to <a href="https://github.com/hackedteam/core-packer/blob/master/core-packer/main32.cpp#L793">encrypt all the executable and .text sections</a> inside the target exe (making sure not to encrypt the stub)<sup id="fnref:14"><a class="footnote-ref" href="#fn:14">13</a></sup>. The packer uses the TEA cipher if the target is an exe, or RC4<sup id="fnref:8"><a class="footnote-ref" href="#fn:8">8</a></sup> if it is a DLL. It later saves this key into the stub so the stub can reverse the encryption.
+<img alt="random key" src="figs/tumblr_inline_ntg6wfxvGY1qf5p6p_540.png" /></p>
+<p>Using <a href="http://binvis.io">binvis.io</a> we visualize before and after entropy levels of the malware (shown below). The encrypted sections have a high level of entropy and appear as bright purple.
+<img alt="Entropy comparison before and after crypting" src="figs/tumblr_inline_ntgi1lbfUq1qf5p6p_540.png" /></p>
+<p><strong>Step Four: XOR-Encrypt the Decryption Code in the Stub.</strong></p>
+<p>Encryption code inside of an executable can be a sign that it has been crypted which in turn is suspicious. To obfuscate the decryption code, core-packer <a href="https://github.com/hackedteam/core-packer/blob/master/core-packer/main32.cpp#L981">encrypts the TEA decryption code inside the stub by  xoring all the bytes with 0x66</a><sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup>.  </p>
+<h2>Additional Obfuscation Techniques:</h2>
+<p>Another common technique seen in core-packer is the use of GetProcAddress to obscure function imports. GetProcAddress is a Win32 API call which given a module and a function name will return the address of the named function. By using GetProcAddress to “import” suspicious functions such as VirtualProtect, malware authors can break detections. The string literals used to look up these functions can be easily signatured, forcing the author to add another level of obfuscation, for example polymorphic string encryption. Hacking Team went down a less sophisticated path: in one case, core-packer emits a number of ASCII strings into the code section and uses a bespoke function to retrieve them. The core-packer code includes numerous instances of commented-out GetProcAddress calls with type defs for function pointer to Win32 calls.That many of these lines are commented out is an indication that they may have moved away from this technique.</p>
+<p><img alt="FUCK CRT" src="figs/tumblr_inline_ntga32Bbd41qf5p6p_540.png" /></p>
+<h2>How was Core-Packer used to Bypass Anti-Virus Detection?</h2>
+<p>Core-packer's first commit is Oct 2012, nine days after Citizen Lab released a report <a href="https://citizenlab.org/2012/10/backdoors-are-forever-hacking-team-and-the-targeting-of-dissent/">“Backdoors are Forever: Hacking Team and the Targeting of Dissent?”</a> on Hacking Team’s malware. It seems likely that core-packer was developed to prevent future disclosures by increasing the stealth of Hacking Team’s malware. In fact in response to the Citizen Lab they wrote talking points to assure their clients that malware was safe to use. One of these talking points was that they were implementing "technical measures", perhaps referring to core-packer.</p>
+<blockquote>
+<p>[..]next release will introduce technical measures to lessen the chances of such a scenario happening again - <a href="https://wikileaks.org/hackingteam/emails/emailid/448504">Re: news</a><sup id="fnref:16"><a class="footnote-ref" href="#fn:16">15</a></sup></p>
+</blockquote>
+<p>Looking through the leaked emails we see several discussions<sup id="fnref:9"><a class="footnote-ref" href="#fn:9">9</a></sup> of Hacking Team’s malware being discovered by Anti-Virus and taking actions to evade this detection. For the sake of brevity, we will look at one one example.</p>
+<p>On April 24, 2013 Hacking Team malware support received the following email:</p>
+<blockquote>
+<p>Good morning, in invisibility report for version 8.3 is ESET Smart Security reported as antivirus where RCS is working. But, today customer tryied to install it on computer with ESET and installed agent was detected by this anitivirus. [..] Will there will be available some fix for ESET software? - <a href="https://wikileaks.org/hackingteam/emails/emailid/688586">Subject: IUQ-855-32679: ESET Smart Security: Invisibility broken, To: rcs-support@hackingteam.com</a><sup id="fnref:10"><a class="footnote-ref" href="#fn:10">10</a></sup></p>
+</blockquote>
+<p>April 29th 2013 a member of Hacking Team <a href="https://github.com/hackedteam/core-packer/commit/cfb536420de8edb1020e86e9852a815aa7e32ea7">changed a pointer in core-packer with the commit message “bypass ESET Win32/Kryptik”</a>(as shown above). It appears the intention of this change was to break the signature that <a href="https://en.wikipedia.org/wiki/ESET">ESET</a> Anti-Virus scanner was using to detect the malware. Win32/Kryptik refers to a codename given to Hacking Team’s malware by Anti-Virus vendors.</p>
+<p><img alt="Bypassing AV with a single byte" src="figs/tumblr_inline_ntm5pqnwR61qf5p6p_540.png" /></p>
+<p>May 2, 2013 another change was made to core-packer to alter the way in which the string ‘VirtualProtectAlloc’ is called, this change had the commit message <a href="https://github.com/hackedteam/core-packer/commit/25f0cab76cc4106b88e8000237b0bf6d006762b9">"patch in DllEntryPoint to bypass ESET Win32/Kryptik. ??"</a>.</p>
+<p>On May 10, 2013 the Hacking Team support ticket tracking the ESET detection is updated to read:</p>
+<blockquote>
+<p>Hiding enhancements for ESET was introduced in new installed release 8.3.3. I hope, problem is solved. - <a href="https://wikileaks.org/hackingteam/emails/emailid/711283">IUQ-855-32679: ESET Smart Security: Invisibility broken</a></p>
+</blockquote>
+<p>Soon after the support ticket was marked  <a href="https://wikileaks.org/hackingteam/emails/emailid/681156">closed</a>, evidently because the issue was resolved.</p>
+<h2>Conclusion:</h2>
+<p>We have provided a brief sketch of Hacking Team's core-packer and some<sup id="fnref:19"><a class="footnote-ref" href="#fn:19">18</a></sup> of the techniques used. We also took a brief look at one episode in the cat and mouse game between malware vendors and Anti-Virus vendors. The Hacking Team leak suggests that while the current detect and flag strategy employed by Anti-Virus can be a nuisance to malware vendors, malware ultimately has the upper hand. This is not to say that Anti-Virus vendors could not adopt more effective strategies, we believe in fact that more effective strategies exist, but that the status-quo favors malware.</p>
+<p>In our next blog entry we will use the Hacking Team files to develop a simple game modeling the AV and Malware dynamic and look at alternative strategies.</p>
+<h2>Other Resources on Hacking Team:</h2>
+<ol>
+<li>
+<p><a href="https://citizenlab.org/tag/hacking-team/">Citizen Lab's work on Hacking Team</a></p>
+</li>
+<li>
+<p><a href="https://tsyrklevich.net/2015/07/22/hacking-team-0day-market/">HACKING TEAM: A ZERO-DAY MARKET CASE STUDY</a></p>
+</li>
+<li>
+<p><a href="http://www.4armed.com">4armed</a> has an excellent series of articles: <a href="https://www.4armed.com/blog/hacking-teams-killswitch-disabling-galileo-rcs-remotely-silently/">HACKING TEAM’S KILLSWITCH – DISABLING THE GALILEO RCS REMOTELY AND SILENTLY</a>, <a href="https://www.4armed.com/blog/hacking-teams-galileo-rcs-repurposing-espionage-software/">HACKING TEAM’S GALILEO RCS – REPURPOSING ESPIONAGE SOFTWARE</a>, <a href="https://www.4armed.com/blog/hacking-team-rcs-analysis-hacked-team/">HACKING TEAM RCS ANALYSIS</a>,<a href="https://www.4armed.com/blog/galileo-rcs-running-espionage-operation/">GALILEO RCS – RUNNING AN ESPIONAGE OPERATION</a>, <a href="https://www.4armed.com/blog/category/hacking/">and a few others</a>.</p>
+</li>
+<li>
+<p>Gutting Hacking Team - 2012, <a href="https://wikileaks.org/hackingteam/emails/emailid/477437">translated into English by Hacking Team</a> or in <a href="http://issuu.com/rootaxe/docs/xakep_02_2012">Russian here</a> (page 66).</p>
+</li>
+</ol>
+<p>Much of our analysis was performed by staring at the source code. In light of this, if you discover any errors or details you would like to see included please let us know at <a href="https://twitter.com/Ethan_Heilman">@Ethan_Heilman</a> and we will give credit for the correction or addition.</p>
+<h2>Appendix</h2>
+<p><strong>How to build and run core-packer:</strong>
+After some work we were able to build and run core-packer. Based on the project files left by the authors, we found that core-packer was built with Visual Studio 2010. We were unable to get a freeware copy of Visual Studio 2010 but 2012 worked. The project will not compile on later versions of Visual Studio without some trivial code modifications.</p>
+<p>Testing the packer on random exe’s and DLLs caused the packer to crash, but when run against binaries compiled by Hacking Team (available at DUMP_ROOT/rcs-dev%5Cshare/HOME/Ivan/full_themida_core/windows/), such as their scout or soldier malware, core-packer ran without issue. Note that the 64-bit version of core-packer appears to only work on DLLs and not exes. All our tests were performed against the 32-bit version of core-packer.</p>
+<p>See image below:
+<img alt="Crypting day and night." src="figs/tumblr_inline_ntf1g7jdqk1qf5p6p_540.png" /></p>
+<p><strong>Core-Packer May Have Violated the GPL</strong>
+<a href="https://github.com/hackedteam/core-packer/blob/master/core-packer/distorm/config.h">Core-packer uses source code</a> from <a href="https://github.com/gdabah/distorm">the distorm project</a> licensed under the <a href="https://en.wikipedia.org/wiki/GNU_General_Public_License">Gnu Public License</a> or GPL<sup id="fnref:7"><a class="footnote-ref" href="#fn:7">7</a></sup>. The GPL requires that if a software project includes GPL software, that project must distribute the source code when they distribute the compiled software. Thus, by infecting someone with malware protected by core-packer without also including the source, they may have violated the GPL. It is possible thatt when their source code was  posted to github they became GPL compliant[^12].</p>
+<p>[^12] :Crypters and packers raise interesting legal questions about licenses because on one hand they are like compilers but on the other hand they inject some of their own code into the packed executable.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>Timing of the leak and the debate over the <a href="https://www.federalregister.gov/articles/2015/05/20/2015-11642/wassenaar-arrangement-2013-plenary-agreements-implementation-intrusion-and-surveillance-items">US Commerce Dept’s implementation</a> of rules governing dual use technologies (include computer surveillance technologies) under the <a href="https://en.wikipedia.org/wiki/Wassenaar_Arrangement">Wassenaar Arrangement</a> is highly suspicious.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>The evidence that Phineas Fisher was behind the attack and subsequent data dump is based on a journalist Lorenzo Franceschi-Bicchierai’s statement <a href="http://motherboard.vice.com/read/hacker-claims-responsibility-for-the-hit-on-hacking-team">that the person controlling Hacking Team's compromised twitter account told him that they were also the person controlling Phineas Fisher’s twitter account and proved this by tweeting from the Phineas Fisher account</a>. While it is the most credible narrative at this point, we do not have enough evidence to rule out other possibilities.&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p>When referring to packers/crypters we are only talking about
+<a href="https://www.virusbtn.com/resources/glossary/packer.xml">runtime packers/crypters</a> (that is crypters that decrypt the malware in memory when the malware is run).&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:4">
+<p>Now you can laugh at all the people that said that the xor encryption brute forcer you wrote was useless.&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:5">
+<p>Citizen Lab did an excellent job analyzing the human consequences of Hacking Team’s involvement with repressive governments in their paper <a href="https://www.usenix.org/system/files/conference/usenixsecurity14/sec14-paper-marczak.pdf">“When Governments Hack Opponents: A Look at Actors and Technology”</a>&#160;<a class="footnote-backref" href="#fnref:5" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:6">
+<p>"Packer" is often colloquially used to refer to both crypters and packers. We are being somewhat pedantic here in our use of exact terminology, but the security community could use more pedantry in its use of vocabulary.&#160;<a class="footnote-backref" href="#fnref:6" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+<li id="fn:7">
+<p>Distorm does offer a commercial license which can be purchased as an alternative to the GPL, but we contacted distorm and they confirmed that they did not sell Hacking Team a commercial license. This is supported by the fact that the GPL license is in the source code included in core-packer and that there is no record of distorm being paid or contacted in the Hacking Team emails.&#160;<a class="footnote-backref" href="#fnref:7" title="Jump back to footnote 7 in the text">&#8617;</a></p>
+</li>
+<li id="fn:8">
+<p>You may be temped to crack a joke about using RC4 <a href="https://en.wikipedia.org/wiki/RC4#Security">in this day and age</a>, but in this setting RC4 makes sense. You need a simple, well used, efficient stream cipher. Cryptanalytic strength isn’t particularly important when you are saving the key along with the ciphertext. It just needs to be slightly harder to break than the work necessary to extract the key from the binary.&#160;<a class="footnote-backref" href="#fnref:8" title="Jump back to footnote 8 in the text">&#8617;</a></p>
+</li>
+<li id="fn:9">
+<p>Anyone wanting to dive deeper need only search for Virus-Total emails in the Hacking Team leak. Its a fascinating adventure into perspectives on the malware side of Anti-Virus detection.&#160;<a class="footnote-backref" href="#fnref:9" title="Jump back to footnote 9 in the text">&#8617;</a></p>
+</li>
+<li id="fn:10">
+<p>“Good morning, in invisibility report for version 8.3 is ESET Smart Security reported as antivirus where RCS is working. But, today customer tryied to install it on computer with ESET and installed agent was detected by this anitivirus. Please, see attached screenshots. Please let us what to do, customer must stop to work with ESET? Will there will be available some fix for ESET software? Thank you,” <a href="https://wikileaks.org/hackingteam/emails/emailid/677811">IUQ-855-32679: ESET Smart Security: Invisibility broken</a>&#160;<a class="footnote-backref" href="#fnref:10" title="Jump back to footnote 10 in the text">&#8617;</a></p>
+</li>
+<li id="fn:11">
+<p>“Please TRUST me: #1. It is  EASY to bypass commonplace protection systems such as antivirus systems or personal, network IPS aka Intrusion Prevention Systems aka modern firewalls.  #2. “New generation” / “Behavioral” / “In the cloud” systems can be EASILY bypassed AS WELL.  #3. “Application isolation” technologies (e.g., sandboxes) WORK, but UP TO A POINT. Many thanks to Alberto Ornaghi alor. - <a href="https://wikileaks.org/hackingteam/emails/emailid/1142540">Confidence in antivirus falls to all-time low</a>&#160;<a class="footnote-backref" href="#fnref:11" title="Jump back to footnote 11 in the text">&#8617;</a></p>
+</li>
+<li id="fn:13">
+<p>Core-packer was one of many pieces of software that Hacking Team used, including <a href="https://wikileaks.org/hackingteam/emails/emailid/495832">several commercial off the shelf packers</a> including <a href="http://vmpsoft.com/support/faq/">vmprotect</a> and <a href="http://www.oreans.com/themida.php">themida</a> and developed several pieces of software, called <a href="https://github.com/hackedteam/libmelter">melters</a>, which would disguise their malware by merging it with harmless programs.&#160;<a class="footnote-backref" href="#fnref:13" title="Jump back to footnote 12 in the text">&#8617;</a></p>
+</li>
+<li id="fn:14">
+<p>A side by side comparison of the bytes of malware crypted by core-packer. On the left we have the malware prior to being crypted, on the right the malware after it has been crypted.
+<img alt="Bitewise makeover" src="figs/tumblr_inline_ntlvzo6rwt1qf5p6p_540.png" />&#160;<a class="footnote-backref" href="#fnref:14" title="Jump back to footnote 13 in the text">&#8617;</a></p>
+</li>
+<li id="fn:15">
+<p>It appears that core-packer uses this technique see <a href="https://github.com/hackedteam/core-packer/blob/88a2ee1b9e85b410abf225ae609e30c34d7c99a6/core-packer/DllEntryPoint32.cpp#L816">DELAYDECRYPT function and associated assembly</a>, we did not investigate this functionality.&#160;<a class="footnote-backref" href="#fnref:15" title="Jump back to footnote 14 in the text">&#8617;</a></p>
+</li>
+<li id="fn:16">
+<p>"I believe that they are asking for feedback on how we are going to face the problem on a technical viewpoint: Simon and the clients already know that we sell only to govt. agencies. Replying in a too generic way will only upset them.  I think we can use the same approach used for the August issue on that side:  - issue related to an old version - we are already safe, but we are proactive and next release will introduce technical measures to lessen the chances of such a scenario happening again - we are active in raising the client's awareness to such issues, to make the whole intelligence community that work with us operate in a safer way - they can operate safely, right now!  No specific technical detail tough, we are not going to disclose the specific measures." - <a href="https://wikileaks.org/hackingteam/emails/emailid/448504">Re: news</a>&#160;<a class="footnote-backref" href="#fnref:16" title="Jump back to footnote 15 in the text">&#8617;</a></p>
+</li>
+<li id="fn:17">
+<p>In 2014 they discussed <a href="https://wikileaks.org/hackingteam/emails/emailid/1714">acquiring and testing additional packers</a>.&#160;<a class="footnote-backref" href="#fnref:17" title="Jump back to footnote 16 in the text">&#8617;</a></p>
+</li>
+<li id="fn:18">
+<p><a href="http://linux.die.net/man/1/upx">UPX</a> being one of the more famous packers.&#160;<a class="footnote-backref" href="#fnref:18" title="Jump back to footnote 17 in the text">&#8617;</a></p>
+</li>
+<li id="fn:19">
+<p>Our analysis was by no means complete.&#160;<a class="footnote-backref" href="#fnref:19" title="Jump back to footnote 18 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div><hr /></div>
+</div>
+<br/>
+<div class='box_container'>
+<div class='text_container'>
+<p>NEXT <a href="..\23\index.html">Is PlayStation 4 Network Traffic Especially Difficult to Decrypt?</a> </p> </p><p>PREV <a href="..\21\index.html">How many IP addresses can a DNS query return?</a> </p> </p></div>
+</body></html>

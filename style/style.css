@@ -1,0 +1,29 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+th, td {
+    text-align: left;
+    padding: 8px;
+  }
+
+table tr td.td_pubdate {
+    width: 80px;
+  }
+  
+tr:nth-child(even) {
+    background-color: #D6EEEE;
+  }
+
+
+div.box_container {
+    width: 800px;
+    margin: auto;
+    /* border: 1px solid #000000; */
+  }
+
+div.text_container {
+    width: 800px;
+    margin: auto;
+  }
