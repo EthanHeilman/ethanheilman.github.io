@@ -128,26 +128,17 @@ def post_html_template(title, pubdate, lastedit, next_post, prev_post, post):
     html_post_template += "<LINK href=\"..\..\style\style.css\" rel=\"stylesheet\" type=\"text/css\">"
     
     # Mathjax
+    mathjaxconfig = """
+        MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [['$','$']],
+            processEscapes: true
+        }
+        });"""
     html_post_template += "<script src=\"https://polyfill.io/v3/polyfill.min.js?features=es6\"></script>"
     html_post_template += "<script id=\"MathJax-script\" async src=\"https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js\"></script>"
     html_post_template += "<script type=\"text/javascript\" src=\"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML\"></script>"
     html_post_template += "<script type=\"text/x-mathjax-config\">{mjconfig}</script>"
-    # html_post_template += " MathJax.Hub.Config({"
-    # html_post_template += " tex2jax: {"
-    # html_post_template += "        inlineMath: [['$','$'], ['\\(','\\)']],"
-    # html_post_template += "        processEscapes: true "
-    # html_post_template += "          } "
-    # html_post_template += "}); "
-    # html_post_template += "</script>"
-    
-    mathjaxconfig = """
-        MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [['$','$'], ['\\(','\\)']],
-            processEscapes: true
-        }
-        });
-    """
 
     html_post_template += "<title>{strtitle}</title></head>\n"
     html_post_template += "<body>\n"
@@ -313,6 +304,8 @@ def rebuild_everything():
     vposts.build_posts()
     vposts.build_directory()
 
+# cd ethanheilman.github.io\py
+# python md.py
 rebuild_everything()
 
 
