@@ -1,4 +1,4 @@
-import markdown, os
+import markdown, os, sys
 from pathlib import Path
 import urllib.request
 
@@ -86,8 +86,8 @@ def header_template():
 
 def dir_html_template(posts):
     html_post_discription = "<tr>"
-    html_post_discription += "<td class='td_index'>{i}</td> <td class='td_pubdate'>{strpubdate}</td> <td  <td class='td_title'><a href=\"{strlink}\">{strtitle}</a></td>\n"
-    html_post_discription += "</tr>"
+    html_post_discription += "<td class='td_index'>{i}</td> <td class='td_pubdate'>{strpubdate}</td> <td  <td class='td_title'><a href=\"{strlink}\">{strtitle}</a></td>"
+    html_post_discription += "</tr>\n"
 
 
     html_dir_template  = "<!DOCTYPE html><html><head>"
@@ -102,7 +102,7 @@ def dir_html_template(posts):
     html_dir_template += "<h1>Writing</h1>"
     html_dir_template += "<hr />"
     html_dir_template += "<table>"
-    html_dir_template += "<tr><th>Index</th><th>Pub date</th><th>Title</th></tr>"
+    html_dir_template += "<tr><th>Index</th><th>Pub date</th><th>Title</th></tr>\n"
 
     for p in posts[::-1]:
         strlink = Path("..", str(p.i), "index.html")
@@ -288,11 +288,16 @@ def read_md_source(entry_path):
 def get_title(entry_path):
     return read_file(os.path.join(entry_path, "meta", "title.txt"))
 
+def last_post() -> int:
+    dirs = set(os.listdir("../x/"))
+    dirs.remove("ls")
+    dirs.remove("d")
+    return int(sorted(list(dirs), key=int)[-1])
 
 
 def rebuild_everything():
     a = 0
-    z = 27
+    z = last_post()+1
     vposts = Posts(a, z)
 
 
@@ -304,30 +309,33 @@ def rebuild_everything():
     vposts.build_posts()
     vposts.build_directory()
 
+def help_msg():
+    print("Commands: build, add")
+
 # cd ethanheilman.github.io\py
 # python md.py
-rebuild_everything()
+def main(argv)  -> int:
+    # print(argv)
 
+    if os.getcwd()[-2:] != "py":
+        print("Error! You need to run this in directory ethanheilman.github.io/py") # Because I always forget
+        return 1
 
-# for i in range (0, 30):
-#     i_str = format(i,"04X")
-#     dir_path = Path("..", "x", i_str)
-#     prev_path = Path("..", "x", str(i))
-#     print(dir_path, prev_path)
-#     os.rename(dir_path, prev_path)    
+    if len(argv) == 1:
+       help_msg()
+    else:
+        command = argv[1].lower()
+        if command == "build":
+            print("Building everything")
+            rebuild_everything()
+        if command == "add":
+            post_num = last_post()+1
+            print(f"Adding article with number {post_num}...",)
+            post = Post(post_num)
+            print(f"Done!")
+        else:
+            help_msg()
+    return 0
 
-# for i in range (29, 42):
-#     i_str = format(i,"04X")
-#     dir_path = Path("..", "x", i_str)
-#     prev_path = Path("..", "x", format(i-1,"04X"))
-#     print(dir_path, prev_path)
-#     os.rename(dir_path, prev_path)
-
-
-# for loop
-# read all Posts
-# 
-
-# create new post
-# convert old post
-# rewrite html
+if __name__ == '__main__':
+    sys.exit(main(sys.argv))
