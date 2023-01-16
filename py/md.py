@@ -14,7 +14,7 @@ def write_file(path_to_file, data):
 def empty(str):
     return str == False
 
-md = markdown.Markdown(extensions=['footnotes','md_in_html'])
+md = markdown.Markdown(extensions=['footnotes','md_in_html', 'fenced_code'])
 
 def HLinkToHTML(hlink):
     if hlink == None:
@@ -291,7 +291,9 @@ def get_title(entry_path):
 def last_post() -> int:
     dirs = set(os.listdir("../x/"))
     dirs.remove("ls")
-    dirs.remove("d")
+    if "d" in dirs:
+        dirs.remove("d")
+
     return int(sorted(list(dirs), key=int)[-1])
 
 
