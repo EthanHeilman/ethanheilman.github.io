@@ -13,17 +13,17 @@
 </div>
 <div class='box_container'>
 <div class='text_container'>
-<h1>The Terminal Escape Sequences Ocean is Deep and Dark: Debugging a Virtual Terminal</h1><p>01-16-2023 5:00PM (ET) 01-17-2023 9:12PM (ET) (edited)</p><hr /><p><img alt="DALLE Painting of an Ocean" src="figs/wideblueocean.png" /></p>
+<h1>The Terminal Escape Sequences Ocean is Deep and Dark: Debugging a Virtual Terminal</h1><p>01-16-2023 5:00PM (ET) 01-18-2023 7:21PM (ET) (edited)</p><hr /><p><img alt="DALLE Painting of an Ocean" src="figs/wideblueocean.png" /></p>
 <p>A few months ago I got to debug and <a href="https://github.com/darrenstarr/VtNetCore/pull/14">fix</a> an interesting bug in the Csharp virtual terminal library <a href="https://github.com/darrenstarr/VtNetCore">VtNetCore</a>.
 We use VtNetCore at <a href="https://bastionzero.com">BastionZero</a> to extract terminal commands in realtime from user terminal sessions as they flow over the wire. This requires feeding the standard out and standard err of a terminal session into VtNetCore and then detecting when a user has entered a command and finding for the command in the rendered screen buffer of VtNetCore. We begin noticing that sometimes commands would stop being extracted from a session and that after this the command extraction thread would starting taking increasing long times to finish. </p>
 <h1>Replication</h1>
 <p>I started off trying to replicate this behavior in a dev instance of our service. This was the hardest part of the debugging it involved lots of guess work. I was eventually able to replicate the issue by running tmux and then running top in one of the tmux panes. Once I could replicate the behavior I recorded the terminal session into an <a href="https://asciinema.org/">asciinema</a> file using bastionzero's session recording feature. I then wrote a unittest which replayed the asciicinema file into VtNetCore. This was the biggest "ah ha!" moment because it meant I could do a repeatable clean room replication of the bug.</p>
 <p><img alt="Screenshot of replication code" src="figs/debugging.png" /></p>
 <p>Unfortunately the recorded terminal session was far too large to read by hand and look for issues. To find the offending chunk of the session recording, I wrote an automated test which would repeatly rerun the session recording onto VtNetCore but on each rerun would drop one more byte from the front of the asciinema session recording and then check if the bug was replicated. Once I found the offset in which the bug stopped appearing, I knew exactly the right bytes in the session recording that trigger the bug. </p>
-<p>It was: <code>'\u00b1' , ']', '1', '1', '2', ...</code></p>
+<p>It was: <code>'\u001b' , ']', '1', '1', '2', ...</code></p>
 <p>A little bit of googling and I discover that this is the terminal escape sequence for OSC-112 "reset text cursor color".</p>
 <h1>But what are terminal escape sequences?</h1>
-<p>Terminal escape sequences are ways that the server in a terminal session can signal special instructions to the terminal running on the client. They can let a server change the color of the text, move the cursor to a different position, rewrite what is shown in the title bar of the terminal, etc... Typically they start with the byte <code>\u00b1</code> called the ASCII <code>ESC</code> character. <code>ESC</code> is the <a href="https://en.wikipedia.org/wiki/ASCII#Escape">27th ASCII character</a>. It is used primarly for signaling that a terminal should treat the next few bytes as an escape sequence.</p>
+<p>Terminal escape sequences are ways that the server in a terminal session can signal special instructions to the terminal running on the client. They can let a server change the color of the text, move the cursor to a different position, rewrite what is shown in the title bar of the terminal, etc... Typically they start with the byte <code>\u001b</code> called the ASCII <code>ESC</code> character. <code>ESC</code> is the <a href="https://en.wikipedia.org/wiki/ASCII#Escape">27th ASCII character</a>. It is used primarly for signaling that a terminal should treat the next few bytes as an escape sequence.</p>
 <p>The terminal escape sequences ocean is deep and dark. There are an many types of escape sequences. I've yet to find even a complete listing of all of them. No terminal supports all of them. They have just been layered on decade after decade afte decade. <a href="https://chromium.googlesource.com/apps/libapps/+/master/hterm/doc/ControlSequences.md#OSC-1337">OSC-1337 is used to copy files to a remote server</a> or DECALN which triggered by the byte sequence <code>ESC</code>, <code>#</code>, <code>8</code>, [will print a screen alignment test on your terminal(https://vt100.net/docs/vt510-rm/DECALN.html). In this case OSC-112 is an OSC (Operating System Control) terminal escape sequence.</p>
 <p>OSC terminal sequences <a href="https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-Operating-System-Commands">are documented in xterm</a> as having the following format:</p>
 <pre><code>OSC Ps ; Pt BEL
@@ -55,9 +55,9 @@ static const char *const tty_feature_ccolour_capabilities[] = {
 </code></pre>
 <h1>Why is OSC-112 causing problems in VtNetCore? Does it Ring a BELL?</h1>
 <p>To discover the root cause I hooked a debugger up to my replication test and stepped through it line by line. After an hour of investigation I discovered that the root cause was that VtNetCore had a parsing bug in how it handled the terminal control sequence OSC-112 (Operation System Sequences). The <a href="https://github.com/darrenstarr/VtNetCore/blob/060a72f074aafb8f8720f41616727a69755dade7/VtNetCore/XTermParser/XTermSequenceReader.cs#L114">OSC parser (ConsumeOSC) in VtNetCore</a> assumes that <a href="https://chromium.googlesource.com/apps/libapps/+/nassh-0.8.41/hterm/doc/ControlSequences.md#OSC">OSC control sequences</a> always fit the pattern:</p>
-<p><code>u00b1</code> + <code>]</code> + <code>&lt;numeric parameters&gt;</code> + <code>&lt;command&gt;</code> + <code>\u0007</code></p>
+<p><code>\u001b</code> + <code>]</code> + <code>&lt;numeric parameters&gt;</code> + <code>&lt;command&gt;</code> + <code>\u0007</code></p>
 <p>This assumption is incorrect as the OSC-112 control sequence does not always have a letter after the numeric parameter 112. This means that VtNetCore's virtual terminal misses the <code>\u0007</code> <a href="https://en.wikipedia.org/wiki/Bell_character">BELL character</a> that should end the control sequence and assumes that all following text is actually part of the control sequence. Since the <code>\u0007</code> (<code>0x07</code> or the <code>BELL</code> character) character is very uncommon, it will reread all input it has seen on each new value sent to the data consumer waiting for the control sequence to complete. </p>
-<p>For instance if the unprocessed terminal out was <code>\u00b1, ], 1, 1, 2, \u0007, A,</code> it would read until it got an error because there was no bytes after <code>A</code>, it would then assume the full escape sequence isn't in the terminal yet and move  <code>\u00b1, ], 1, 1, 2, \u0007, A,</code> back to the unprocessed buffer. When it gets another character, say <code>B</code>, it would append it to unprocessed buffer and then read <code>\u00b1, ], 1, 1, 2, \u0007, A, B</code> run out of data to process and move <code>\u00b1, ], 1, 1, 2, \u0007, A, B</code> back to the unprocessed buffer. It will never make progress and the unprocessed buffer will grow in size with each new value. Each time new output comes in, it will linearly read across the growing buffer. It will treat any string or any length as 'unfinished escape seqeuence' until finds a letter followed by the <code>\u0007</code> BELL character. For the truly curious I provide a detailed step through of what is happening internally in VtNetCore at the end this blog entry.</p>
+<p>For instance if the unprocessed terminal out was <code>\u001b, ], 1, 1, 2, \u0007, A,</code> it would read until it got an error because there was no bytes after <code>A</code>, it would then assume the full escape sequence isn't in the terminal yet and move  <code>\u001b, ], 1, 1, 2, \u0007, A,</code> back to the unprocessed buffer. When it gets another character, say <code>B</code>, it would append it to unprocessed buffer and then read <code>\u001b, ], 1, 1, 2, \u0007, A, B</code> run out of data to process and move <code>\u001b, ], 1, 1, 2, \u0007, A, B</code> back to the unprocessed buffer. It will never make progress and the unprocessed buffer will grow in size with each new value. Each time new output comes in, it will linearly read across the growing buffer. It will treat any string or any length as 'unfinished escape seqeuence' until finds a letter followed by the <code>\u0007</code> BELL character. For the truly curious I provide a detailed step through of what is happening internally in VtNetCore at the end this blog entry.</p>
 <p>This is a big problem. Tmux will generate this control sequence on starting and thus bring down any VtNetCore virtual terminal that is reading tmux output. For instance in one tmux session I recorded the InputBuffer was 60KB and was being completely reread on each new DataConsumer.Push. This would take 7 seconds for each read of the buffer to complete and the virtual terminal would never make progress.</p>
 <p>The irony of the solution being <a href="https://en.wikipedia.org/wiki/Bell_character">a literal byte intended to ring an actual, electro-mechanical, bell on old teletype machine</a> was not lost on me.
 <img alt="A teletype machine with a physical bell" src="figs/bell.jpg" /></p>
@@ -67,29 +67,29 @@ static const char *const tty_feature_ccolour_capabilities[] = {
 <p>Darrenstarr, the maintainer of VtNetCore merged my PR with these kind words. I've never seen a maintainer react to a bug report with this much grace and encouragement. It made me more likely to submit PRs to opensource software in the future. </p>
 <p><img alt="Ethan, this may be the most well written bug report, fix and pull request I've ever encountered." src="figs/prkind.png" /></p>
 <h1>A Step by Step Walkthrough of the Bug</h1>
-<p>For the truly curious, I quote from my PR and provide a step by step description of what happens internal to VtNetCore when parsing when the virtual terminal attempts to process <code>[\u00b1, ], 1, 1, 2, \u0007, A, B, C]</code></p>
+<p>For the truly curious, I quote from my PR and provide a step by step description of what happens internal to VtNetCore when parsing when the virtual terminal attempts to process <code>[\u001b, ], 1, 1, 2, \u0007, A, B, C]</code></p>
 <ol>
 <li>The InputBuffer is empty, contains 0 elements, position is 0, remainder is 0.</li>
-<li><code>\u00b1]112\u0007ABC</code> is pushed to VtNetCore's DataConsumer i.e., <code>DataConsumer.Push("\u00b1]112\u0007ABC")</code>. Push adds this to the InputBuffer.</li>
-<li>The InputBuffer is <code>[\u00b1, ], 1, 1, 2, \u0007, A, B, C]</code>, contains 8 elements, position is 0, remainder is 8</li>
-<li>VtNetCore reads <code>\u00b1</code> and determines it is entering an escape sequence,</li>
+<li><code>\u001b]112\u0007ABC</code> is pushed to VtNetCore's DataConsumer i.e., <code>DataConsumer.Push("\u001b]112\u0007ABC")</code>. Push adds this to the InputBuffer.</li>
+<li>The InputBuffer is <code>[\u001b, ], 1, 1, 2, \u0007, A, B, C]</code>, contains 8 elements, position is 0, remainder is 8</li>
+<li>VtNetCore reads <code>\u001b</code> and determines it is entering an escape sequence,</li>
 <li>VtNetCore reads <code>]</code> and determines the escape sequence is an OSC sequence and uses ConsumeOSC to parse the OSC sequence</li>
 <li>ConsumeOSC reads <code>1</code>, <code>1</code>, <code>2</code> as numeric parameters,</li>
 <li>ConsumeOSC reads the bell character <code>\u0007</code> and sets <code>readingCommand = true;</code></li>
 <li>ConsumeOSC reads <code>A</code> assuming it is part of the command,</li>
 <li>ConsumeOSC reads <code>B</code> assuming it is part of the command,</li>
-<li>ConsumeOSC reads <code>A</code> assuming it is part of the command,</li>
+<li>ConsumeOSC reads <code>C</code> assuming it is part of the command,</li>
 <li>When it runs to the end of the InputBuffer it throws IndexOutOfRangeException,</li>
 <li>This Exception is handled in the <a href="https://github.com/darrenstarr/VtNetCore/blob/060a72f074aafb8f8720f41616727a69755dade7/VtNetCore/XTermParser/DataConsumer.cs#L102">DataConsumer L:102</a></li>
-<li>The InputBuffer is <code>[\u00b1, ], 1, 1, 2, \u0007, A, B, C]</code>, contains 8 elements, position is 8, remainder is 0</li>
+<li>The InputBuffer is <code>[\u001b, ], 1, 1, 2, \u0007, A, B, C]</code>, contains 8 elements, position is 8, remainder is 0</li>
 <li>The code handling the IndexOutOfRangeException in DataConsumer calls <code>InputBuffer.PopAllStates()</code>,</li>
-<li>The InputBuffer is <code>[\u00b1, ], 1, 1, 2, \u0007, A, B, C]</code>, contains 8 elements, position is 0, remainder is 8</li>
-<li>DataConsumer.Push("\u00b1]112\u0007ABC")` returns</li>
+<li>The InputBuffer is <code>[\u001b, ], 1, 1, 2, \u0007, A, B, C]</code>, contains 8 elements, position is 0, remainder is 8</li>
+<li>DataConsumer.Push("\u001b]112\u0007ABC")` returns</li>
 <li>The user then calls DataConsumer.Push("DEFG")`</li>
-<li>Push adds this to the InputBuffer. The InputBuffer is <code>[\u00b1, ], 1, 1, 2, \u0007, A, B, C, D, E, F, G]</code>, contains 12 elements, position is 0, remainder is 12,</li>
+<li>Push adds this to the InputBuffer. The InputBuffer is <code>[\u001b, ], 1, 1, 2, \u0007, A, B, C, D, E, F, G]</code>, contains 12 elements, position is 0, remainder is 12,</li>
 <li>The previous steps repeat with ConsumeOSC now believing <code>ABCDEFG</code> is the beginning of the OSC command,</li>
 <li>As before when it runs to the end of the InputBuffer it throws IndexOutOfRangeException and resets the position,</li>
-<li>The InputBuffer is <code>[\u00b1, ], 1, 1, 2, \u0007, A, B, C, D, E, F, G]</code>, contains 12 elements, position is 0, remainder is 12,</li>
+<li>The InputBuffer is <code>[\u001b, ], 1, 1, 2, \u0007, A, B, C, D, E, F, G]</code>, contains 12 elements, position is 0, remainder is 12,</li>
 <li>This continues with VtNetCore scanning over the ever growing input buffer on every <code>Push</code> but never making any progress.</li>
 </ol><hr /></div>
 </div>
