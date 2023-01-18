@@ -26,4 +26,59 @@ div.box_container {
 div.text_container {
     width: 800px;
     margin: auto;
-  }
+}
+
+
+/* Based on this stackoverflow answer: https://stackoverflow.com/a/9286333/74359 */
+@font-face {
+  font-family: "Computer Modern";
+  src: url('fonts/cmunss.otf');
+}
+/* @font-face {
+  font-family: "Computer Modern";
+  src: url('fonts/cmunsx.otf');
+  font-weight: bold;
+}
+@font-face {
+  font-family: "Computer Modern";
+  src: url('fonts/cmunsi.otf');
+  font-style: italic, oblique;
+}
+@font-face {
+  font-family: "Computer Modern";
+  src: url('fonts/cmunbxo.otf');
+  font-weight: bold;
+  font-style: italic, oblique;
+} */
+
+body {
+  font-family: "Computer Modern", sans-serif;
+  margin: 0.5em;
+  font-size:1.2em;
+}
+
+p {
+  font-family: "Computer Modern", sans-serif;
+  /* font-family: "Times New Roman", Times, serif; */
+  /* font-size:1.2em; */
+  /* text-indent: 2em; */
+  margin-left: 0.3em;
+}
+
+div.codehilite {
+  margin-left: 2em;
+}
+
+/* h1 {
+  margin-left: -0.2em;
+} */
+
+/* Based on how github does code block highlighting. Remember when Pygments code highlighting package works */
+code {
+  background-color: rgba(175,184,193,0.2); /* grey */
+  padding: 0.2em 0.4em;
+  margin: 0;
+  font-size: 85%;
+  white-space: break-spaces;
+  border-radius: 6px;
+}

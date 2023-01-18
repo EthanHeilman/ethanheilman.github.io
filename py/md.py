@@ -1,4 +1,4 @@
-import markdown, os, sys
+import markdown, os, sys, pygments
 from pathlib import Path
 import urllib.request
 
@@ -14,7 +14,9 @@ def write_file(path_to_file, data):
 def empty(str):
     return str == False
 
-md = markdown.Markdown(extensions=['footnotes','md_in_html', 'fenced_code'])
+# codehilite does nothing if Pygments is not installed. `python -m pip install Pygments`
+# Pygments is currently not working
+md = markdown.Markdown(extensions=['footnotes','md_in_html', 'fenced_code', 'codehilite'])
 
 def HLinkToHTML(hlink):
     if hlink == None:

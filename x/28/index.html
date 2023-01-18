@@ -26,33 +26,36 @@ We use VtNetCore at <a href="https://bastionzero.com">BastionZero</a> to extract
 <p>Terminal escape sequences are ways that the server in a terminal session can signal special instructions to the terminal running on the client. They can let a server change the color of the text, move the cursor to a different position, rewrite what is shown in the title bar of the terminal, etc... Typically they start with the byte <code>\u001b</code> called the ASCII <code>ESC</code> character. <code>ESC</code> is the <a href="https://en.wikipedia.org/wiki/ASCII#Escape">27th ASCII character</a>. It is used primarly for signaling that a terminal should treat the next few bytes as an escape sequence.</p>
 <p>The terminal escape sequences ocean is deep and dark. There are an many types of escape sequences. I've yet to find even a complete listing of all of them. No terminal supports all of them. They have just been layered on decade after decade afte decade. <a href="https://chromium.googlesource.com/apps/libapps/+/master/hterm/doc/ControlSequences.md#OSC-1337">OSC-1337 is used to copy files to a remote server</a> or DECALN which triggered by the byte sequence <code>ESC</code>, <code>#</code>, <code>8</code>, [will print a screen alignment test on your terminal(https://vt100.net/docs/vt510-rm/DECALN.html). In this case OSC-112 is an OSC (Operating System Control) terminal escape sequence.</p>
 <p>OSC terminal sequences <a href="https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-Operating-System-Commands">are documented in xterm</a> as having the following format:</p>
-<pre><code>OSC Ps ; Pt BEL
-Ps   A single (usually optional) numeric parameter, composed of one or more digits.
-Pt   A text parameter composed of printable characters.
-If no parameters are given, this control has no effect.
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="nv">OSC</span><span class="w"> </span><span class="nv">Ps</span><span class="w"> </span><span class="c1">; Pt BEL</span>
+<span class="nv">Ps</span><span class="w">   </span><span class="nv">A</span><span class="w"> </span><span class="nv">single</span><span class="w"> </span><span class="ss">(</span><span class="nv">usually</span><span class="w"> </span><span class="nv">optional</span><span class="ss">)</span><span class="w"> </span><span class="nv">numeric</span><span class="w"> </span><span class="nv">parameter</span>,<span class="w"> </span><span class="nv">composed</span><span class="w"> </span><span class="nv">of</span><span class="w"> </span><span class="nv">one</span><span class="w"> </span><span class="nv">or</span><span class="w"> </span><span class="nv">more</span><span class="w"> </span><span class="nv">digits</span>.
+<span class="nv">Pt</span><span class="w">   </span><span class="nv">A</span><span class="w"> </span><span class="nv">text</span><span class="w"> </span><span class="nv">parameter</span><span class="w"> </span><span class="nv">composed</span><span class="w"> </span><span class="nv">of</span><span class="w"> </span><span class="nv">printable</span><span class="w"> </span><span class="nv">characters</span>.
+<span class="k">If</span><span class="w"> </span><span class="nv">no</span><span class="w"> </span><span class="nv">parameters</span><span class="w"> </span><span class="nv">are</span><span class="w"> </span><span class="nv">given</span>,<span class="w"> </span><span class="nv">this</span><span class="w"> </span><span class="nv">control</span><span class="w"> </span><span class="nv">has</span><span class="w"> </span><span class="nv">no</span><span class="w"> </span><span class="nv">effect</span>.
+</code></pre></div>
+
 <p>Where OSC is the escape sequence, <code>ESC ]</code> a.k.a, <code>\u001b]</code>.</p>
 <p><a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-48/">ECMA-48</a> provides the following description of OSC.</p>
-<pre><code>OSC - OPERATING SYSTEM COMMAND
-Notation: (C1)
-Representation: 09/13 or ESC 05/13
-OSC is used as the opening delimiter of a control string for operating system use. The command string
-following may consist of a sequence of bit combinations in the range 00/08 to 00/13 and 02/00 to 07/14.
-The control string is closed by the terminating delimiter STRING TERMINATOR (ST). The
-interpretation of the command string depends on the relevant operating system. 
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="nv">OSC</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">OPERATING</span><span class="w"> </span><span class="nv">SYSTEM</span><span class="w"> </span><span class="nv">COMMAND</span>
+<span class="nv">Notation</span>:<span class="w"> </span><span class="ss">(</span><span class="nv">C1</span><span class="ss">)</span>
+<span class="nv">Representation</span>:<span class="w"> </span><span class="mi">09</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="nv">or</span><span class="w"> </span><span class="nv">ESC</span><span class="w"> </span><span class="mi">05</span><span class="o">/</span><span class="mi">13</span>
+<span class="nv">OSC</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">used</span><span class="w"> </span><span class="nv">as</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">opening</span><span class="w"> </span><span class="nv">delimiter</span><span class="w"> </span><span class="nv">of</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">control</span><span class="w"> </span><span class="nv">string</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nv">operating</span><span class="w"> </span><span class="nv">system</span><span class="w"> </span><span class="nv">use</span>.<span class="w"> </span><span class="nv">The</span><span class="w"> </span><span class="nv">command</span><span class="w"> </span><span class="nv">string</span>
+<span class="nv">following</span><span class="w"> </span><span class="nv">may</span><span class="w"> </span><span class="nv">consist</span><span class="w"> </span><span class="nv">of</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">sequence</span><span class="w"> </span><span class="nv">of</span><span class="w"> </span><span class="nv">bit</span><span class="w"> </span><span class="nv">combinations</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">range</span><span class="w"> </span><span class="mi">00</span><span class="o">/</span><span class="mi">08</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="mi">00</span><span class="o">/</span><span class="mi">13</span><span class="w"> </span><span class="nv">and</span><span class="w"> </span><span class="mi">02</span><span class="o">/</span><span class="mi">00</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="mi">07</span><span class="o">/</span><span class="mi">14</span>.
+<span class="nv">The</span><span class="w"> </span><span class="nv">control</span><span class="w"> </span><span class="nv">string</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">closed</span><span class="w"> </span><span class="nv">by</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">terminating</span><span class="w"> </span><span class="nv">delimiter</span><span class="w"> </span><span class="nv">STRING</span><span class="w"> </span><span class="nv">TERMINATOR</span><span class="w"> </span><span class="ss">(</span><span class="nv">ST</span><span class="ss">)</span>.<span class="w"> </span><span class="nv">The</span>
+<span class="nv">interpretation</span><span class="w"> </span><span class="nv">of</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">command</span><span class="w"> </span><span class="nv">string</span><span class="w"> </span><span class="nv">depends</span><span class="w"> </span><span class="nv">on</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">relevant</span><span class="w"> </span><span class="nv">operating</span><span class="w"> </span><span class="nv">system</span>.<span class="w"> </span>
+</code></pre></div>
+
 <p><a href="https://terminalguide.namepad.de/seq/osc-112/">OSC 112 - reset cursor color</a>: resets the color of the text cursor. Since OSC-112 does that have a Pt (text parameter) and thus can is specified as either:
 * <code>ESC ]112 BELL</code> (<code>\u001b]112\u0007</code>)
 or 
 * <code>ESC ]112; BELL</code> (<code>\u001b]112;\u0007</code>)</p>
 <p>Tmux uses the version without the <code>;</code>. For instance in <a href="https://github.com/tmux/tmux/blob/9c34aad21c0837123a51a5a4233a016805d3e526/tty-features.c#L206">tmux/tty-features.c</a> tmux defines OSC-112 as:</p>
-<pre><code class="language-cpp">/* Terminal supports cursor colours. */
-static const char *const tty_feature_ccolour_capabilities[] = {
-    &quot;Cs=\\E]12;%p1%s\\a&quot;,
-    &quot;Cr=\\E]112\\a&quot;,
-    NULL
-};
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="cm">/* Terminal supports cursor colours. */</span>
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="n">tty_feature_ccolour_capabilities</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="s">&quot;Cs=</span><span class="se">\\</span><span class="s">E]12;%p1%s</span><span class="se">\\</span><span class="s">a&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s">&quot;Cr=</span><span class="se">\\</span><span class="s">E]112</span><span class="se">\\</span><span class="s">a&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nb">NULL</span>
+<span class="p">};</span>
+</code></pre></div>
+
 <h1>Why is OSC-112 causing problems in VtNetCore? Does it Ring a BELL?</h1>
 <p>To discover the root cause I hooked a debugger up to my replication test and stepped through it line by line. After an hour of investigation I discovered that the root cause was that VtNetCore had a parsing bug in how it handled the terminal control sequence OSC-112 (Operation System Sequences). The <a href="https://github.com/darrenstarr/VtNetCore/blob/060a72f074aafb8f8720f41616727a69755dade7/VtNetCore/XTermParser/XTermSequenceReader.cs#L114">OSC parser (ConsumeOSC) in VtNetCore</a> assumes that <a href="https://chromium.googlesource.com/apps/libapps/+/nassh-0.8.41/hterm/doc/ControlSequences.md#OSC">OSC control sequences</a> always fit the pattern:</p>
 <p><code>\u001b</code> + <code>]</code> + <code>&lt;numeric parameters&gt;</code> + <code>&lt;command&gt;</code> + <code>\u0007</code></p>
