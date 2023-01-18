@@ -58,15 +58,37 @@ static const char *const tty_feature_ccolour_capabilities[] = {
 };
 ```
 
-Why is OSC-112 causing problems in VtNetCore?
+Why is OSC-112 causing problems in VtNetCore? Does it Ring a BELL?
 ====
-To discover the root cause I hooked a debugger up to my replication test and step through it. I after a hour of investigation I discovered that the root cause was that VtNetCore had a parsing bug in how it handled the terminal control sequence OSC-112 (Operation System Sequences). The [OSC parser (ConsumeOSC) in VtNetCore](https://github.com/darrenstarr/VtNetCore/blob/060a72f074aafb8f8720f41616727a69755dade7/VtNetCore/XTermParser/XTermSequenceReader.cs#L114) assumes that [OSC control sequences](https://chromium.googlesource.com/apps/libapps/+/nassh-0.8.41/hterm/doc/ControlSequences.md#OSC) always fit the pattern:
+To discover the root cause I hooked a debugger up to my replication test and stepped through it line by line. After an hour of investigation I discovered that the root cause was that VtNetCore had a parsing bug in how it handled the terminal control sequence OSC-112 (Operation System Sequences). The [OSC parser (ConsumeOSC) in VtNetCore](https://github.com/darrenstarr/VtNetCore/blob/060a72f074aafb8f8720f41616727a69755dade7/VtNetCore/XTermParser/XTermSequenceReader.cs#L114) assumes that [OSC control sequences](https://chromium.googlesource.com/apps/libapps/+/nassh-0.8.41/hterm/doc/ControlSequences.md#OSC) always fit the pattern:
 
-`0x1b` + `]` + `<numeric parameters>` + `<command>` + `0x07`
+`u00b1` + `]` + `<numeric parameters>` + `<command>` + `\u0007`
 
-This assumption is incorrect as the OSC-112 control sequence does not always have a letter after the numeric parameter 112. This means that VtNetCore's virtual terminal misses the BELL `0x07` character that should end the control sequence and assumes that all following text is actually part of the control sequence. Since the `0x07` character is very uncommon, it will reread all input it has seen on each new value sent to the data consumer waiting for the control sequence to complete. 
+This assumption is incorrect as the OSC-112 control sequence does not always have a letter after the numeric parameter 112. This means that VtNetCore's virtual terminal misses the `\u0007` [BELL character](https://en.wikipedia.org/wiki/Bell_character) that should end the control sequence and assumes that all following text is actually part of the control sequence. Since the `\u0007` (`0x07` or the `BELL` character) character is very uncommon, it will reread all input it has seen on each new value sent to the data consumer waiting for the control sequence to complete. 
 
-Quoting from my PR here is a step by step description of what happens internal to VtNetCore when parsing when the virtual terminal attempts to process `[\u00b1, ], 1, 1, 2, \u0007, A, B, C]`
+For instance if the unprocessed terminal out was `\u00b1, ], 1, 1, 2, \u0007, A,` it would read until it got an error because there was no bytes after `A`, it would then assume the full escape sequence isn't in the terminal yet and move  `\u00b1, ], 1, 1, 2, \u0007, A,` back to the unprocessed buffer. When it gets another character, say `B`, it would append it to unprocessed buffer and then read `\u00b1, ], 1, 1, 2, \u0007, A, B` run out of data to process and move `\u00b1, ], 1, 1, 2, \u0007, A, B` back to the unprocessed buffer. It will never make progress and the unprocessed buffer will grow in size with each new value. Each time new output comes in, it will linearly read across the growing buffer. It will treat any string or any length as 'unfinished escape seqeuence' until finds a letter followed by the `\u0007` BELL character. For the truly curious I provide a detailed step through of what is happening internally in VtNetCore at the end this blog entry.
+
+This is a big problem. Tmux will generate this control sequence on starting and thus bring down any VtNetCore virtual terminal that is reading tmux output. For instance in one tmux session I recorded the InputBuffer was 60KB and was being completely reread on each new DataConsumer.Push. This would take 7 seconds for each read of the buffer to complete and the virtual terminal would never make progress.
+
+The irony of the solution being [a literal byte intended to ring an actual, electro-mechanical, bell on old teletype machine](https://en.wikipedia.org/wiki/Bell_character) was not lost on me.
+![A teletype machine with a physical bell](figs/bell.jpg)
+
+
+The Fix
+====
+
+To fix this issue I added code to end an OSC escape sequence when it detects the BELL chracter `\u0007` even if no letters have been encountered. I then put together and [submitted a PR to the VtNetCore project](https://github.com/darrenstarr/VtNetCore/pull/14). This PR included my fix and unittests to replicate the issue and show that my fix resolved the bug.
+
+![The code that fixed the bug](figs/fixcode.png)
+
+ Darrenstarr, the maintainer of VtNetCore merged my PR with these kind words. I've never seen a maintainer react to a bug report with this much grace and encouragement. It made me more likely to submit PRs to opensource software in the future. 
+
+![Ethan, this may be the most well written bug report, fix and pull request I've ever encountered.](figs/prkind.png)
+
+A Step by Step Walkthrough of the Bug
+====
+
+For the truly curious, I quote from my PR and provide a step by step description of what happens internal to VtNetCore when parsing when the virtual terminal attempts to process `[\u00b1, ], 1, 1, 2, \u0007, A, B, C]`
 
 1. The InputBuffer is empty, contains 0 elements, position is 0, remainder is 0.
 2. `\u00b1]112\u0007ABC` is pushed to VtNetCore's DataConsumer i.e., `DataConsumer.Push("\u00b1]112\u0007ABC")`. Push adds this to the InputBuffer.
@@ -90,13 +112,3 @@ Quoting from my PR here is a step by step description of what happens internal t
 20. As before when it runs to the end of the InputBuffer it throws IndexOutOfRangeException and resets the position,
 21.  The InputBuffer is `[\u00b1, ], 1, 1, 2, \u0007, A, B, C, D, E, F, G]`, contains 12 elements, position is 0, remainder is 12,
 22.  This continues with VtNetCore scanning over the ever growing input buffer on every `Push` but never making any progress.
-
-This is a pretty big problem. Tmux will generate this control sequence on starting and thus bring down any VtNetCore virtual terminal that is reading tmux output. For instance in one tmux session I recorded the InputBuffer was 60KB and was being completely reread on each new DataConsumer.Push. This would take 7 seconds for each DataConsumer.Push to complete and the virtual terminal would never make progress on the InputBuffer.
-
-
-The Fix
-====
-
-To fix this issue I added code to end an OSC escape sequence when it detects the bell chracter `\u0007` even if no letters have been encountered. I then put together and [submitted a PR to the VtNetCore project](https://github.com/darrenstarr/VtNetCore/pull/14). This PR included my fix and unittests to replicate the issue and show that my fix resolved the bug. Darrenstarr, the maintainer of VtNetCore merged my PR with these kind words:
-
-![Ethan, this may be the most well written bug report, fix and pull request I've ever encountered.](figs/prkind.png)
