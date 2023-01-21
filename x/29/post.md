@@ -2,42 +2,42 @@
 <div class="asciiart">
 <span class="asciiart-bgwhite">Timeline of the Dec 2022 Circle-CI Hack</span>
 
-       <span class="asciiart-bgred">Undetected                             </span><span class="asciiart-bgorange">Detected       </span><span class="asciiart-bgblue">Mitigation                  </span>
-   Day 1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28
-  ─────┼──┴──┴──┴──┴──┴──┴──┴──┴──┴──┴──┴──┴──┼──┴──┴──┴──┴──┴──┴──┴──┴──┴──┴──┴──┴──┴──┴──
-       │                            ┌─────────┴────────────┐
-       │                            │Dec 30 2022           │
-       │                            │ Attack discovered by │
-       │                            │ Circle-CI customer   │          
-       │                            └─────────┬────────────┘
-       │                                      ▼
-       │                                      <span class="asciiart-blue">Investigation (5 days)</span> 
-      ┌┴──────────────────────────────┐       <span class="asciiart-blue">[──────────────]</span>
-      │Dec 16 2022                    │                      <span class="asciiart-blue">Rotating secrets (5 days)</span> 
-      │ Attacker compromises laptop of│                      <span class="asciiart-blue">[──────────]</span>
-      │ Circle-CI Employee and steals │                          
-      │ employee's access secret      │
-      └┬──────────────────────────────┘                      <span class="asciiart-blue">Determining extent of AWS</span> 
-       │                                                      <span class="asciiart-blue">tokens theft (9 days)</span> 
-       ▼                                                     <span class="asciiart-blue">[──────────────────────────]</span>
-       <span class="asciiart-red">Attacker access via credential theft (18 days)</span>                             
-       <span class="asciiart-red">[─────────────────────────────────────────────────────]</span>
-                                                             ▲
-              <span class="asciiart-red">Attacker recon (4 days)</span>                       ┌┴──────────────────────────┐
-              <span class="asciiart-red">[───────────]</span>                                 │Jan 4 2023                 │
-                                                            │ Exployee's credentials    │
-                                                            │ that attacker compromised │
-                         <span class="asciiart-red">Credential harvesting</span>              | are revoked               |
-                         <span class="asciiart-red">?───────────────────?</span>              └┬──────────────────────────┘
-  ─────┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┼──┬──┬──┬──┬──┬──┬──┬──┬──┬──
-   Day 1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28     
-       <span class="asciiart-red">Observe</span>         
-       <span class="asciiart-red">──────► Orient</span>   
-             <span class="asciiart-red">────────────► Decide & Act</span>                                   
-       <span class="asciiart-blue">Observe</span>           <span class="asciiart-red">────────────────────────────────────►???</span>                                                                    
-       <span class="asciiart-blue">────────────────────────────────────────► Orient</span>
-                                               <span class="asciiart-blue">──────────────► Decide & Act & Orient</span>
-                                                             <span class="asciiart-blue">───────────────────────────►</span>
+ <span class="asciiart-bgred">Undetected                             </span><span class="asciiart-bgorange">Detected       </span><span class="asciiart-bgblue">Mitigation                  </span>
+ 1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28
+ ┼──┴──┴──┴──┴──┴──┴──┴──┴──┴──┴──┴──┴──┼──┴──┴──┴──┴──┴──┴──┴──┴──┴──┴──┴──┴──┴──┴──
+ │                            ┌─────────┴────────────┐
+ │                            │Dec 30 2022           │
+ │                            │ Attack discovered by │
+ │                            │ Circle-CI customer   │          
+ │                            └─────────┬────────────┘
+ │                                      ▼
+ │                                      <span class="asciiart-blue">Investigation (5 days)</span> 
+┌┴──────────────────────────────┐       <span class="asciiart-blue">[──────────────]</span>
+│Dec 16 2022                    │                      <span class="asciiart-blue">Rotating secrets (5 days)</span> 
+│ Attacker compromises laptop of│                      <span class="asciiart-blue">[──────────]</span>
+│ Circle-CI Employee and steals │                          
+│ employee's access secret      │
+└┬──────────────────────────────┘                      <span class="asciiart-blue">Determining extent of AWS</span> 
+ │                                                      <span class="asciiart-blue">tokens theft (9 days)</span> 
+ ▼                                                     <span class="asciiart-blue">[──────────────────────────]</span>
+ <span class="asciiart-red">Attacker access via credential theft (18 days)</span>                             
+ <span class="asciiart-red">[─────────────────────────────────────────────────────]</span>
+                                                       ▲
+        <span class="asciiart-red">Attacker recon (4 days)</span>                       ┌┴──────────────────────────┐
+        <span class="asciiart-red">[───────────]</span>                                 │Jan 4 2023                 │
+                                                      │ Exployee's credentials    │
+                                                      │ that attacker compromised │
+                   <span class="asciiart-red">Credential harvesting</span>              | are revoked               |
+ Day               <span class="asciiart-red">?───────────────────?</span>              └┬──────────────────────────┘
+ ┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┼──┬──┬──┬──┬──┬──┬──┬──┬──┬──
+ 1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28     
+ <span class="asciiart-red">Observe</span>         
+ <span class="asciiart-red">──────► Orient</span>   
+       <span class="asciiart-red">────────────► Decide & Act</span>                                   
+ <span class="asciiart-blue">Observe</span>           <span class="asciiart-red">────────────────────────────────────►???</span>                                                                    
+ <span class="asciiart-blue">────────────────────────────────────────► Orient</span>
+                                         <span class="asciiart-blue">──────────────► Decide & Act & Orient</span>
+                                                       <span class="asciiart-blue">───────────────────────────►</span>
 
 </div>
 
