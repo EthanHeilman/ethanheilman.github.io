@@ -82,3 +82,68 @@ code {
   white-space: break-spaces;
   border-radius: 6px;
 }
+
+.asciiart {
+  font-family: monospace;
+  white-space: pre;
+  color: whitesmoke;
+  background-color: rgb(27, 26, 26);
+}
+
+.asciiart-red {
+  font-family: monospace;
+  white-space: pre;
+  color: red;
+}
+
+.asciiart-bgred {
+  font-family: monospace;
+  white-space: pre;
+  background-color: red;
+  color: black;
+}
+
+.asciiart-blue {
+  font-family: monospace;
+  white-space: pre;
+  color: lightskyblue;
+}
+
+.asciiart-bgblue {
+  font-family: monospace;
+  white-space: pre;
+  background-color: lightskyblue;
+  color: black;
+}
+
+.asciiart-orange {
+  font-family: monospace;
+  white-space: pre;
+  color: orange;
+}
+
+.asciiart-bgorange {
+  font-family: monospace;
+  white-space: pre;
+  background-color: orange;
+  color: black;
+}
+
+.asciiart-green {
+  font-family: monospace;
+  white-space: pre;
+  color: lightseagreen;
+}
+
+.asciiart-white {
+  font-family: monospace;
+  white-space: pre;
+  color: white;
+}
+
+.asciiart-bgwhite {
+  font-family: monospace;
+  white-space: pre;
+  color: rgb(27, 26, 26);
+  background-color: whitesmoke;
+}
