@@ -59,7 +59,9 @@ This timeline is based on [the incident published by Circle-CI on Jan 13, 2023.]
 > 
 > [Circle-CI: What we learned from this incident and what we will do next](https://circleci.com/blog/jan-4-2023-incident-report/#what-we-learned-from-this-incident-and-what-we-will-do-next)
 
-I agree with Circle-CI's conclusion that use of github OIDC tokens would represent a valuable security enhancement and customers that used github OIDC tokens in this way would be less likely to be impacted by this attack. It is the difference between granting Circle-CI access forever vs granting Circle-CI access only when Circle-CI needs that access.
+I agree with ~~Circle-CI's conclusion that use of github OIDC tokens~~ would represent a valuable security enhancement and customers that used github OIDC tokens in this way would be less likely to be impacted by this attack. It is the difference between granting Circle-CI access forever vs granting Circle-CI access only when Circle-CI needs that access.
+
+** Edit (April 4 2023):** I got this wrong, Circle CI recommendeded that their customers use Circle CI OIDC Tokens, not Github OIDC Tokens. I still agree that OIDC Tokens from either Circle-CI or Github would improve the security here. 
 
 While OIDC tokens issued by github remove some of the trust placed in Circle-CI they still require trusting github. This is an improvement to be sure, especially if github uses HSMs for their OIDC signing keys. However if the signing key github uses to authorize OIDC tokens was compromised, an attacker could create and sign any OIDC tokens.
 Signing key compromise is a threat I think about frequently at [bastionzero.com](https://bastionzero.com) because our core protocol innovation is allowing OIDC users to maintain security even if the OIDC signing key the trust is compromised.
