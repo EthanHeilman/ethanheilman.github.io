@@ -1,0 +1,70 @@
+<!DOCTYPE html><html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><LINK href="..\..\style\style.css" rel="stylesheet" type="text/css"><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [['$','$']],
+            processEscapes: true
+        }
+        });</script><title>OpenPubkey (Augmenting OpenID Connect with User held Signing Keys): Why I think it is the most important security research I’ve done</title></head>
+<body>
+<div class='box_container'>
+<div class='text_container'>
+<h2><a href='../../index.html'>Ethan Heilman</a></h2><br\><a href='../../index.html'>Main</a> || <a href='../ls/index.html'>Writing</a><br/><br/><hr/>
+</div>
+</div>
+<div class='box_container'>
+<div class='text_container'>
+<h1>OpenPubkey (Augmenting OpenID Connect with User held Signing Keys): Why I think it is the most important security research I’ve done</h1><p> </p><hr /><p><img alt="Tweet quote about how neat OpenPubkey is" src="figs/quote.png" /></p>
+<p>We recently released a draft of <a href="https://eprint.iacr.org/2023/296.pdf">OpenPubkey: Augmenting OpenID Connect with User held Signing Keys</a>. BastionZero uses OpenPubkey to cryptographically bind your public key to your identity using OpenID Providers<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> like Google or Okta. OpenPubkey offers a significant security upgrade over regular <a href="https://en.wikipedia.org/wiki/OpenID">OpenID Connect</a> by allowing users can to sign messages and requests under their identity without adding any additional trusted parties. Additionally when used with MFA, OpenPubkey removes the trust placed in OpenID Providers so that they are no longer as a single point of compromise.</p>
+<h2>OpenPubkey Transforms Authentication on the Web</h2>
+<p>OpenPubkey enables users to cryptographically sign messages with their identity. Our approach to providing this long-awaited functionality has a number of advantages:</p>
+<ul>
+<li><strong>Ease of use:</strong> OpenPubkey offers a simple and compatible method for employing cryptographic signatures on the web, eliminating typical usability issues.</li>
+<li><strong>Invisible:</strong> As most users already have accounts with OpenID Providers, OpenPubkey integrates so smoothly into existing user workflows it is invisible to users.</li>
+<li><strong>Ephemeral secrets:</strong> Users' public keys and signing keys are ephemeral, generated upon login and deleted upon logout, eliminating the security risks and headaches of long-lived secrets and keys.</li>
+<li><strong>Fully Compatibility with OpenID Connect:</strong> OpenPubkey is so compatible with existing OpenID Providers that they cannot even tell that OpenPubkey is being used. BastionZero has been using a version of this OpenPubkey for over a year to offer secure access to servers and kubernetes.</li>
+<li><strong>No permission required:</strong> Anyone can deploy OpenPubkey.</li>
+</ul>
+<h2>How OpenPubkey works</h2>
+<p>We are going to use Google as our example OpenID Provider, but OpenPubkey is currently being used with other OpenID Providers including: Microsoft, Okta, OneLogin, etc.</p>
+<p><img alt="Single Sign In" src="figs/signin.png" /></p>
+<p>When you click an OpenID button such as: “Sign In With Google”:</p>
+<ol>
+<li>The client, often javascript running in your browser, sends a random value, called a nonce, to Google,</li>
+<li>Google authenticates your identity based on your current session with Google and then signs an ID Token under Google’s Signing Key. This ID Token says who you are according to Google: “This user is Alice@gmail.com”. This ID Token includes the nonce, i.e., the random value your client sent.</li>
+<li>You can use this ID Token to authenticate to a webapp, as the webapp can check that the ID Token was signed by Google. Google's public keys can be found here: <a href="https://googleapis.com/oauth2/v3/certs">https://googleapis.com/oauth2/v3/certs</a></li>
+<li>Once the webapp verifies Google’s signature, it is convinced of your identity. That is, it believes you are is Alice@gmail.com because Google said so in the ID Token.</li>
+</ol>
+<p>OpenPubkey augments OpenID Connect so that not only does Google specify your identity in the ID Token it also includes your public key in the ID Token. Your public and signing keys are generated when you click the “Sign In With Google'' button. The public key is then included in the nonce value sent to Google. OpenID Connect requires that Google include in the ID Token it issues the nonce that was sent. Since the nonce now includes your public key, Google is acting like a Certificate Authority and signing an ID Token that includes both the user’s identity and the user’s public key.</p>
+<p>For example consider receiving the following ID Token signed by Google which says:
+"Alice@gmail.com's public key is 0x43E5…FF". If you then get a message signed under that same public key 0x43E5…FF which says: “I, Alice@gmail.com, would like to open a connection to the server xyz.abc.net", you can verify if the message you received was actually signed by Alice.</p>
+<p>At a high level this is how BastionZero works: the server which a user wishes to access, checks the name and public key of the user based on the ID Token.</p>
+<!-- ![Login to bastionzero using openpubkey animated gif](figs/loginbz.gif) -->
+
+<p>In BastionZero we developed the ZLI to act as the OpenPubkey client. The ZLI is a native application which is open source so companies and users don’t need to trust us. They can just read the code.</p>
+<h2>Eliminating the OpenID Provider as a Single Point of Compromise</h2>
+<p>OpenID Connect trusts OpenID Providers to accurately attest to user identities. If a malicious party were to obtain Google's Signing Key, they could falsely claim to be Alice and link their public key to their identity. As cryptographers, it is in our nature to eliminate <a href="https://en.wikipedia.org/wiki/Single_point_of_failure">Single Points of Compromise (SPoCs)</a> like this.</p>
+<p>To address this, OpenPubkey introduces an additional party called the MFA-Cosigner, which authenticates users using Multi-Factor Authentication (MFA). This results in two independent signed statements about Alice's identity:</p>
+<ul>
+<li>ID Token Signed by Google: "Alice@gmail.com's public key is 0x43E5…FF"</li>
+<li>ID Token signed by the MFA-Cosigner:
+"I, the MFA-Cosigner, independently authenticated Alice@gmail.com, and her public key is 0x43E5…FF"</li>
+</ul>
+<p>If an MFA-Cosigner is used then security remains intact even if the OpenID Provider (Google) is malicious or compromised. Likewise, if an MFA-Cosigner is compromised and the OpenID Provider is not, security is still maintained.</p>
+<p>While OpenPubkey can function without the MFA-Cosigner, the inclusion of the MFA-Cosigner significantly enhances security compared to using OpenID Connect or OpenPubkey alone.</p>
+<p>For a deeper discussion of OpenPubkey's security, refer to the <a href="https://eprint.iacr.org/2023/296.pdf">OpenPubkey paper</a>.</p>
+<p><img alt="OpenPubkey Security Comparison" src="figs/openpubkeysec.png" /></p>
+<p>Originally published at <a href="https://www.bastionzero.com/blog/bastionzeros-openpubkey-why-i-think-it-is-the-most-important-security-research-ive-done">bastionzero.com/blog</a>.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>OpenID Providers (OPs) are a type of Identity Provider (IdP). If IdP is a more familar term to you just replace OP with IdP in your mind.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div><hr /></div>
+</div>
+<br/>
+<div class='box_container'>
+<div class='text_container'>
+<p>NEXT NULL </p><p>PREV <a href="..\29\index.html">Timeline of the Circle-CI Hack (2022)</a> </p> </p></div>
+</body></html>

@@ -1,0 +1,1 @@
+OpenPubkey (Augmenting OpenID Connect with User held Signing Keys): Why I think it is the most important security research I’ve done
