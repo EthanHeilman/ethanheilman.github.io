@@ -13,7 +13,7 @@
 </div>
 <div class='box_container'>
 <div class='text_container'>
-<h1>How many IP addresses can a DNS query return?</h1><p>02-13-2015 3:15PM (ET) </p><hr /><p>While creating a DNS zone file I begin to wonder how big I could make it before DNS would break. Could I map five hundred, ten thousand, one million IP addresses to a domain name? Is there a single number or would this number change depending on implementation details? It turns out there is, in fact, a single number, which across all standards compliment implementations is the maximum<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup> but that this number depends on the length of your domain name.</p>
+<h1>How many IP addresses can a DNS query return?</h1><p>02-13-2015 3:15PM (ET) 02-20-2024 10:11PM (ET) (edited)</p><hr /><p>While creating a DNS zone file I begin to wonder how big I could make it before DNS would break. Could I map five hundred, ten thousand, one million IP addresses to a domain name? Is there a single number or would this number change depending on implementation details? It turns out there is, in fact, a single number, which across all standards compliment implementations is the maximum<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup> but that this number depends on the length of your domain name.</p>
 <p><img alt="wireshark capture" src="figs/tumblr_inline_nbe9tcvlmS1qf5p6p.png" /></p>
 <h1>DNS queries.</h1>
 <p>To make a DNS query a client will send a UDP packet asking the DNS server for the IP addresses of a particular domain name.
@@ -23,15 +23,16 @@ The client on receiving end of a UDP packet with a truncated flag can open a TCP
 <h1>The maximum number of IP addresses.</h1>
 <p>4095 is the maximum possible number of IP addresses returned by a DNS query.
 Lets look at why.
-A large DNS response must fit into a single TCP packet.
-TCP packets only reserve 2 bytes for the packet size. Thus, TCP packets can't hold more than $2^16=65536$ bytes<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>.
-Since the domainname is included in the DNS response, the shorter the domainname the more room for IP addresses. Using the shortest valid domain name possible a.io (4 characters), there is a 13 byte overhead. Each IP address returned uses 16 bytes (as IPv4 is only 4 bytes this includes additional information), giving us the equation:</p>
+DNS reserves exactly 2 bytes (16 bits) for the length of a DNS message<sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup>.
+Thus, a DNS response can't be larger than $2^16=65536$ bytes<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>.</p>
+<p>Since the domainname is included in the DNS response, the shorter the domainname the more room for IP addresses. Using the shortest valid domain name possible a.io (4 characters), there is a 13 byte overhead. Each IP address returned uses 16 bytes (as IPv4 is only 4 bytes this includes additional information), giving us the equation:</p>
 <p>$$\mbox{size of response}=13+(16 \times \mbox{# IP addresses}) \mbox{ bytes}$$</p>
 <p>Solving this for 65439 bytes gives us 4095 ip addresses.</p>
 <p><strong>EDIT:</strong> <a href="https://twitter.com/colmmacc">Colmmacc on twitter</a> sent me <a href="https://twitter.com/colmmacc/status/573386950218031104">a correction</a>, initially I had said 4094 IP addresses, but it is actually 4095 IP address. I have fixed this in the post. Looking at ealier versions of my notes (<a href="https://twitter.com/Ethan_Heilman/status/507625759012179968">and tweets</a>) I see that I had 4095 as well but must have accidently changed it at some point. <a href="https://twitter.com/colmmacc">Colmmacc</a> also points out some very interesting methods to shorten the domain name to fit more IP addresseses but I haven't tried them yet see below:</p>
 <blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/Ethan_Heilman">@Ethan_Heilman</a> also if you use "." as the domain, and avoid compressed labels, you can get to 5,956 A records in a single response. 12 + 11x</p>— Colm MacCárthaigh (@colmmacc) <a href="https://twitter.com/colmmacc/status/573388453909536769">March 5, 2015</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+<p><strong>EDIT:</strong> I had originally incorrectly attributed the reason why DNS responses can only be 65536 bytes to the maximum length of an IP  which also has a two byte length field. <a href="https://news.ycombinator.com/user?id=zamadatix">zamadatix</a> asked me for the source on my original claim. I was unable to find a source that supported my statement. Credit to <a href="https://news.ycombinator.com/user?id=js2">js2</a>who found <a href="https://news.ycombinator.com/item?id=39256679">the correct answer</a> in RFC 1035.</p>
 <div class="footnote">
 <hr />
 <ol>
@@ -43,6 +44,9 @@ Since the domainname is included in the DNS response, the shorter the domainname
 </li>
 <li id="fn:3">
 <p>Although your milage may vary. Bind, at least with the small amount of RAM I had, did not work well with very large zone files. Tests instead were conducted with a purpose built DNS server.&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:4">
+<p>This is defined in <a href="https://www.rfc-editor.org/rfc/rfc1035#section-4.2.2">RFC 1035 Domain Names - Implementation and Specification</a> which states "The message is prefixed with a two byte length field which gives the message length, excluding the two byte length field." Amazing how RFCs from 1987 still define was is possible decades later.&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div><hr /></div>

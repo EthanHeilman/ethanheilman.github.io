@@ -16,8 +16,9 @@ The maximum number of IP addresses.
 
 4095 is the maximum possible number of IP addresses returned by a DNS query.
 Lets look at why.
-A large DNS response must fit into a single TCP packet.
-TCP packets only reserve 2 bytes for the packet size. Thus, TCP packets can't hold more than $2^16=65536$ bytes[^2].
+DNS reserves exactly 2 bytes (16 bits) for the length of a DNS message[^4].
+Thus, a DNS response can't be larger than $2^16=65536$ bytes[^2].
+
 Since the domainname is included in the DNS response, the shorter the domainname the more room for IP addresses. Using the shortest valid domain name possible a.io (4 characters), there is a 13 byte overhead. Each IP address returned uses 16 bytes (as IPv4 is only 4 bytes this includes additional information), giving us the equation:
 
 $$\mbox{size of response}=13+(16 \times \mbox{# IP addresses}) \mbox{ bytes}$$
@@ -29,7 +30,7 @@ Solving this for 65439 bytes gives us 4095 ip addresses.
 <blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/Ethan_Heilman">@Ethan_Heilman</a> also if you use "." as the domain, and avoid compressed labels, you can get to 5,956 A records in a single response. 12 + 11x</p>— Colm MacCárthaigh (@colmmacc) <a href="https://twitter.com/colmmacc/status/573388453909536769">March 5, 2015</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-
+**EDIT:** I had originally incorrectly attributed the reason why DNS responses can only be 65536 bytes to the maximum length of an IP  which also has a two byte length field. [zamadatix](https://news.ycombinator.com/user?id=zamadatix) asked me for the source on my original claim. I was unable to find a source that supported my statement. Credit to [js2](https://news.ycombinator.com/user?id=js2)who found [the correct answer](https://news.ycombinator.com/item?id=39256679) in RFC 1035.
 
 
 [^1]: This is not strictly true. The DNS standards in RFCs allow DNS server to reply with UDP packets larger than 512 bytes, but often implementations use 512 as the cut off since older DNS standards set the cut off at 512 bytes. For instance [RFC-5966](http://tools.ietf.org/html/rfc5966) says: 'TCP [..] is often used for messages whose sizes exceed the DNS protocol's original 512-byte limit.'
@@ -37,3 +38,5 @@ Solving this for 65439 bytes gives us 4095 ip addresses.
 [^2]: 65536 bytes is also the maximum packet size for UDP, so even if a DNS server was willing to deliver really large responses over UDP, you would face the same limit.
 
 [^3]: Although your milage may vary. Bind, at least with the small amount of RAM I had, did not work well with very large zone files. Tests instead were conducted with a purpose built DNS server.
+
+[^4]: This is defined in [RFC 1035 Domain Names - Implementation and Specification](https://www.rfc-editor.org/rfc/rfc1035#section-4.2.2) which states "The message is prefixed with a two byte length field which gives the message length, excluding the two byte length field." Amazing how RFCs from 1987 still define was is possible decades later. 
