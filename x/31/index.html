@@ -56,15 +56,76 @@ This approach is still missing a critical aspect, if the missile burns fuel in a
 <p>At the beginning of each round the missile secretly chooses how much fuel to burn to maneuver. Then the laser attempts to guess this number. We assume the laser always knows how much starting fuel the missile has and after the end of each round, the laser learns how much fuel the missile burnt on that round.</p>
 <p>If the laser guesses incorrectly. The missile is safe for that round and we go to the next round.</p>
 <p>If the laser guesses correctly, there is a hit probability table based on the amount of fuel the missile burned and the round. Burning more fuel produces a larger potential area that missile could be in and thus it is less likely the laser hits the missile. On the other hand as the missile gets closer to the laser, the lasers information about the missile is more recent and thus, the hit probability goes up.</p>
-<p>| Fuel burned | Round-1 | Round-2 | Round-3 | Round-4 | Round-5 |
-| ---         | ---     | ---     | ---     | ---     | ---     |
-| 0 Fuel      | 1       | 1       | 1       | 1       | 1       |
-| 1 Fuel      | 1/6     | 2/6     | 3/6     | 4/6     | 5/6     |
-| 2 Fuel      | 0       | 1/6     | 2/6     | 3/6     | 4/6     |
-| 3 Fuel      | 0       | 0       | 1/6     | 2/6     | 3/6     |
-| 4 Fuel      | 0       | 0       | 0       | 1/6     | 2/6     |
-| 5 Fuel      | 0       | 0       | 0       | 0       | 1/6     |
-| 6 Fuel      | 0       | 0       | 0       | 0       | 0       |</p>
+<table>
+<thead>
+<tr>
+<th>Fuel burned</th>
+<th>Round-1</th>
+<th>Round-2</th>
+<th>Round-3</th>
+<th>Round-4</th>
+<th>Round-5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 Fuel</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1 Fuel</td>
+<td>1/6</td>
+<td>2/6</td>
+<td>3/6</td>
+<td>4/6</td>
+<td>5/6</td>
+</tr>
+<tr>
+<td>2 Fuel</td>
+<td>0</td>
+<td>1/6</td>
+<td>2/6</td>
+<td>3/6</td>
+<td>4/6</td>
+</tr>
+<tr>
+<td>3 Fuel</td>
+<td>0</td>
+<td>0</td>
+<td>1/6</td>
+<td>2/6</td>
+<td>3/6</td>
+</tr>
+<tr>
+<td>4 Fuel</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1/6</td>
+<td>2/6</td>
+</tr>
+<tr>
+<td>5 Fuel</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1/6</td>
+</tr>
+<tr>
+<td>6 Fuel</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
 <p>The values for each pair (round, fuel burned)  are the probability the laser will hit the missile, if the laser guesses the fuel spent correctly.
 We use x/6 so the game can be played with a d6 (six sided dice).
 If in round 1, the laser guesses 1 fuel, then roll a d6 to determine if the laser hits the missile. The value 1 represents that if the laser guesses correctly, the laser always hits. The value 0 represents that even if the laser guesses correctly it will always miss.</p>
