@@ -26,7 +26,40 @@ This produces the following effect:
 - When the missile gets closer to the laser, the latency to the laser decreases, so it cost the missile more fuel to maintain that same level of uncertainty position.
 
 These rules suggests a strategy where the missile conserves fuel when it is far away and then burns increasing more fuel as it gets closer.
-This approach is still missing a critical aspect, if the missile burns fuel in a predictable manner and the laser knows this, the laser has to search a smaller area. That is, the missile should [bluff.](https://imsdb.com/scripts/Cincinnati-Kid,-The.html)
+This approach is still missing a critical aspect.
+
+Consider the following simple game. The missile either burns 1 or 2 units of fuel. The laser attempts to guess how much fuel the missile burned. If the missile burns 1 fuel and the laser guesses 1 fuel, the missile is destroyed. If the missile burns 2 fuel and the laser guesses 2 fuel, there is only 1/2 chance the missile is destroyed since burning more fuel maneuvering makes it harder for the missile to be hit by the laser. This is a [zero-sum game](https://en.wikipedia.org/wiki/Zero-sum_game), if the laser wins, the missile loses, if the missile wins, the laser loses.
+
+|                       | Laser guesses 1 Fuel |  Laser guesses 2 Fuel |
+|           ---         | ---                  | ---                   |
+| Missile burns 1 Fuel  | 1 (Laser wins)       | 0 (Laser Loses)       |
+| Missile burns 2 Fuel  | 0 (Laser Loses)      | 1/2 (Laser wins half the time) |
+
+
+We can represent all missile strategies using the variables, $m_1,m_2,l_1,l_2$, where $m_1$ is the probability the missile chooses 1 fuel, $m_2$, etc... The probability the laser wins given a missile strategy $(m_1,m_2)$ and laser strategy $(l_1,l_2)$ is:
+
+$$l_{wins} = m_1 \cdot l_1 + 1/2 \cdot m_2 \cdot l_2$$
+
+If we assume the laser always knows the strategy the missile will use, what strategy should the missile use? Let's say the missile always burns 2 fuel to be safe, $(m_1=0,m_2=1)$. The laser knowing this burns  always guess 2 Fuel $(l_1=0,l_2=1)$. The probability the laser wins is $0 \cdot 0 + 1/2 \cdot 1 \cdot 1=1/2$.
+
+If the missile burns 1 fuel 1/3 of time and 2 fuel 2/3 of the time, $(m_1=1/3,m_2=2/3)$. The best strategy the laser can choose is the same $(l_1=1/3,l_2=2/3)$.
+The laser win probability is:
+$$ 1/3 \cdot 1/3 + 1/2 \cdot 2/3 \cdot 2/3=1/9+4/18=1/3.$$
+This is much better strategy for the missile since if the laser wins $1/3$ of the time, the missile wins $2/3$ of the time. No matter what strategy the laser chooses the missile if it chooses this strategy win with $2/3$ probability. This is also true in the other direction, if the laser uses this strategy it will always win $1/3$ of the time. This property of a game is called a [Nash Equilibrium](https://en.wikipedia.org/wiki/Nash_equilibrium). We graph it below. Notice the line for $2/3$ is the same for all strategies.
+
+![alt text](figs/nashtopo.png)
+
+
+
+<!-- Since the laser always loses if it guesses incorrectly we can simplify this table to only show what happens with correct guesses.
+
+|                       | Laser guesses correctly |  
+|           ---         | ---      |
+| Missile burns 1 Fuel  | 1        |
+| Missile burns 2 Fuel  | 1/2      | -->
+
+If the missile always burns the same amount of fuel and the laser knows this, the laser has to search a smaller area.
+That is, the missile should [bluff.](https://imsdb.com/scripts/Cincinnati-Kid,-The.html)
 
         LANCEY:
         Gets down to what it's all about, doesn't it? 
@@ -41,8 +74,6 @@ This approach is still missing a critical aspect, if the missile burns fuel in a
         And I got the money and you got the questions.
 
 In an attempt to explore the strategy of this missile vs laser dynamic I designed a game called terminal maneuvers. It contains all the elements of this problem but in the most stripped down manner possible.
-
-You can play [terminal maneuvers](https://www.ethanheilman.com/terminal-maneuvers/game.html) against a computer. The code is available on [github.com/ethanheilman/terminal-maneuvers](https://github.com/EthanHeilman/terminal-maneuvers).
 
 ## How to play Terminal Maneuvers
 
@@ -82,6 +113,8 @@ This means the missile is always hit.
 So given a fuel value between 5 and 19, the missile and laser both have a chance of winning. The missiles chance of winning increases as the starting fuel goes up.
 
 Generally I play the game where the missile has 7 fuel. So far in my experiments the laser wins ~75% of the time.
+
+You can play [terminal maneuvers](https://www.ethanheilman.com/terminal-maneuvers/game.html) against a computer. The code is available on [github.com/ethanheilman/terminal-maneuvers](https://github.com/EthanHeilman/terminal-maneuvers).
 
 ## Final thoughts
 

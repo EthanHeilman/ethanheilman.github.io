@@ -35,7 +35,46 @@ This produces the following effect:</p>
 <li>When the missile gets closer to the laser, the latency to the laser decreases, so it cost the missile more fuel to maintain that same level of uncertainty position.</li>
 </ul>
 <p>These rules suggests a strategy where the missile conserves fuel when it is far away and then burns increasing more fuel as it gets closer.
-This approach is still missing a critical aspect, if the missile burns fuel in a predictable manner and the laser knows this, the laser has to search a smaller area. That is, the missile should <a href="https://imsdb.com/scripts/Cincinnati-Kid,-The.html">bluff.</a></p>
+This approach is still missing a critical aspect.</p>
+<p>Consider the following simple game. The missile either burns 1 or 2 units of fuel. The laser attempts to guess how much fuel the missile burned. If the missile burns 1 fuel and the laser guesses 1 fuel, the missile is destroyed. If the missile burns 2 fuel and the laser guesses 2 fuel, there is only 1/2 chance the missile is destroyed since burning more fuel maneuvering makes it harder for the missile to be hit by the laser. This is a <a href="https://en.wikipedia.org/wiki/Zero-sum_game">zero-sum game</a>, if the laser wins, the missile loses, if the missile wins, the laser loses.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Laser guesses 1 Fuel</th>
+<th>Laser guesses 2 Fuel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Missile burns 1 Fuel</td>
+<td>1 (Laser wins)</td>
+<td>0 (Laser Loses)</td>
+</tr>
+<tr>
+<td>Missile burns 2 Fuel</td>
+<td>0 (Laser Loses)</td>
+<td>1/2 (Laser wins half the time)</td>
+</tr>
+</tbody>
+</table>
+<p>We can represent all missile strategies using the variables, $m_1,m_2,l_1,l_2$, where $m_1$ is the probability the missile chooses 1 fuel, $m_2$, etc... The probability the laser wins given a missile strategy $(m_1,m_2)$ and laser strategy $(l_1,l_2)$ is:</p>
+<p>$$l_{wins} = m_1 \cdot l_1 + 1/2 \cdot m_2 \cdot l_2$$</p>
+<p>If we assume the laser always knows the strategy the missile will use, what strategy should the missile use? Let's say the missile always burns 2 fuel to be safe, $(m_1=0,m_2=1)$. The laser knowing this burns  always guess 2 Fuel $(l_1=0,l_2=1)$. The probability the laser wins is $0 \cdot 0 + 1/2 \cdot 1 \cdot 1=1/2$.</p>
+<p>If the missile burns 1 fuel 1/3 of time and 2 fuel 2/3 of the time, $(m_1=1/3,m_2=2/3)$. The best strategy the laser can choose is the same $(l_1=1/3,l_2=2/3)$.
+The laser win probability is:
+$$ 1/3 \cdot 1/3 + 1/2 \cdot 2/3 \cdot 2/3=1/9+4/18=1/3.$$
+This is much better strategy for the missile since if the laser wins $1/3$ of the time, the missile wins $2/3$ of the time. No matter what strategy the laser chooses the missile if it chooses this strategy win with $2/3$ probability. This is also true in the other direction, if the laser uses this strategy it will always win $1/3$ of the time. This property of a game is called a <a href="https://en.wikipedia.org/wiki/Nash_equilibrium">Nash Equilibrium</a>. We graph it below. Notice the line for $2/3$ is the same for all strategies.</p>
+<p><img alt="alt text" src="figs/nashtopo.png" /></p>
+<!-- Since the laser always loses if it guesses incorrectly we can simplify this table to only show what happens with correct guesses.
+
+|                       | Laser guesses correctly |  
+|           ---         | ---      |
+| Missile burns 1 Fuel  | 1        |
+| Missile burns 2 Fuel  | 1/2      | -->
+
+<p>If the missile always burns the same amount of fuel and the laser knows this, the laser has to search a smaller area.
+That is, the missile should <a href="https://imsdb.com/scripts/Cincinnati-Kid,-The.html">bluff.</a></p>
 <div class="codehilite"><pre><span></span><code>    LANCEY:
     Gets down to what it&#39;s all about, doesn&#39;t it? 
     Making the wrong play at the right time.
@@ -50,7 +89,6 @@ This approach is still missing a critical aspect, if the missile burns fuel in a
 </code></pre></div>
 
 <p>In an attempt to explore the strategy of this missile vs laser dynamic I designed a game called terminal maneuvers. It contains all the elements of this problem but in the most stripped down manner possible.</p>
-<p>You can play <a href="https://www.ethanheilman.com/terminal-maneuvers/game.html">terminal maneuvers</a> against a computer. The code is available on <a href="https://github.com/EthanHeilman/terminal-maneuvers">github.com/ethanheilman/terminal-maneuvers</a>.</p>
 <h2>How to play Terminal Maneuvers</h2>
 <p>In this game there are two players, a missile and a laser. The game consists of five rounds. The laser's goal is to hit the missile with laser before the end of round five. The missile's goal is to survive to end of round five.</p>
 <p>At the beginning of each round the missile secretly chooses how much fuel to burn to maneuver. Then the laser attempts to guess this number. We assume the laser always knows how much starting fuel the missile has and after the end of each round, the laser learns how much fuel the missile burnt on that round.</p>
@@ -139,6 +177,7 @@ The laser knows the missile must burn 0 fuel, because that is the only option le
 This means the missile is always hit.</p>
 <p>So given a fuel value between 5 and 19, the missile and laser both have a chance of winning. The missiles chance of winning increases as the starting fuel goes up.</p>
 <p>Generally I play the game where the missile has 7 fuel. So far in my experiments the laser wins ~75% of the time.</p>
+<p>You can play <a href="https://www.ethanheilman.com/terminal-maneuvers/game.html">terminal maneuvers</a> against a computer. The code is available on <a href="https://github.com/EthanHeilman/terminal-maneuvers">github.com/ethanheilman/terminal-maneuvers</a>.</p>
 <h2>Final thoughts</h2>
 <p>I've been playing around with this game off and on for a few years, with slightly different rules. To my shame, I haven't actually done the work to see if there is a Nash equilibrium between the missile and laser strategies. Some day I might do that or write an implementation of a continuous and higher fidelity version of Terminal Maneuvers.</p>
 <h1>Appendix</h1>
