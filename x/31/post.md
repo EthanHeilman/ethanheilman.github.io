@@ -5,25 +5,24 @@
 *What is the best strategy to hit a maneuvering missile with a point defense laser when the missile is traveling through space at ~1 percent the speed of light?*
 
 A few years ago I was trying to work out at what range a point defense laser on a spaceship could destroy a missile traveling toward that spaceship at ~1% the speed of light.
-As I did the math on beam waist, divergence, focal point and power it became clear that the limiting factor on effective range wasn't any of these factors.
-At 1 light second, the laser only learns where the missile a second ago and the laser itself takes an additional second to reach the missile. This creates a 2 second latency.
-The missile can burn maneuvering fuel to make random but minor course changes to make its future position uncertain to the laser.
-We assume the missile has acquired most of its velocity already and the maneuvers it does to increase positional uncertainty do not allow it to reach the laser faster.
+As I did the math on beam waist, divergence, focal point and power it became clear that the limiting factor on effective range wasn't any of these.
+At 1 light second the laser only learns where the missile a second ago and the laser itself takes an additional second to reach the missile. This creates a 2 second latency.
+The missile can burn maneuvering fuel to do random but minor course changes to make its future position uncertain to the laser.
 Thus the laser could hit the missile, if only it knew where the missile was going to be.
 
 ![alt text](figs/missilelaser.png)
 
-At first I assumed this would be a simple calculation.
+I assumed this would be a simple calculation.
 Determine the sphere of possible locations the missile could be based on the maximum power of the thrusters on the missile.
 As the missile gets closer, the latency decreases, which causes this sphere of possible locations to shrink.
 Given the size of sphere over time, we can determine the total probability the laser hits the missile before the missile gets close enough to detonate[^1] and destroy the ship the laser is on.
 
-However the power of the thrusters on the missile depends on how much maneuvering fuel they burn and the amount of fuel on the missile is finite.
+However the power of the thrusters on the missile depends on how much maneuvering fuel it burns and the amount of fuel on the missile is finite.
 This produces the following effect:
 
 - The missile wants to make its future position uncertain by burning fuel.
 - If the missile is far away from the laser, burning small amounts of fuel can make the position of missile very uncertain to the laser.
-- When the missile gets closer to the laser, the latency to the laser decreases, so it cost the missile more fuel to maintain that same level of uncertainty position.
+- When the missile gets closer to the laser, the latency to the laser decreases, so it cost the missile more fuel to maintain that same level of uncertainty.
 
 These rules suggests a strategy where the missile conserves fuel when it is far away and then burns increasing more fuel as it gets closer.
 This approach is still missing a critical aspect.
@@ -99,30 +98,8 @@ The values for each pair (round, fuel burned)  are the probability the laser wil
 We use x/6 so the game can be played with a d6 (six sided dice).
 If in round 1, the laser guesses 1 fuel, then roll a d6 to determine if the laser hits the missile. The value 1 represents that if the laser guesses correctly, the laser always hits. The value 0 represents that even if the laser guesses correctly it will always miss.
 
-## How much starting fuel does the missile need?
+## Playing it like a Board Game
 
-If the missile has 20 or more fuel, it will always win since it can always spend enough fuel in each round to be completely safe, e.g. spending 2 fuel on round one, 3 fuel on round two, ... 6 fuel on round 5.
-
-If the missile has 4 or less fuel, it will always lose. The laser's strategy should be to guess 0 fuel in each round.
-Thus, if the missile in any round burns 0 fuel, it will be hit.
-This means to win the missile must burn at least 1 fuel per round.
-Since there are 5 rounds, the missile will have 0 fuel remaining in round 5 and so must burn 0 fuel.
-The laser knows the missile must burn 0 fuel, because that is the only option left.
-This means the missile is always hit.
-
-So given a fuel value between 5 and 19, the missile and laser both have a chance of winning. The missiles chance of winning increases as the starting fuel goes up.
-
-Generally I play the game where the missile has 7 fuel. So far in my experiments the laser wins ~75% of the time.
-
-You can play [terminal maneuvers](https://www.ethanheilman.com/terminal-maneuvers/game.html) against a computer. The code is available on [github.com/ethanheilman/terminal-maneuvers](https://github.com/EthanHeilman/terminal-maneuvers).
-
-## Final thoughts
-
-I've been playing around with this game off and on for a few years, with slightly different rules. To my shame, I haven't actually done the work to see if there is a Nash equilibrium between the missile and laser strategies. Some day I might do that or write an implementation of a continuous and higher fidelity version of Terminal Maneuvers.
-
-# Appendix
-
-## Terminal Maneuvers (table top version)
 
 ![The time I played Terminal Maneuvers with my family using a dinosaur for the missile](figs/play.png)
 
@@ -170,5 +147,30 @@ The missile starts with 6 fuel.
 - The laser always has all seven cards in their hand.
 - When we say”roll a d6 on a 4+ missile is safe, we need on a roll of 4, 5, or 6, the missile is safe” and all other outcomes the missile loses the game.
 - It is pointless for the laser to ever guess squares in which the missile is always safe as guessing correctly, i.e. catching the missile, has no effect.
+
+## As a Video Game
+
+![Computer game version](figs/computergame.png)
+
+You can play [terminal maneuvers](https://www.ethanheilman.com/terminal-maneuvers/game.html) against a computer. The code is available on [github.com/ethanheilman/terminal-maneuvers](https://github.com/EthanHeilman/terminal-maneuvers).
+
+## Why Start with Seven Fuel
+
+If the missile has 20 or more fuel, it will always win since it can always spend enough fuel in each round to be completely safe, e.g. spending 2 fuel on round one, 3 fuel on round two, ... 6 fuel on round 5.
+
+If the missile has 4 or less fuel, it will always lose. The laser's strategy should be to guess 0 fuel in each round.
+Thus, if the missile in any round burns 0 fuel, it will be hit.
+This means to win the missile must burn at least 1 fuel per round.
+Since there are 5 rounds, the missile will have 0 fuel remaining in round 5 and so must burn 0 fuel.
+The laser knows the missile must burn 0 fuel, because that is the only option left.
+This means the missile is always hit.
+
+So given a fuel value between 5 and 19, the missile and laser both have a chance of winning. The missiles chance of winning increases as the starting fuel goes up.
+
+Generally I play the game where the missile has 7 fuel. So far in my experiments the laser wins ~75% of the time.
+
+## Final thoughts
+
+I've been playing around with this game off and on for a few years, with slightly different rules. To my shame, I haven't actually done the work to see if there is a Nash equilibrium between the missile and laser strategies. Some day I might do that or write an implementation of a continuous and higher fidelity version of Terminal Maneuvers.
 
 [^1]: An implicit assumption I am making here is that missile can destroy the ship with the point defense laser while still being very far away from the ship. This is because if the missile needed to get as close as say 1 km away, the missile wouldn't stand a chance. Light travels 3 km in 10 microseconds, so the point defense laser would be using targeting information that is only 20 microseconds old. If the missile's warhead is say a [nuclear pumped x-ray laser](https://en.wikipedia.org/wiki/Nuclear_pumped_laser), or [nuclear shaped charges](https://en.wikipedia.org/wiki/Casaba-Howitzer) then the missile can detonate at extreme ranges (1000 km). Thus, the range at which the missile warhead if can destroy the less maneuverable ship would be greater than the range at which the laser can reliably always hit the missile.
