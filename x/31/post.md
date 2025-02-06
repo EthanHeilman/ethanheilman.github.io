@@ -4,7 +4,7 @@
 
 *What is the best strategy to hit a maneuvering missile with a point defense laser when the missile is traveling through space at ~1 percent the speed of light?*
 
-A few years ago I was trying to work out at what range a point defense laser on a spaceship could destroy a missile traveling toward that spaceship at ~1% the speed of light.
+A few years ago I was trying to work out at what range a point defense laser on a spaceship could destroy a missile traveling toward that spaceship at ~1% the speed of light[^0].
 As I did the math on beam waist, divergence, focal point and power it became clear that the limiting factor on effective range wasn't any of these.
 At 1 light second the laser only learns where the missile a second ago and the laser itself takes an additional second to reach the missile. This creates a 2 second latency.
 The missile can burn maneuvering fuel to do random but minor course changes to make its future position uncertain to the laser.
@@ -72,7 +72,7 @@ That is, the missile should [bluff.](https://imsdb.com/scripts/Cincinnati-Kid,-T
         I don't play a percentage game. I play stud poker my way. 
         And I got the money and you got the questions.
 
-In an attempt to explore the strategy of this missile vs laser dynamic I designed a game called terminal maneuvers. It contains all the elements of this problem but in the most stripped down manner possible.
+In an attempt to explore the strategy of this missile vs laser dynamic I designed a game called terminal maneuvers. It is more complex that the single round variant we just looked at but contains is still the most stripped game possible. First I'm going to describe the rules, then look at how to play it some dice, cards and a piece of paper and then finally provide a link an online version you can play against a computer.
 
 ## How to play Terminal Maneuvers
 
@@ -94,12 +94,11 @@ If the laser guesses correctly, there is a hit probability table based on the am
 | 5 Fuel      | 0       | 0       | 0       | 0       | 1/6     |
 | 6 Fuel      | 0       | 0       | 0       | 0       | 0       |
 
-The values for each pair (round, fuel burned)  are the probability the laser will hit the missile, if the laser guesses the fuel spent correctly.
+The values for each pair (round, fuel burned) are the probability the laser will hit the missile, if the laser guesses the fuel spent correctly.
 We use x/6 so the game can be played with a d6 (six sided dice).
 If in round 1, the laser guesses 1 fuel, then roll a d6 to determine if the laser hits the missile. The value 1 represents that if the laser guesses correctly, the laser always hits. The value 0 represents that even if the laser guesses correctly it will always miss.
 
 ## Playing it like a Board Game
-
 
 ![The time I played Terminal Maneuvers with my family using a dinosaur for the missile](figs/play.png)
 
@@ -169,8 +168,14 @@ So given a fuel value between 5 and 19, the missile and laser both have a chance
 
 Generally I play the game where the missile has 7 fuel. So far in my experiments the laser wins ~75% of the time.
 
+## Future Work
+
+To my shame, I haven't actually done the work to see if there is a Nash equilibrium between the missile and laser strategies although someone has looked in it. I'll leave it to them to say. I have a plan to write a high fidelity version of Terminal Maneuvers that is continuous and not turn based.
+
 ## Final thoughts
 
-I've been playing around with this game off and on for a few years, with slightly different rules. To my shame, I haven't actually done the work to see if there is a Nash equilibrium between the missile and laser strategies. Some day I might do that or write an implementation of a continuous and higher fidelity version of Terminal Maneuvers.
+I've been playing around with this game off and on for a few years, with slightly different rules. If you find this game interesting shoot me an email and let me know what strategies worked for you.
+
+[^0]: The missile has to be going very very fast. Whatever platform launches the missile has to be far enough away that the target ship can't just hit it with the laser prior to launching. Space is mostly empty and cool so a missile launch is going to visible to anyone looking. Against a slow moving missile that is far away the best strategy for the ship to change course and prevent the missile from intercepting it. In aerial combat this is sometimes called a "kinematic defeat" of a missile and course changes to evade a missile is called "notching". As stated in [A Method of Increasing the Kinematic Boundary of Air-to-Air Missiles Using an Optimal Control Approach (2000)](https://apps.dtic.mil/sti/citations/ADA384590) a "missile's kinematic boundary can be described as the maximum theoretical range at which it can intercept a target." In space things are much worse for the missile since the missile must deal with high latency imposed by the huge distances between a ships change in course and when the missile learns about that change. The missile needs an enormous velocity advantage over the ship to launch far away and still get within a ship's kinematic boundary. ![Fig 4.10 from A Method of Increasing the Kinematic Boundary of Air-to-Air Missiles Using an Optimal Control Approach (2000)](figs/kboundry.png).
 
 [^1]: An implicit assumption I am making here is that missile can destroy the ship with the point defense laser while still being very far away from the ship. This is because if the missile needed to get as close as say 1 km away, the missile wouldn't stand a chance. Light travels 3 km in 10 microseconds, so the point defense laser would be using targeting information that is only 20 microseconds old. If the missile's warhead is say a [nuclear pumped x-ray laser](https://en.wikipedia.org/wiki/Nuclear_pumped_laser), or [nuclear shaped charges](https://en.wikipedia.org/wiki/Casaba-Howitzer) then the missile can detonate at extreme ranges (1000 km). Thus, the range at which the missile warhead if can destroy the less maneuverable ship would be greater than the range at which the laser can reliably always hit the missile.
