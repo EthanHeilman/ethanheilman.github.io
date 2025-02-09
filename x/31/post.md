@@ -7,10 +7,10 @@
 *What is the best strategy to hit a maneuvering missile with a point defense laser when the missile is traveling through space at ~1 percent the speed of light?*
 
 A few years ago I was trying to work out at what range a point defense laser on a spaceship could destroy a missile traveling toward that spaceship at ~1% the speed of light[^0].
-[As I did the math on beam waist, divergence, focal point and power](https://web.archive.org/web/20250206235618/https://toughsf.blogspot.com/2016/03/the-laser-problem-ii.html) it became clear that the limiting factor on effective range wasn't any of these.
+As I did[ the math on beam waist, divergence, focal point and power](https://toughsf.blogspot.com/2016/03/the-laser-problem-ii.html) it became clear that the limiting factor on effective range wasn't any of these.
 At 1 light second the laser only learns where the missile was a second ago and the laser itself takes an additional second to reach the missile. This creates a 2 second latency.
 The missile can burn maneuvering fuel to do random but minor course changes to make its future position uncertain to the laser.
-Thus the laser could hit the missile, if only it knew where the missile was going to be.
+Thus the laser could hit the missile, if only it knew where the missile was going to be[^3].
 
 ![alt text](figs/missilelaser.png)
 
@@ -46,7 +46,7 @@ If we assume the laser always knows the strategy the missile will use, what stra
 If the missile burns 1 fuel $1/3$ of time and 2 fuel $2/3$ of the time, $(m_1=1/3,m_2=2/3)$. It doesn't matter what strategy the laser chooses, the laser win probability will be:
 $$ 1/3 \cdot 1/3 + 1/2 \cdot 2/3 \cdot 2/3=1/9+4/18=1/3.$$
 
-A better strategy for the missile is to burn 1 fuel $1/3$ of time and 2 fuel $2/3$ of the time, $(m_1=1/3,m_2=2/3)$. Under this strategy ut doesn't matter what strategy the laser chooses, the laser win probability will be:
+A better strategy for the missile is to burn 1 fuel $1/3$ of time and 2 fuel $2/3$ of the time, $(m_1=1/3,m_2=2/3)$. Under this strategy it doesn't matter what strategy the laser chooses, the laser win probability will be:
 $$ 1/3 \cdot 1/3 + 1/2 \cdot 2/3 \cdot 2/3=1/9+4/18=1/3.$$
 and if the laser wins $1/3$ of the time, the missile wins $2/3$ of the time. This is also true in the other direction, if the laser uses this strategy, guessing 1 fuel $1/3$ of the time and 2 fuel $2/3$ of the time, it will always win $1/3$ of the time regardless of what strategy the missile chooses. This property of a game is called a [Nash Equilibrium](https://en.wikipedia.org/wiki/Nash_equilibrium). We graph it below. Notice the line for $2/3$ is the same for all strategies.
 
@@ -61,7 +61,7 @@ and if the laser wins $1/3$ of the time, the missile wins $2/3$ of the time. Thi
 | Missile burns 2 Fuel  | 1/2      | -->
 
 If the missile always burns the same amount of fuel and the laser knows this, the laser has to search a smaller area.
-Put another way the missile is more likely to win if it occasional chooses the worst option, [making the wrong play at the right time.](https://imsdb.com/scripts/Cincinnati-Kid,-The.html)
+Put another way the missile is more likely to win if it occasionally chooses the worst option, [making the wrong play at the right time.](https://imsdb.com/scripts/Cincinnati-Kid,-The.html)
 
         LANCEY:
         Gets down to what it's all about, doesn't it? 
@@ -75,11 +75,11 @@ Put another way the missile is more likely to win if it occasional chooses the w
         I don't play a percentage game. I play stud poker my way. 
         And I got the money and you got the questions.
 
-In an attempt to explore the strategy of this missile vs laser dynamic I designed a called terminal maneuvers. It is more complex that the single round variant we just looked at but attempts to be as simple as possible. First I'm going to describe the rules, then look at how to play it with some dice, cards and a piece of paper and then finally provide a link an online version I wrote.
+In an attempt to explore the strategy of this missile vs laser dynamic I designed a game called terminal maneuvers. It is more complex than the single round variant we just looked at but attempts to be as simple as possible. First I'm going to describe the rules, then look at how to play it with some dice, cards and a piece of paper and then finally provide a link to a playable online version I wrote.
 
 ## How to play Terminal Maneuvers
 
-In this game there are two players, a missile and a laser. The game consists of five rounds. The laser's goal is to hit the missile with laser before the end of round five. The missile's goal is to survive to end of round five.
+In this game there are two players, a missile and a laser. The game consists of five rounds. The laser's goal is to hit the missile with the laser before the end of round five. The missile's goal is to survive to end of round five.
 
 At the beginning of each round the missile secretly chooses how much fuel to burn to maneuver. Then the laser attempts to guess this number. We assume the laser always knows how much starting fuel the missile has remaining at the beginning of each round.
 
@@ -147,8 +147,8 @@ The missile starts with 6 fuel.
 
 - The missile can not have negative fuel. If the missile has 0 fuel it no longer has any options and must pay 0 fuel in all future rounds.
 - The laser always has all seven cards in their hand.
-- When we say”roll a d6 on a 4+ missile is safe, we need on a roll of 4, 5, or 6, the missile is safe” and all other outcomes the missile loses the game.
-- It is pointless for the laser to ever guess squares in which the missile is always safe as guessing correctly, i.e. catching the missile, has no effect.
+- When we say ”roll a d6 on a 4+ missile is safe, we need on a roll of 4, 5, or 6, the missile is safe” and all other outcomes the missile loses the game.
+- It is pointless for the laser to ever guess a fuel amount in which the missile is always safe. For instance if the laser guessing correctly 2 fuel in round 1 the laser still don't hit. The laser wasted its guess.
 
 ## As a Video Game
 
@@ -167,7 +167,7 @@ Since there are 5 rounds, the missile will have 0 fuel remaining in round 5 and 
 The laser knows the missile must burn 0 fuel, because that is the only option left.
 This means the missile is always hit.
 
-So given a fuel value between 5 and 19, the missile and laser both have a chance of winning. The missiles chance of winning increases as the starting fuel goes up.
+So given a fuel value between 5 and 19, the missile and laser both have a chance of winning. The missile's chance of winning increases as the starting fuel goes up.
 
 Generally I play the game where the missile has 7 fuel. So far in my experiments the laser wins ~75% of the time.
 
@@ -200,7 +200,7 @@ However the area of the shell is not an accurate measure of hit probability. Thi
 
 In reality the laser does not get infinite shots, firing a laser of the power required draws enormous of power and generates enormous amounts of heat.
 Dissipating heat in the vacuum of space is difficult.
-A more realistic game would model the laser's resources constraints as well as the missiles fuel.
+A more realistic game would model the laser's resources constraints as well as the missile's fuel.
 
 I thought about adding this to the game by giving the laser have a "skip turn" card that it must play at least once instead of a guess. If the laser is still holding the "skip turn" card by the last turn, the missile wins automatically since the laser must play that card (essentially running out of shots early).
 I avoided putting this in the game because to my mind the best time to play such a card is on the first turn because the laser has the worse odds on the first turn.
@@ -228,16 +228,40 @@ I didn't include missile swarms in the game since I suspect that many of the thi
 
 ## Future work
 
-To my shame, I haven't actually done the work to see if there is a Nash equilibrium between the missile and laser strategies although I know someone who has looked in it and may publish results later. It would be fun to do a continuous version of the game where people could submit missiles and laser strategies and create a leader board.
+To my shame, I haven't actually done the work to see if there is a Nash equilibrium between the missile and laser strategies although I know someone who has looked in it and may publish results later. It would be fun to do a continuous version of the game where people could submit missile and laser strategies and create a leader board.
 
 ## Final thoughts
 
 I've been playing around with this game off and on for a few years, with slightly different rules. If you find this game interesting shoot me an email and let me know what strategies worked for you.
 
-For a second opinion on the laser vs missile question with very different conclusions see Rocket Punk's math [Battle of the Spherical War Cows: Purple v Green](https://web.archive.org/web/20240427091547/http://www.rocketpunk-manifesto.com/2009/09/battle-of-spherical-war-cows-purple-v.html) and [Further Battles of the Spherical War Cows](https://web.archive.org/web/20240423065620/http://www.rocketpunk-manifesto.com/2009/09/further-battles-of-spherical-war-cows.html).
+For a second opinion on the laser vs missile question with very different conclusions see Rocket Punk's math [Battle of the Spherical War Cows: Purple v Green](https://web.archive.org/web/20240427091547/http://www.rocketpunk-manifesto.com/2009/09/battle-of-spherical-war-cows-purple-v.html) and [Further Battles of the Spherical War Cows](https://web.archive.org/web/20240423065620/http://www.rocketpunk-manifesto.com/2009/09/further-battles-of-spherical-war-cows.html). Rocket Punk provides the following very approximate[^7] equation for the number of missiles a laser can destroy
+$$K = 1750 \times P \times D / (L \times V)$$
+
+The parameters are:
+
+- $K$ is number of incoming missiles (kinetics) the laser can destroy before one missile hits the lasers
+- $V$ is the closing rate of the of the missiles (km/s)
+- $P$ is beam power (megawatts)
+- $D$ mirror diameter (meters)
+- $L$ wavelength (nanometers)
+
+This equation determines the time it takes the missiles to reach the laser and then determines how many missiles the laser can hit before this time is up. Thus, if $K=4$ and you only launch $4$ missiles the laser is safe, but if you launch $5$ missiles, $4$ missiles are destroy and $1$ missile hits the laser.
+
+This equation does not consider the problem of hitting maneuvering missiles. This is a reasonable assumption for Rocket Punk to make to given particular missile and laser capabilities. For instance if a missile can't change its position more 10 meters within the latency imposed by light and the laser beam width is 10 meters then maneuvering provides no benefit to the missile. This implies you would need greater than ~1g acceleration[^5] at ~0.5 light seconds (~150,000km) or greater than 15,000g acceleration[^6] at 0.01648 light seconds (4,940km) for maneuvering to increase the missiles chance of surviving assuming a laser that can destroy missiles when its width is 10 meters.
+
+Thus, if maneuvering matters or not really comes down to the distance at which the missiles warhead is effective, the maneuvering acceleration of the missile and the effective range and power of the laser.
 
 [^0]: The missile has to be going very very fast. Whatever platform launches the missile has to be far enough away that the target ship can't just hit it with the laser prior to launching. Space is mostly empty and cool so a missile launch is going to visible to anyone looking[^2]. Against a slow moving missile that is far away the best strategy for the ship to change course and prevent the missile from intercepting it. In aerial combat this is sometimes called a "kinematic defeat" of a missile and course changes to evade a missile is called "notching". As stated in [A Method of Increasing the Kinematic Boundary of Air-to-Air Missiles Using an Optimal Control Approach (2000)](https://apps.dtic.mil/sti/citations/ADA384590) a "missile's kinematic boundary can be described as the maximum theoretical range at which it can intercept a target." In space things are much worse for the missile since the missile must deal with high latency imposed by the huge distances between a ships change in course and when the missile learns about that change. The missile needs an enormous velocity advantage over the ship to launch far away and still get within a ship's kinematic boundary. ![Fig 4.10 from A Method of Increasing the Kinematic Boundary of Air-to-Air Missiles Using an Optimal Control Approach (2000)](figs/kboundry.png).
 
 [^1]: An implicit assumption I am making here is that missile can destroy the ship with the point defense laser while still being very far away from the ship. This is because if the missile needed to get as close as say 1 km away, the missile wouldn't stand a chance. Light travels 3 km in 10 microseconds, so the point defense laser would be using targeting information that is only 20 microseconds old. If the missile's warhead is say a [nuclear pumped x-ray laser](https://en.wikipedia.org/wiki/Nuclear_pumped_laser), or [nuclear shaped charges](https://en.wikipedia.org/wiki/Casaba-Howitzer) then the missile can detonate at extreme ranges (1000 km). Thus, the range at which the missile warhead if can destroy the less maneuverable ship would be greater than the range at which the laser can reliably always hit the missile.
 
 [^2]: " If the spacecraft are torchships, their thrust power is several terawatts. This means the exhaust is so intense that it could be detected from Alpha Centauri. By a passive sensor. The Space Shuttle's much weaker main engines could be detected past the orbit of Pluto. The Space Shuttle's manoeuvering thrusters could be seen as far as the asteroid belt. And even a puny ship using ion drive to thrust at a measly 1/1000 of a g could be spotted at one astronomical unit." [Detection in Space Warfare - There Ain't No Stealth In Space, Rocket Cat](https://www.projectrho.com/public_html/rocket/spacewardetect.php#nostealth)
+
+[^3]: An interesting simulation of missile to missile interception with latency "The simulation examines the effect of an accelerating target attributed to powered flight and aimpoint displacement caused by a shift in tracking point from the target plume to the payload when resolution occurs. The kill vehicle minimum requirements as indicated by the simulation include a lateral acceleration capability of four times the target acceleration and a guidance system yime constant that is less than one-tenth the estimated flight time." [KILL VEHICLE EFFECTIVENESS FOR BOOST PHASE
+INTERCEPTION OF BALLISTIC MISSILES by Bardanis (2004)](https://apps.dtic.mil/sti/tr/pdf/ADA424865.pdf)
+
+[^5]: There are published videos of the US made [Exoatmospheric Kill Vehicle (EKV)](https://en.wikipedia.org/wiki/Exoatmospheric_Kill_Vehicle), a space anti-missile missile, taking off and then hovering on Earth. This means that at minimum we already have missiles with greater than 10m/s^2 maneuvering acceleration.
+
+[^6]: We have built guided projectiles that can withstand on the order of 15,000 Gs along one axis for brief periods. "Using the Student's t-test, the average values shown in table 1 are consistent with the Excalibur environmental specification: 15800-g's set back, 4052-g's set forward, and 3962-g's balloting. However, since the maxima values are outside of the 99% range, the distribution of acceleration maxima is not a normal distribution." [Technical Report ARAET-TR-05008 - DESIGN ACCELERATIONS FOR THE ARMY'S EXCALIBUR PROJECTILE by J. A. Cordes, J. Vega, D. Carlucci, R. C. Chaplin](https://apps.dtic.mil/sti/tr/pdf/ADA435761.pdf)
+
+[^7]: Rocket Punk's equation only makes sense for reasonable values. For instance, given an mirror infinite size and the weakest possible laser power, it predicts such a laser would destroy an infinite number of missiles. This equation should be understood as a useful short hand that requires choosing values with care.
