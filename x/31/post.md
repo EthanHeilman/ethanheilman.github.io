@@ -7,7 +7,7 @@
 *What is the best strategy to hit a maneuvering missile with a point defense laser when the missile is traveling through space at ~1 percent the speed of light?*
 
 A few years ago I was trying to work out at what range a point defense laser on a spaceship could destroy a missile traveling toward that spaceship at ~1% the speed of light[^0].
-As I did[ the math on beam waist, divergence, focal point and power](https://toughsf.blogspot.com/2016/03/the-laser-problem-ii.html) it became clear that the limiting factor on effective range wasn't any of these.
+As I did [the math on beam waist, divergence, focal point and power](https://toughsf.blogspot.com/2016/03/the-laser-problem-ii.html) it became clear that the limiting factor on effective range wasn't any of these.
 At 1 light second the laser only learns where the missile was a second ago and the laser itself takes an additional second to reach the missile. This creates a 2 second latency.
 The missile can burn maneuvering fuel to do random but minor course changes to make its future position uncertain to the laser.
 Thus the laser could hit the missile, if only it knew where the missile was going to be[^3].
