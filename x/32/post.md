@@ -68,7 +68,7 @@ None of this is an argument against adopting BIP-360 or other PQ signatures sche
 Acknowledgements:
 These ideas arose out of correspondence with Hunter Beast. I want to thank Neha Narula, John Light, Eli Ben-Sasson for their feedback, Jonas Nick for his feedback and his idea to use LaBRADOR for signature aggregation, Tadge Dryja for suggesting the term “JPEG resistance” and his ideas around its feasibility. I had a number of fruitful discussions over lunch with members of the MIT DCI and on the Bitcoin PQ working group. These acknowledgements should not be taken as an agreement with or endorsement of the ideas in this email.
 
-This originally appeared on the bitcoin-dev mailinglist as [Post Quantum Signatures and Scaling Bitcoin (Apr 4, 2025)](https://groups.google.com/g/bitcoindev/c/wKizvPUfO7w)
+This originally appeared on the bitcoin-dev mailinglist as [Post Quantum Signatures and Scaling Bitcoin (Apr 4, 2025)](https://groups.google.com/g/bitcoindev/c/wKizvPUfO7w) and [Bitcoin delving discussion (Apr 7, 2025)](https://delvingbitcoin.org/t/post-quantum-signatures-and-scaling-bitcoin-with-starks/1584).
 
 [^0]: Hunter Beast, BIP-360: QuBit - Pay to Quantum Resistant Hash (2025) https://github.com/bitcoin/bips/pull/1670/files#
 [^1]: Benchmark Report: Post-Quantum Cryptography vs secp256k1 https://github.com/cryptoquick/libbitcoinpqc/blob/main/benches/REPORT.md
