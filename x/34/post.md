@@ -8,9 +8,9 @@
 > "God made the integers; all else is the work of man"
 
 The integers look little like the natural world and very much like the simple and powerful abstractions that humans find elegant.
-mMch to the frustration of the human mind, the God that created [fig wasps](https://en.wikipedia.org/wiki/Fig_wasp), [Leucochloridium paradoxum](https://en.wikipedia.org/wiki/Leucochloridium_paradoxum), quantum foam, and plasmids, does not create works of minimal simplicity.
-If such a divinity left fingerprints in mathematics then that same inhuman complexity and regal strangeness can not be found in the integers but can be found in the reals.
-One can imagine the God of the Book of Job creating the square root of two and pi, but not additive groups.
+Much to the frustration of the human mind, that which created [fig wasps](https://en.wikipedia.org/wiki/Fig_wasp), [Leucochloridium paradoxum](https://en.wikipedia.org/wiki/Leucochloridium_paradoxum), quantum foam, and [plasmids](https://en.wikipedia.org/wiki/Plasmid), does not create works of abstract simplicity.
+If such a divinity left fingerprints in mathematics, that inhuman complexity and irrational strangeness can be found in the reals but not the integers.
+One can imagine the God of the [Book of Job](https://en.wikipedia.org/wiki/Book_of_Job) creating [the square root of two](https://en.wikipedia.org/wiki/Square_root_of_2) and pi, but not additive groups.
 
 I have an imperfect rule of thumb for determining if something is of human construction or for the purposes of this exploration divine.
 If the something under examination causes a sense of existential nausea, disorientation and a deep sense that is can't possibly work like that, it is divine[^3].
