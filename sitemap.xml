@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Main page -->
+  <url>
+    <loc>https://www.ethanheilman.com/</loc>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Blog Index -->
+  <url>
+    <loc>https://www.ethanheilman.com/x/ls/</loc>
+    <priority>1.0</priority>
+    <changefreq>monthly</changefreq>
+
+    <!-- TODO: generate lastmod on build
+    <lastmod>2005-01-01</lastmod>
+    -->
+  </url>
+
+  <!-- Highlighted Blog Posts -->
+  <url>
+    <loc>https://www.ethanheilman.com/x/ls/pq-bitcoin.html</loc>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.ethanheilman.com/x/ls/privacy-systems.html</loc>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.ethanheilman.com/x/ls/authentication-internals.html</loc>
+    <priority>0.3</priority>
+  </url>
+
+</urlset>

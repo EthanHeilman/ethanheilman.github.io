@@ -94,6 +94,7 @@ def dir_html_template(posts):
 
     html_dir_template  = "<!DOCTYPE html><html><head>"
     html_dir_template += "<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>"
+    html_dir_template += "<link rel=\"canonical\" href=\"https://www.ethanheilman.com/x/ls/index.html\">"
     html_dir_template += "<LINK href=\"..\..\style\style.css\" rel=\"stylesheet\" type=\"text/css\">"
     html_dir_template += "<title>Ethan Heilman: Writing</title>"
     html_dir_template += "</head>\n"
@@ -121,12 +122,13 @@ def dir_html_template(posts):
 
 
 
-def post_html_template(title, pubdate, lastedit, next_post, prev_post, post):
+def post_html_template(canonical_url, title, pubdate, lastedit, next_post, prev_post, post):
     strpubdate = pubdate if not pubdate else "NULL"
     streditdate = lastedit + " (edited)" if lastedit != "" else ""
         
     html_post_template  = "<!DOCTYPE html><html><head>"
     html_post_template += "<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>"
+    html_post_template += "<link rel=\"canonical\" href=\"{strcanonicalurl}\">"
     html_post_template += "<LINK href=\"..\..\style\style.css\" rel=\"stylesheet\" type=\"text/css\">"
     
     # Mathjax
@@ -166,7 +168,7 @@ def post_html_template(title, pubdate, lastedit, next_post, prev_post, post):
     html_post_template += "</body></html>"
 
     return html_post_template.format(strtitle=title, 
-    strpubdate = pubdate, streditdate = streditdate, strpost=post, 
+    strpubdate = pubdate, streditdate = streditdate, strpost=post, strcanonicalurl=canonical_url,
     mjconfig = mathjaxconfig,
     strnextlink=HLinkToHTML(next_post), strprevlink=HLinkToHTML(prev_post))
 
@@ -207,7 +209,6 @@ class Post:
         Path(self.path_to_post,  "meta", "abstract.txt").touch()
         Path(self.path_to_post,  "meta", "title.txt").touch()
         Path(self.path_to_post,  "meta", "tags").touch()
-
 
         print(os.path.join(self.path_to_post,  "meta"))
 
@@ -276,7 +277,9 @@ class Post:
         html = md.convert(self.post_md)
         md.reset()
 
-        page_text = post_html_template(self.post_title, self.first_pub_date, self.last_edit_date, next_post, prev_post, html)
+        canonical_url = f"https://www.ethanheilman.com/x/{self.i_str}/index.html"
+        print("curl", canonical_url)
+        page_text = post_html_template(canonical_url, self.post_title, self.first_pub_date, self.last_edit_date, next_post, prev_post, html)
 
         write_file(self.post_html_path, page_text)
         return page_text
