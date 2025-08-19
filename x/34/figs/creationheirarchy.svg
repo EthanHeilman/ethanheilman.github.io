@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="creationheirarchy.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.5554293"
+     inkscape:cx="542.61547"
+     inkscape:cy="290.91647"
+     inkscape:window-width="2560"
+     inkscape:window-height="1369"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <rect
+       x="124.72441"
+       y="378.67359"
+       width="444.25035"
+       height="27.002192"
+       id="rect59953" />
+    <marker
+       style="overflow:visible;"
+       id="Arrow2Lend"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lend"
+       inkscape:isstock="true">
+      <path
+         transform="scale(1.1) rotate(180) translate(1,0)"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         style="stroke:context-stroke;fill-rule:evenodd;fill:context-stroke;stroke-width:0.62500000;stroke-linejoin:round;"
+         id="path57518" />
+    </marker>
+    <marker
+       style="overflow:visible;"
+       id="Arrow1Lend"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lend"
+       inkscape:isstock="true">
+      <path
+         transform="scale(0.8) rotate(180) translate(12.5,0)"
+         style="fill-rule:evenodd;fill:context-stroke;stroke:context-stroke;stroke-width:1.0pt;"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         id="path57500" />
+    </marker>
+    <rect
+       x="217.30335"
+       y="704.62862"
+       width="181.30043"
+       height="70.720026"
+       id="rect28652" />
+    <rect
+       x="410.17615"
+       y="538.75802"
+       width="171.01388"
+       height="144.01169"
+       id="rect24364" />
+    <rect
+       x="313.73975"
+       y="473.18126"
+       width="196.73025"
+       height="54.004383"
+       id="rect20452" />
+    <rect
+       x="293.16665"
+       y="466.75217"
+       width="261.02119"
+       height="51.43274"
+       id="rect1700" />
+    <rect
+       x="293.16666"
+       y="466.75217"
+       width="145.29753"
+       height="38.574551"
+       id="rect1700-6" />
+    <rect
+       x="293.16666"
+       y="466.75217"
+       width="145.29753"
+       height="38.574551"
+       id="rect1700-6-7" />
+    <rect
+       x="410.17615"
+       y="538.758"
+       width="171.01389"
+       height="144.01169"
+       id="rect24364-1" />
+    <rect
+       x="217.30334"
+       y="704.6286"
+       width="181.30043"
+       height="70.720024"
+       id="rect28652-6" />
+    <rect
+       x="410.17615"
+       y="538.758"
+       width="171.01389"
+       height="144.01169"
+       id="rect24364-9" />
+    <rect
+       x="410.17615"
+       y="538.758"
+       width="171.01389"
+       height="144.01169"
+       id="rect24364-9-6" />
+    <rect
+       x="410.17615"
+       y="538.758"
+       width="171.01389"
+       height="144.01169"
+       id="rect24364-4" />
+    <rect
+       x="410.17615"
+       y="538.758"
+       width="171.01389"
+       height="144.01169"
+       id="rect24364-0" />
+    <rect
+       x="293.16666"
+       y="466.75217"
+       width="145.29753"
+       height="38.574551"
+       id="rect1700-6-9" />
+    <rect
+       x="410.17615"
+       y="538.758"
+       width="171.01389"
+       height="144.01169"
+       id="rect24364-0-0" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <ellipse
+       style="fill:none;stroke:#000000;stroke-width:0.52916667;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path846"
+       cx="102.50942"
+       cy="45.417526"
+       rx="97.807533"
+       ry="43.11937"
+       inkscape:export-filename="C:\Users\e0\Documents\GitHub\ethanheilman.github.io\x\34\figs\creationheir.png"
+       inkscape:export-xdpi="71.752899"
+       inkscape:export-ydpi="71.752899" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,4.1579048,-18.711333)"
+       id="text1698"
+       style="font-size:18.6667px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect1700)" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-0.25147981,-109.37368)"
+       id="text1698-7"
+       style="font-size:16px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect1700-6)"
+       inkscape:export-filename="C:\Users\e0\Documents\GitHub\ethanheilman.github.io\x\34\figs\creationheir.png"
+       inkscape:export-xdpi="71.752899"
+       inkscape:export-ydpi="71.752899"><tspan
+         x="293.16602"
+         y="481.34924"
+         id="tspan62261">Emergent Nature</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,19.578724,-118.6006)"
+       id="text1698-7-77"
+       style="font-size:16px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect1700-6-9)"
+       inkscape:export-filename="C:\Users\e0\Documents\GitHub\ethanheilman.github.io\x\34\figs\creationheir.png"
+       inkscape:export-xdpi="71.752899"
+       inkscape:export-ydpi="71.752899"><tspan
+         x="293.16602"
+         y="481.34924"
+         id="tspan62263">Eternal Nature</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-12.413941,-100.07304)"
+       id="text1698-7-7"
+       style="font-size:16px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect1700-6-7)"
+       inkscape:export-filename="C:\Users\e0\Documents\GitHub\ethanheilman.github.io\x\34\figs\creationheir.png"
+       inkscape:export-xdpi="71.752899"
+       inkscape:export-ydpi="71.752899"><tspan
+         x="293.16602"
+         y="481.34924"
+         id="tspan62265">Created by life</tspan></text>
+    <ellipse
+       style="fill:none;stroke:#000000;stroke-width:0.52916667;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path10840"
+       cx="89.997665"
+       cy="49.24522"
+       rx="80.41259"
+       ry="37.376507"
+       inkscape:export-filename="C:\Users\e0\Documents\GitHub\ethanheilman.github.io\x\34\figs\creationheir.png"
+       inkscape:export-xdpi="71.752899"
+       inkscape:export-ydpi="71.752899" />
+    <ellipse
+       style="fill:none;stroke:#000000;stroke-width:0.52916667;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path10840-3"
+       cx="76.56871"
+       cy="52.552608"
+       rx="61.857307"
+       ry="32.174313"
+       inkscape:export-filename="C:\Users\e0\Documents\GitHub\ethanheilman.github.io\x\34\figs\creationheir.png"
+       inkscape:export-xdpi="71.752899"
+       inkscape:export-ydpi="71.752899" />
+    <ellipse
+       style="fill:none;stroke:#000000;stroke-width:0.52916667;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path10840-3-1"
+       cx="64.321289"
+       cy="56.285656"
+       rx="45.256401"
+       ry="26.545061"
+       inkscape:export-filename="C:\Users\e0\Documents\GitHub\ethanheilman.github.io\x\34\figs\creationheir.png"
+       inkscape:export-xdpi="71.752899"
+       inkscape:export-ydpi="71.752899" />
+    <ellipse
+       style="fill:none;stroke:#000000;stroke-width:0.133116"
+       id="path10840-3-1-3"
+       cx="91.761009"
+       cy="52.561867"
+       rx="13.111273"
+       ry="6.9875598"
+       inkscape:export-filename="C:\Users\e0\Documents\GitHub\ethanheilman.github.io\x\34\figs\creationheir.png"
+       inkscape:export-xdpi="71.752899"
+       inkscape:export-ydpi="71.752899" />
+    <ellipse
+       style="fill:none;stroke:#000000;stroke-width:0.129859"
+       id="path10840-3-1-3-1"
+       cx="62.503258"
+       cy="71.273186"
+       rx="13.112902"
+       ry="6.648984"
+       inkscape:export-filename="C:\Users\e0\Documents\GitHub\ethanheilman.github.io\x\34\figs\creationheir.png"
+       inkscape:export-xdpi="71.752899"
+       inkscape:export-ydpi="71.752899" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-40.614232,-90.248928)"
+       id="text20450"
+       style="font-size:16px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect20452)"
+       inkscape:export-filename="C:\Users\e0\Documents\GitHub\ethanheilman.github.io\x\34\figs\creationheir.png"
+       inkscape:export-xdpi="71.752899"
+       inkscape:export-ydpi="71.752899"><tspan
+         x="313.74023"
+         y="487.77893"
+         id="tspan62267">Created by humans</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-25.26993,-92.36598)"
+       id="text24362"
+       style="font-size:16px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect24364)"
+       inkscape:export-filename="C:\Users\e0\Documents\GitHub\ethanheilman.github.io\x\34\figs\creationheir.png"
+       inkscape:export-xdpi="71.752899"
+       inkscape:export-ydpi="71.752899"><tspan
+         x="410.17578"
+         y="553.3551"
+         id="tspan62269">Integers</tspan></text>
+    <ellipse
+       style="fill:none;stroke:#000000;stroke-width:0.104876"
+       id="path10840-3-1-3-16"
+       cx="122.37953"
+       cy="52.731949"
+       rx="11.084155"
+       ry="5.1305456"
+       inkscape:export-filename="C:\Users\e0\Documents\GitHub\ethanheilman.github.io\x\34\figs\creationheir.png"
+       inkscape:export-xdpi="71.752899"
+       inkscape:export-ydpi="71.752899" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,7.3898552,-92.36599)"
+       id="text24362-9"
+       style="font-size:16px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect24364-0)"
+       inkscape:export-filename="C:\Users\e0\Documents\GitHub\ethanheilman.github.io\x\34\figs\creationheir.png"
+       inkscape:export-xdpi="71.752899"
+       inkscape:export-ydpi="71.752899"><tspan
+         x="410.17578"
+         y="553.3551"
+         id="tspan62271">Honey</tspan></text>
+    <ellipse
+       style="fill:none;stroke:#000000;stroke-width:0.151611"
+       id="path10840-3-1-3-5"
+       cx="185.14757"
+       cy="51.371117"
+       rx="12.931923"
+       ry="9.1896534"
+       inkscape:export-filename="C:\Users\e0\Documents\GitHub\ethanheilman.github.io\x\34\figs\creationheir.png"
+       inkscape:export-xdpi="71.752899"
+       inkscape:export-ydpi="71.752899" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,67.946555,-96.78867)"
+       id="text24362-44"
+       style="font-size:16px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect24364-4)"
+       inkscape:export-filename="C:\Users\e0\Documents\GitHub\ethanheilman.github.io\x\34\figs\creationheir.png"
+       inkscape:export-xdpi="71.752899"
+       inkscape:export-ydpi="71.752899"><tspan
+         x="410.17578"
+         y="553.3551"
+         id="tspan62273">Real 
+</tspan><tspan
+         x="410.17578"
+         y="573.3551"
+         id="tspan62275">Numbers</tspan></text>
+    <ellipse
+       style="fill:none;stroke:#000000;stroke-width:0.10723"
+       id="path10840-3-1-3-6"
+       cx="153.16818"
+       cy="58.34536"
+       rx="10.232463"
+       ry="5.8097811"
+       inkscape:export-filename="C:\Users\e0\Documents\GitHub\ethanheilman.github.io\x\34\figs\creationheir.png"
+       inkscape:export-xdpi="71.752899"
+       inkscape:export-ydpi="71.752899" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,38.688824,-86.242279)"
+       id="text24362-4"
+       style="font-size:16px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect24364-9)"
+       inkscape:export-filename="C:\Users\e0\Documents\GitHub\ethanheilman.github.io\x\34\figs\creationheir.png"
+       inkscape:export-xdpi="71.752899"
+       inkscape:export-ydpi="71.752899"><tspan
+         x="410.17578"
+         y="553.3551"
+         id="tspan62277">Stars</tspan></text>
+    <ellipse
+       style="fill:none;stroke:#000000;stroke-width:0.108536"
+       id="path10840-3-1-3-6-8"
+       cx="152.48778"
+       cy="39.634022"
+       rx="8.700882"
+       ry="6.9998498"
+       inkscape:export-filename="C:\Users\e0\Documents\GitHub\ethanheilman.github.io\x\34\figs\creationheir.png"
+       inkscape:export-xdpi="71.752899"
+       inkscape:export-ydpi="71.752899" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,39.879547,-105.29382)"
+       id="text24362-4-8"
+       style="font-size:16px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect24364-9-6)"
+       inkscape:export-filename="C:\Users\e0\Documents\GitHub\ethanheilman.github.io\x\34\figs\creationheir.png"
+       inkscape:export-xdpi="71.752899"
+       inkscape:export-ydpi="71.752899"><tspan
+         x="410.17578"
+         y="553.3551"
+         id="tspan62279">Life</tspan></text>
+    <ellipse
+       style="fill:none;stroke:#000000;stroke-width:0.109584"
+       id="path10840-3-1-3-4"
+       cx="41.240376"
+       cy="52.221645"
+       rx="8.8704615"
+       ry="6.9993258"
+       inkscape:export-filename="C:\Users\e0\Documents\GitHub\ethanheilman.github.io\x\34\figs\creationheir.png"
+       inkscape:export-xdpi="71.752899"
+       inkscape:export-ydpi="71.752899" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-72.634407,-93.273062)"
+       id="text24362-1"
+       style="font-size:16px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect24364-1)"
+       inkscape:export-filename="C:\Users\e0\Documents\GitHub\ethanheilman.github.io\x\34\figs\creationheir.png"
+       inkscape:export-xdpi="71.752899"
+       inkscape:export-ydpi="71.752899"><tspan
+         x="410.17578"
+         y="553.3551"
+         id="tspan62281">Dogs</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-5.1977663,-117.88144)"
+       id="text28650"
+       style="font-size:16px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect28652)"
+       inkscape:export-filename="C:\Users\e0\Documents\GitHub\ethanheilman.github.io\x\34\figs\creationheir.png"
+       inkscape:export-xdpi="71.752899"
+       inkscape:export-ydpi="71.752899"><tspan
+         x="217.30273"
+         y="719.22619"
+         id="tspan62283">Airplanes</tspan></text>
+    <ellipse
+       style="fill:none;stroke:#000000;stroke-width:0.106906"
+       id="path10840-3-1-3-1-4"
+       cx="65.054802"
+       cy="52.221649"
+       rx="8.8718004"
+       ry="6.6604605"
+       inkscape:export-filename="C:\Users\e0\Documents\GitHub\ethanheilman.github.io\x\34\figs\creationheir.png"
+       inkscape:export-xdpi="71.752899"
+       inkscape:export-ydpi="71.752899" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,1.6063624,-136.93298)"
+       id="text28650-1"
+       style="font-size:16px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect28652-6)"
+       inkscape:export-filename="C:\Users\e0\Documents\GitHub\ethanheilman.github.io\x\34\figs\creationheir.png"
+       inkscape:export-xdpi="71.752899"
+       inkscape:export-ydpi="71.752899"><tspan
+         x="217.30273"
+         y="719.22619"
+         id="tspan62285">Pants</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.2434;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Lend)"
+       d="m 37.99007,96.834952 130.32135,-0.70925"
+       id="path57382"
+       inkscape:export-filename="C:\Users\e0\Documents\GitHub\ethanheilman.github.io\x\34\figs\creationheir.png"
+       inkscape:export-xdpi="71.752899"
+       inkscape:export-ydpi="71.752899" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,11.717872,-10.186942)"
+       id="text59951"
+       style="font-size:16px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect59953)"
+       inkscape:export-filename="C:\Users\e0\Documents\GitHub\ethanheilman.github.io\x\34\figs\creationheir.png"
+       inkscape:export-xdpi="71.752899"
+       inkscape:export-ydpi="71.752899"><tspan
+         x="124.72461"
+         y="393.27111"
+         id="tspan62287">Increasing weirdness from human perspective</tspan></text>
+  </g>
+</svg>
