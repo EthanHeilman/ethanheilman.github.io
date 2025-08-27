@@ -43,7 +43,7 @@ Hammers feel like the perfect tool because they were invented by humans specific
 
 ## Kronecker, Cantor and God
 
-> ["From the paradise that Cantor created for us no-one shall be able to expel us."](https://en.wikipedia.org/wiki/Cantor%27s_paradise) David Hilbert (1926)[^12]
+> "From [the paradise](https://en.wikipedia.org/wiki/Cantor%27s_paradise) that Cantor created for us no-one shall be able to expel us." David Hilbert (1926)[^12]
  
 Kronecker's quote about the integers being divine was not made so much because Kronecker because he wanted to elevate the reputation of the integers but because he wanted to damn infinity.
 It was made in the context his campaign against infinity in Mathematics and one of the main targets of this war was Cantor's transfinites[^8].
@@ -51,12 +51,12 @@ It was made in the context his campaign against infinity in Mathematics and one 
 Cantor's ideas also sparked a theological debate since if the mind can reason about infinity, perhaps the mind can also reason about God[9].
 Cantor himself was deeply invested in the theological implications of his Mathematical work. He believed that God was beyond the mind and thus his Mathematical work was not the result of his own effort but rather God was speaking through him.
 
-> "The Transfinite with its abundance of formations and forms, points with necessity to an Absolute, to the “truly Infinite”, to whose Magnitude nothing can be added or subtracted and which therefore is to be seen quantitatively as absolute Maximum. The latter exceeds, so to speak, the human power of comprehension and eludes particularly mathematical determination; whereas the Transfinite not only fills the vast field of the possible in God’s knowledge, but also offers a rich, constantly increasing field of ideal inquiry and attains reality and existence, I am convinced, also in the world of the created, up to a certain degree and in different relations, to bring the Magnificence of the Creator, following His absolute free decree, to greater expression than could have occurred through a merely "finite world"."  - [From a letter from Georg Cantor to A. Eulenberg, Feb. 28, 1886, as in Gesammelte Abhandlungen mathematischen und philosophischen Inhalts, Georg Cantor, ed by Ernst Zermelo, Springer-Verlag, 2013, translation by Gabriele Chaitkin in On the Theory of the Transfinite.](https://jamesrmeyer.com/infinite/cantor-religion-transfinite)
+> "The Transfinite with its abundance of formations and forms, points with necessity to an Absolute, to the “truly Infinite”, to whose Magnitude nothing can be added or subtracted and which therefore is to be seen quantitatively as absolute Maximum. The latter exceeds, so to speak, the human power of comprehension and eludes particularly mathematical determination; whereas the Transfinite not only fills the vast field of the possible in God’s knowledge, but also offers a rich, constantly increasing field of ideal inquiry and attains reality and existence, I am convinced, also in the world of the created, up to a certain degree and in different relations, to bring the Magnificence of the Creator, following His absolute free decree, to greater expression than could have occurred through a merely "finite world"."  - From a letter[^13] written by Georg Cantor to A. Eulenberg (Feb. 28, 1886)
 
 I use the word weirdness above rather than complexity because what matters is the strangeness of eternal nature to human thought, it need not be more complex and could in fact be simpler than many things we consider normal like pants or a traffic jam.
 Maybe it isn't the [God of the gaps](https://en.wikipedia.org/wiki/God_of_the_gaps), but rather than the gaps are the God[^10]?
 
-> "The whole secret of mysticism is this: that man can understand everything by the help of what he does not understand. The morbid logician seeks to make everything lucid, and succeeds in making everything mysterious. The mystic allows one thing to be mysterious, and everything else becomes lucid" - [ORTHODOXY by G. K. CHESTERTON (1908)](https://www.gutenberg.org/files/16769/16769-h/16769-h.htm)
+> "The whole secret of mysticism is this: that man can understand everything by the help of what he does not understand. The morbid logician seeks to make everything lucid, and succeeds in making everything mysterious. The mystic[^14] allows one thing to be mysterious, and everything else becomes lucid" - [Orthodoxy by G. K. Chesterton (1908)](https://www.gutenberg.org/files/16769/16769-h/16769-h.htm)
 
 ### Related Essays
 
@@ -95,3 +95,7 @@ Thus, he disliked anything that was not directly conscious of an arithmetic orig
 [^10]: I always find the argument about the God of the gaps bizarre, because the more knowledge about reality we gain, the greater the number and size of gaps. Once you add Godel to the picture, this gap is ever widening. I don't know what sort of conclusion to draw from all of this. This is somewhat of strange essay and not the sort of thing I typically write. Versions of this sat on my hard drive for the last few years.
 
 [^12]: "Fruchtbaren Begriffsbildungen und Schlußweisen wollen wir, wo immer nur die geringste Aussicht sich bietet, sorgfältig nachspüren und sie pflegen, stützen und gebrauchsfähig machen. Aus dem Paradies, das Cantor uns geschaffen, soll uns niemand vertreiben können." - Hilbert, David (1926), ["Über das Unendliche", Mathematische Annalen, 95 (1): 161–190 ](https://gdz.sub.uni-goettingen.de/id/PPN235181684_0095?tify=%7B%22pages%22:%5B174%5D%7D)
+
+[^13]: from Gesammelte Abhandlungen mathematischen und philosophischen Inhalts, Georg Cantor, ed by Ernst Zermelo, Springer-Verlag, 2013, translation by Gabriele Chaitkin in [On the Theory of the Transfinite](https://jamesrmeyer.com/infinite/cantor-religion-transfinite).
+
+[^14]: This quote always reminded me of [Godel's Incompleteness Theorem](https://en.wikipedia.org/wiki/G%C3%B6del%27s_incompleteness_theorems)
