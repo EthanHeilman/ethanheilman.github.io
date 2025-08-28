@@ -23,15 +23,15 @@ If on the other hand it feels universal, simple, and ideal, it is the product of
 
 ## The Hierarchy of Weirdness
 
-This distinction science=divine/nature, art=human is more complex than just two separate categories.
-Art is the part of the universe that is created by humans, but it emerges from the part of the universe that isn't created by humans.
-When humans create something, the created thing is contained, and is a function of, what already exists.
+This distinction science=divine/nature, art=made by human is more complex than just two separate categories.
+When humans create something, the created thing is contained, and is a function of, what already exists, so while art is the part of the universe that is created by humans, it also emerges from the part of the universe that isn't created by humans.
+
 
 [![triangle choke (sankaku-jime) from Kodokan Judo ny Jigoro Kano - edited by Kodokan Editorial Committee (1986)](figs/trianglejudo.png)](https://archive.org/details/kodokan-judo/page/124)
 
 The human idea of the triangle choke (sankaku-jime) only works because humans have arms, legs and necks.
-It wouldn't be meaningful to talk about it in a universe without arms, legs, and necks, but arms and legs existed before human ideas.
-So the idea of a triangle exists both because of the specific context of humanity and because humans created it.
+It wouldn't be meaningful to talk about it in a universe without chokeable necks, but necks existed before human ideas.
+So the idea of a triangle exists both because of the specific context of humanity and also because humans created it.
 
 More specifically, we can define a hierarchy of creation, or what a 16th Century Italian would call divine creation.
 At the top of the hierarchy we have eternal nature. Eternal nature gives rise to nature, which in turn gives rise to humans, which gives rise to human ideas.
@@ -51,26 +51,27 @@ It was that reaction of horror at the creepy crawly bugs you see when you lift u
 The main target of Kronecker's campaign against infinity was the mathematician Cantor[^8] and his work on transfinites.
 Cantor viewed infinity in a much more positive light and he wasn't alone in this reaction.
 
-> "From [the paradise](https://en.wikipedia.org/wiki/Cantor%27s_paradise) that Cantor created for us no-one shall be able to expel us." David Hilbert (1926)[^12]
+> "From [the paradise](https://en.wikipedia.org/wiki/Cantor%27s_paradise) that Cantor created for us no-one shall be able to expel us." - David Hilbert (1926)[^12]
 
 Cantor's ideas also sparked a theological debate since if the mind can reason about infinity, perhaps the mind can also reason about God[^9].
 Cantor himself was deeply invested in the theological implications of his mathematical work.
 He believed that God was beyond the mind[^13] and thus his mathematical work was not the result of his own effort but rather God was speaking through him.
 
-This is an inversion of [God of the gaps](https://en.wikipedia.org/wiki/God_of_the_gaps)[^10] where the gaps filled in by God and thus are evidence of God rather than the reverse.
+This is an inversion of [God of the gaps](https://en.wikipedia.org/wiki/God_of_the_gaps)[^10] where the gaps filled in by the God of the filling and the lack of gaps is evidence of God rather than the reverse.
 This echos Descartes'[^15] deeply unsatisfying [Trademark Argument](https://en.wikipedia.org/wiki/Trademark_argument) of the existence of God because finite beings like humans can perceive aspects of God like infinity, we must only be able to perceive[^17] them because God exists.
 
-> "The idea of infinite substance, or God, must have “proceeded from some substance which really was infinite. [..] If a finite thing could produce the idea of an infinite thing, the Meditator reasons, this would violate the principle that there is more reality in a cause than in its effect, since the Idea of God is at the top of the Hierarchy of Ideas." - René Descartes - Meditations on First Philosophy, in which the existence of God and the immortality of the soul are demonstrated (1641)[^16]
+> "The idea of infinite substance, or God, must have “proceeded from some substance which really was infinite. [..] If a finite thing could produce the idea of an infinite thing, the Meditator reasons, this would violate the principle that there is more reality in a cause than in its effect, since the Idea of God is at the top of the Hierarchy of Ideas." - René Descartes, [Meditations on First Philosophy, in which the existence of God and the immortality of the soul are demonstrated (1641)](https://archive.org/stream/descartess-meditations-an-introduction/Descartes%E2%80%99s%20Meditations%20An%20Introduction_djvu.txt)[^16]
 
 I much prefer the notion put forward by Chesterton that it is gaps themselves which are important.
 
-> "The whole secret of mysticism is this: that man can understand everything by the help of what he does not understand. The morbid logician seeks to make everything lucid, and succeeds in making everything mysterious. The mystic[^14] allows one thing to be mysterious, and everything else becomes lucid" - [Orthodoxy by G. K. Chesterton (1908)](https://www.gutenberg.org/files/16769/16769-h/16769-h.htm)
+> "The whole secret of mysticism is this: that man can understand everything by the help of what he does not understand. The morbid logician seeks to make everything lucid, and succeeds in making everything mysterious. The mystic allows one thing to be mysterious, and everything else becomes lucid" - [Orthodoxy by G. K. Chesterton (1908)](https://www.gutenberg.org/files/16769/16769-h/16769-h.htm)[^14]
 
 ## A Final Note
 
-I don't know what sort of conclusion to draw these threads together[^16] so I'm leaving it as a vibes-based meandering path through some interesting connections in the history of ideas.
+Versions of this essay sat on my hard drive for the last few years and in private correspondence.
+I couldn't find a conclusion to draw these threads together so I'm leaving it as a vibes-based meandering through these ideas.
 
-This post originally came about because of a conversation with [Madars Virza](https://madars.org/) about my rejection of the Kronecker. Versions of this sat on my hard drive for the last few years or in private correspondence. I bounced it off of a number of other people over the years. The observations of the real number line as taken from conversations with my dad, [Ward Heilman](https://www.bridgew.edu/department/mathematics/dr-ward-heilman). Hopefully I got it mostly correct, any errors are my own.
+This post originally came about because of a conversation with [Madars Virza](https://madars.org/) about my rejection of the Kronecker quote.  I bounced it off of a number of other people including Andrew Poelstra, Russell O’Connor, Karina Poelstra, Peter Berard over the years. The observations of the real number line are taken from conversations with my dad, [Ward Heilman](https://www.bridgew.edu/department/mathematics/dr-ward-heilman). Hopefully I got it mostly correct, any errors are my own.
 
 ### Related Essays
 
@@ -94,7 +95,7 @@ Regarding conceptual rigor, he sets the highest standards and seeks to force eve
 Some of you will recall the statement he made in a lecture at the Berlin Natural Scientists' Meeting in 1886: "The good Lord created the integers; everything else is the work of man."<br>
 Thus, he disliked anything that was not directly conscious of an arithmetic origin, and his aim was to make the arithmetic origin clearly evident not only in algebra but also in function theory."<br>
 
-[^3]: I leave to the reader to decide if this is an argument in favor or opposed to intelligence design.
+[^3]: I leave to the reader to decide if this is an argument in favor or opposed to intelligent design.
 
 [^4]: One could argue that integers exist in the same way that the reals do and therefore at both eternal nature. This seems impossible to dispute because the reals contain the integers, so if the reals are eternal nature, integers contained in the reals must be as well. My argument is that the human invention of the integers, is not the integers themselves but the idea of the integers as a thing that exists separate from the reals. Mathematical [Platonism](https://en.wikipedia.org/wiki/Mathematical_Platonism) does not prevent human invention in Mathematics. Anyone who wants to argue this point should present an argument for the concept of ["a bakers dozen"](https://simple.wiktionary.org/wiki/baker%27s_dozen#:~:text=baker's%20dozens) is not of human invention.
 
@@ -116,7 +117,7 @@ Thus, he disliked anything that was not directly conscious of an arithmetic orig
 
 [^14]: This quote always reminded me of [Godel's Incompleteness Theorem](https://en.wikipedia.org/wiki/G%C3%B6del%27s_incompleteness_theorems)
 
-[^15]: Both [Agrippa](https://en.wikipedia.org/wiki/Camillo_Agrippa) and Descartes were Swordman and Mathematicians with a passion for Geometry. Unlike Agrippa, Descartes did not leaving any written on the art of combat with a sword. If he had because he would have namechecked in the Princess Bride. They are unlikely to have met since Descartes was around four years old when Agrippa died. <br><br>
+[^15]: Both [Agrippa](https://en.wikipedia.org/wiki/Camillo_Agrippa) and Descartes were Swordman and Mathematicians with a passion for Geometry. Unlike Agrippa, Descartes did not leaving any writing on the art of combat with a sword. If he had maybe he would have namechecked in the Princess Bride. <br><br>
 A paper by Kevin Delapp [Philosophical Duelism: Fencing in Early Modern Thought (2018)](https://www.pdcnet.org/jems/content/jems_2018_0007_0002_0031_0054) in the Journal of Early Modern Studies looks at influence of fencing on the development of early modern philosophers including Descartes. It is behind a paywall so I have not read it.
 
 [^16]: René Descartes, Meditation III, Meditations on First Philosophy, in which the existence of God and the immortality of the soul are demonstrated (1641), translation from [Catherine Wilson's Descartes’ Meditations an introduction (2003)](https://archive.org/stream/descartess-meditations-an-introduction/Descartes%E2%80%99s%20Meditations%20An%20Introduction_djvu.txt)
