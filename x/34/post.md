@@ -15,26 +15,23 @@
 The integers look little like the natural world and very much like the simple and powerful abstractions that humans find elegant.
 Much to the frustration of the human mind, that which created [fig wasps](https://en.wikipedia.org/wiki/Fig_wasp), [Leucochloridium paradoxum](https://en.wikipedia.org/wiki/Leucochloridium_paradoxum), quantum foam, and [plasmids](https://en.wikipedia.org/wiki/Plasmid), does not create works of abstract simplicity.
 If such a divinity left fingerprints in mathematics, that inhuman complexity and irrational strangeness[^6] can be found in the reals but not the integers.
-One can imagine the God of the [Book of Job](https://en.wikipedia.org/wiki/Book_of_Job) creating [the square root of two](https://en.wikipedia.org/wiki/Square_root_of_2) and pi, but not additive groups.
+One can imagine the God of the [Book of Job](https://en.wikipedia.org/wiki/Book_of_Job) creating [the square root of two](https://en.wikipedia.org/wiki/Square_root_of_2) and pi.
 
 I have an imperfect rule of thumb for determining if something is of human construction or for the purposes of this exploration, divine.
-If the something under examination causes a sense of existential nausea, disorientation, and a deep sense that is can't possibly work like that, it is divine[^3].
+If the something under examination causes a sense of existential nausea, disorientation, and a deep feeling that is can't possibly work like that, it is divine[^3].
 If on the other hand it feels universal, simple, and ideal, it is the product of human effort.
 
 ## The Hierarchy of Weirdness
 
-This distinction science=divine/nature, art=human is more complex two separate categories.
-They categories interact with each other.
-Let's look at why they are separate and then look how more emerges from the other.
+This distinction science=divine/nature, art=human is more complex than just two separate categories.
+Art is the part of the universe that is created by humans, but it emerges from the part of the universe that isn't created by humans.
+When humans create something, the created thing is contained, and is a function of, what already exists.
 
 [![triangle choke (sankaku-jime) from Kodokan Judo ny Jigoro Kano - edited by Kodokan Editorial Committee (1986)](figs/trianglejudo.png)](https://archive.org/details/kodokan-judo/page/124)
 
-The triangle choke (sankaku-jime) only works because humans have arms and legs.
-It wouldn't be meaningful to talk about this triangle choke in a universe without arms, or legs.
-But humans did not create arms and legs.
-So the idea of a triangle is meaningful because of the specific context of humanity and because humans created it.
-When humans create something, the created thing is contained, and is a function of, what already exists.
-Art is merely the part of the universe that is created by humans, but it emerges from the part of the universe that isn't created by humans.
+The human idea of the triangle choke (sankaku-jime) only works because humans have arms, legs and necks.
+It wouldn't be meaningful to talk about it in a universe without arms, legs, and necks, but arms and legs existed before human ideas.
+So the idea of a triangle exists both because of the specific context of humanity and because humans created it.
 
 More specifically, we can define a hierarchy of creation, or what a 16th Century Italian would call divine creation.
 At the top of the hierarchy we have eternal nature. Eternal nature gives rise to nature, which in turn gives rise to humans, which gives rise to human ideas.
@@ -51,28 +48,27 @@ Hammers feel like the perfect tool because they were invented by humans specific
 
 Kronecker's quote about the integers being divine was not made so much because Kronecker wanted to elevate the reputation of the integers but because he wanted to damn infinity.
 It was that reaction of horror at the creepy crawly bugs you see when you lift up the rock of Mathematics.
-
-The main target of Kronecker's campaign against infinity in Mathematics was the MathematicianCantor[^8] and his work on transfinites.
-Cantor did not have this same reaction of disgust to the infinity, he viewed infinity in a much more positive light and he wasn't alone in this reaction.
+The main target of Kronecker's campaign against infinity was the mathematician Cantor[^8] and his work on transfinites.
+Cantor viewed infinity in a much more positive light and he wasn't alone in this reaction.
 
 > "From [the paradise](https://en.wikipedia.org/wiki/Cantor%27s_paradise) that Cantor created for us no-one shall be able to expel us." David Hilbert (1926)[^12]
 
 Cantor's ideas also sparked a theological debate since if the mind can reason about infinity, perhaps the mind can also reason about God[^9].
-Cantor himself was deeply invested in the theological implications of his Mathematical work.
-He believed that God was beyond the mind[^13] and thus his Mathematical work was not the result of his own effort but rather God was speaking through him.
+Cantor himself was deeply invested in the theological implications of his mathematical work.
+He believed that God was beyond the mind[^13] and thus his mathematical work was not the result of his own effort but rather God was speaking through him.
 
 This is an inversion of [God of the gaps](https://en.wikipedia.org/wiki/God_of_the_gaps)[^10] where the gaps filled in by God and thus are evidence of God rather than the reverse.
-This echos Descartes'[^15] deeply unsatisfying [Trademark Argument](https://en.wikipedia.org/wiki/Trademark_argument) of the existence of God because finite beings like humans can perceive aspects of God like infinity, we must only be able to perceive them through the grace of God.
+This echos Descartes'[^15] deeply unsatisfying [Trademark Argument](https://en.wikipedia.org/wiki/Trademark_argument) of the existence of God because finite beings like humans can perceive aspects of God like infinity, we must only be able to perceive[^17] them because God exists.
 
-I don't find these arguments compelling. I much prefer the notion put forward by Chesterton that it is gaps themselves which are important.
+> "The idea of infinite substance, or God, must have “proceeded from some substance which really was infinite. [..] If a finite thing could produce the idea of an infinite thing, the Meditator reasons, this would violate the principle that there is more reality in a cause than in its effect, since the Idea of God is at the top of the Hierarchy of Ideas." - René Descartes - Meditations on First Philosophy, in which the existence of God and the immortality of the soul are demonstrated (1641)[^16]
+
+I much prefer the notion put forward by Chesterton that it is gaps themselves which are important.
 
 > "The whole secret of mysticism is this: that man can understand everything by the help of what he does not understand. The morbid logician seeks to make everything lucid, and succeeds in making everything mysterious. The mystic[^14] allows one thing to be mysterious, and everything else becomes lucid" - [Orthodoxy by G. K. Chesterton (1908)](https://www.gutenberg.org/files/16769/16769-h/16769-h.htm)
 
 ## A Final Note
 
-I don't know what sort of conclusion to draw these threads together[^16].
-I'm leaving it as a vibes based meandering path through some interesting connections in the history of ideas.
-This is not the sort of thing I typically write.
+I don't know what sort of conclusion to draw these threads together[^16] so I'm leaving it as a vibes-based meandering path through some interesting connections in the history of ideas.
 
 This post originally came about because of a conversation with [Madars Virza](https://madars.org/) about my rejection of the Kronecker. Versions of this sat on my hard drive for the last few years or in private correspondence. I bounced it off of a number of other people over the years. The observations of the real number line as taken from conversations with my dad, [Ward Heilman](https://www.bridgew.edu/department/mathematics/dr-ward-heilman). Hopefully I got it mostly correct, any errors are my own.
 
@@ -102,7 +98,7 @@ Thus, he disliked anything that was not directly conscious of an arithmetic orig
 
 [^4]: One could argue that integers exist in the same way that the reals do and therefore at both eternal nature. This seems impossible to dispute because the reals contain the integers, so if the reals are eternal nature, integers contained in the reals must be as well. My argument is that the human invention of the integers, is not the integers themselves but the idea of the integers as a thing that exists separate from the reals. Mathematical [Platonism](https://en.wikipedia.org/wiki/Mathematical_Platonism) does not prevent human invention in Mathematics. Anyone who wants to argue this point should present an argument for the concept of ["a bakers dozen"](https://simple.wiktionary.org/wiki/baker%27s_dozen#:~:text=baker's%20dozens) is not of human invention.
 
-[^5]: I use the word weirdness above rather than complexity because what matters is the strangeness of eternal nature to human thought, it need not be more complex and could in fact be simpler than many things we consider normal like pants or a traffic jam.
+[^5]: I use the word weirdness above rather than complexity because what matters is the strangeness of eternal nature to human thought, it need not be more complex and could in fact have simpler cause than many things we consider normal like pants or a traffic jam. We see this with evolution, more complex life emerged from more simple life.
 
 [^6]: Humans can't even agree on a single definition. You have the reals with or without the [continuum hypothesis](https://en.wikipedia.org/wiki/Continuum_hypothesis), you can have the reals with or without [the Axiom of Choice](https://en.wikipedia.org/wiki/Axiom_of_choice). What even are the reals?
 
@@ -122,3 +118,7 @@ Thus, he disliked anything that was not directly conscious of an arithmetic orig
 
 [^15]: Both [Agrippa](https://en.wikipedia.org/wiki/Camillo_Agrippa) and Descartes were Swordman and Mathematicians with a passion for Geometry. Unlike Agrippa, Descartes did not leaving any written on the art of combat with a sword. If he had because he would have namechecked in the Princess Bride. They are unlikely to have met since Descartes was around four years old when Agrippa died. <br><br>
 A paper by Kevin Delapp [Philosophical Duelism: Fencing in Early Modern Thought (2018)](https://www.pdcnet.org/jems/content/jems_2018_0007_0002_0031_0054) in the Journal of Early Modern Studies looks at influence of fencing on the development of early modern philosophers including Descartes. It is behind a paywall so I have not read it.
+
+[^16]: René Descartes, Meditation III, Meditations on First Philosophy, in which the existence of God and the immortality of the soul are demonstrated (1641), translation from [Catherine Wilson's Descartes’ Meditations an introduction (2003)](https://archive.org/stream/descartess-meditations-an-introduction/Descartes%E2%80%99s%20Meditations%20An%20Introduction_djvu.txt)
+
+[^17]: Consider what it would actually look like for humanity to have knowledge which humanity could not create. For instance imagine a human mind was told the solution to a mathematical problem that can easily be verified but would require more energy than our universe to compute. This would be strong evidence that this mathematical revelation was placed in our minds by an intelligence with greater computing power than our universe, i.e. a cryptographic proof for the existance of something godlike. I am aware of no such knowledge and such a relevation is very different than the knowledge of infinity.
