@@ -23,20 +23,22 @@ If on the other hand it feels universal, simple, and ideal, it is the product of
 
 ## The Hierarchy of Weirdness
 
+This distinction science=divine/nature, art=human is more complex two separate categories.
+They categories interact with each other.
+Let's look at why they are separate and then look how more emerges from the other.
+
 [![triangle choke (sankaku-jime) from Kodokan Judo ny Jigoro Kano - edited by Kodokan Editorial Committee (1986)](figs/trianglejudo.png)](https://archive.org/details/kodokan-judo/page/124)
 
-This science=divine/nature, art=human is an overly simplistic classification.
-Humans are part of the universe, so when humans create something, the created thing is contained, and is a function of, what already exists.
 The triangle choke (sankaku-jime) only works because humans have arms and legs.
 It wouldn't be meaningful to talk about this triangle choke in a universe without arms, or legs.
-We can't have arms and legs with life and evolution.
-But humans did not create life.
+But humans did not create arms and legs.
+So the idea of a triangle is meaningful because of the specific context of humanity and because humans created it.
+When humans create something, the created thing is contained, and is a function of, what already exists.
 Art is merely the part of the universe that is created by humans, but it emerges from the part of the universe that isn't created by humans.
 
 More specifically, we can define a hierarchy of creation, or what a 16th Century Italian would call divine creation.
 At the top of the hierarchy we have eternal nature. Eternal nature gives rise to nature, which in turn gives rise to humans, which gives rise to human ideas.
-As shown below, the closer we get to eternal nature the greater the weirdness (from a human perspective).
-
+As shown below, the closer we get to eternal nature the greater the weirdness[^5] (from a human perspective).
 
 ![hierarchy of weirdness](figs/creationheirarchy.png)
 
@@ -47,20 +49,32 @@ Hammers feel like the perfect tool because they were invented by humans specific
 
 ## Kronecker, Cantor and God
 
+Kronecker's quote about the integers being divine was not made so much because Kronecker wanted to elevate the reputation of the integers but because he wanted to damn infinity.
+It was that reaction of horror at the creepy crawly bugs you see when you lift up the rock of Mathematics.
+
+The main target of Kronecker's campaign against infinity in Mathematics was the MathematicianCantor[^8] and his work on transfinites.
+Cantor did not have this same reaction of disgust to the infinity, he viewed infinity in a much more positive light and he wasn't alone in this reaction.
+
 > "From [the paradise](https://en.wikipedia.org/wiki/Cantor%27s_paradise) that Cantor created for us no-one shall be able to expel us." David Hilbert (1926)[^12]
- 
-Kronecker's quote about the integers being divine was not made so much because Kronecker because he wanted to elevate the reputation of the integers but because he wanted to damn infinity.
-It was made in the context his campaign against infinity in Mathematics and one of the main targets of this war was Cantor's transfinites[^8].
 
 Cantor's ideas also sparked a theological debate since if the mind can reason about infinity, perhaps the mind can also reason about God[^9].
-Cantor himself was deeply invested in the theological implications of his Mathematical work. He believed that God was beyond the mind and thus his Mathematical work was not the result of his own effort but rather God was speaking through him.
+Cantor himself was deeply invested in the theological implications of his Mathematical work.
+He believed that God was beyond the mind[^13] and thus his Mathematical work was not the result of his own effort but rather God was speaking through him.
 
-> "The Transfinite with its abundance of formations and forms, points with necessity to an Absolute, to the “truly Infinite”, to whose Magnitude nothing can be added or subtracted and which therefore is to be seen quantitatively as absolute Maximum. The latter exceeds, so to speak, the human power of comprehension and eludes particularly mathematical determination; whereas the Transfinite not only fills the vast field of the possible in God’s knowledge, but also offers a rich, constantly increasing field of ideal inquiry and attains reality and existence, I am convinced, also in the world of the created, up to a certain degree and in different relations, to bring the Magnificence of the Creator, following His absolute free decree, to greater expression than could have occurred through a merely "finite world"."  - from a letter[^13] written by Georg Cantor to A. Eulenberg (Feb. 28, 1886)
+This is an inversion of [God of the gaps](https://en.wikipedia.org/wiki/God_of_the_gaps)[^10] where the gaps filled in by God and thus are evidence of God rather than the reverse.
+This echos Descartes'[^15] deeply unsatisfying [Trademark Argument](https://en.wikipedia.org/wiki/Trademark_argument) of the existence of God because finite beings like humans can perceive aspects of God like infinity, we must only be able to perceive them through the grace of God.
 
-I use the word weirdness above rather than complexity because what matters is the strangeness of eternal nature to human thought, it need not be more complex and could in fact be simpler than many things we consider normal like pants or a traffic jam.
-Maybe it isn't the [God of the gaps](https://en.wikipedia.org/wiki/God_of_the_gaps), but rather than the gaps are the God[^10]?
+I don't find these arguments compelling. I much prefer the notion put forward by Chesterton that it is gaps themselves which are important.
 
 > "The whole secret of mysticism is this: that man can understand everything by the help of what he does not understand. The morbid logician seeks to make everything lucid, and succeeds in making everything mysterious. The mystic[^14] allows one thing to be mysterious, and everything else becomes lucid" - [Orthodoxy by G. K. Chesterton (1908)](https://www.gutenberg.org/files/16769/16769-h/16769-h.htm)
+
+## A Final Note
+
+I don't know what sort of conclusion to draw these threads together[^16].
+I'm leaving it as a vibes based meandering path through some interesting connections in the history of ideas.
+This is not the sort of thing I typically write.
+
+This post originally came about because of a conversation with [Madars Virza](https://madars.org/) about my rejection of the Kronecker. Versions of this sat on my hard drive for the last few years or in private correspondence. I bounced it off of a number of other people over the years. The observations of the real number line as taken from conversations with my dad, [Ward Heilman](https://www.bridgew.edu/department/mathematics/dr-ward-heilman). Hopefully I got it mostly correct, any errors are my own.
 
 ### Related Essays
 
@@ -88,6 +102,8 @@ Thus, he disliked anything that was not directly conscious of an arithmetic orig
 
 [^4]: One could argue that integers exist in the same way that the reals do and therefore at both eternal nature. This seems impossible to dispute because the reals contain the integers, so if the reals are eternal nature, integers contained in the reals must be as well. My argument is that the human invention of the integers, is not the integers themselves but the idea of the integers as a thing that exists separate from the reals. Mathematical [Platonism](https://en.wikipedia.org/wiki/Mathematical_Platonism) does not prevent human invention in Mathematics. Anyone who wants to argue this point should present an argument for the concept of ["a bakers dozen"](https://simple.wiktionary.org/wiki/baker%27s_dozen#:~:text=baker's%20dozens) is not of human invention.
 
+[^5]: I use the word weirdness above rather than complexity because what matters is the strangeness of eternal nature to human thought, it need not be more complex and could in fact be simpler than many things we consider normal like pants or a traffic jam.
+
 [^6]: Humans can't even agree on a single definition. You have the reals with or without the [continuum hypothesis](https://en.wikipedia.org/wiki/Continuum_hypothesis), you can have the reals with or without [the Axiom of Choice](https://en.wikipedia.org/wiki/Axiom_of_choice). What even are the reals?
 
 [^7]: This is the same Agrippa mentioned in the Princess Bride. !["Inigo Montoya: Unless the enemy has studied his Agrippa... which I have."](figs/agrippa.png)
@@ -96,10 +112,13 @@ Thus, he disliked anything that was not directly conscious of an arithmetic orig
 
 [^9]: "[Gutberlet] had responded by seizing upon Cantor's Mathematical work to argue that it provided clear evidence that the human mind could contemplate the actual infinite. Moreover, it if did so, it would get closer to the true nature of the divine. The collection of divine thoughts in the mind of an unchanging, he argument must comprise a complete and infinite set. This was for him evidence that Cantor's infinites actually existed, and to deny it would require you to give up the infinite and absolute mind of God." -  [The Infinite Book: A Short Guide to the Boundless, Timeless and Endless - The Madness of Georg Cantor (2006) by John D. Barrow](https://uvatoc.github.io/docs/madness-of-cantor.pdf)
 
-[^10]: I always find the argument about the God of the gaps self-defeating because the more knowledge about reality we gain the greater the number and size of gaps. That gaps aren't shrinking and ince you add Godel to the picture, this problem gets worse. I don't know what sort of conclusion to draw from all of this. This is somewhat of strange essay and not the sort of thing I typically write. Versions of this sat on my hard drive for the last few years.
+[^10]: I always find the argument about the God of the gaps self-defeating because the more knowledge about reality we gain the greater the number and size of gaps. That gaps aren't shrinking and once you add Godel to the picture, they seemt to grow quite a bit.
 
 [^12]: "Fruchtbaren Begriffsbildungen und Schlußweisen wollen wir, wo immer nur die geringste Aussicht sich bietet, sorgfältig nachspüren und sie pflegen, stützen und gebrauchsfähig machen. Aus dem Paradies, das Cantor uns geschaffen, soll uns niemand vertreiben können." - Hilbert, David (1926), ["Über das Unendliche", Mathematische Annalen, 95 (1): 161–190 ](https://gdz.sub.uni-goettingen.de/id/PPN235181684_0095?tify=%7B%22pages%22:%5B174%5D%7D)
 
-[^13]: from Gesammelte Abhandlungen mathematischen und philosophischen Inhalts, Georg Cantor, ed by Ernst Zermelo, Springer-Verlag, 2013, translation by Gabriele Chaitkin in [On the Theory of the Transfinite](https://jamesrmeyer.com/infinite/cantor-religion-transfinite).
+[^13]:  "The Transfinite with its abundance of formations and forms, points with necessity to an Absolute, to the “truly Infinite”, to whose Magnitude nothing can be added or subtracted and which therefore is to be seen quantitatively as absolute Maximum. The latter exceeds, so to speak, the human power of comprehension and eludes particularly mathematical determination; whereas the Transfinite not only fills the vast field of the possible in God’s knowledge, but also offers a rich, constantly increasing field of ideal inquiry and attains reality and existence, I am convinced, also in the world of the created, up to a certain degree and in different relations, to bring the Magnificence of the Creator, following His absolute free decree, to greater expression than could have occurred through a merely "finite world"."  - from a letter written by Georg Cantor to A. Eulenberg (Feb. 28, 1886) from Gesammelte Abhandlungen mathematischen und philosophischen Inhalts, Georg Cantor, ed by Ernst Zermelo, Springer-Verlag, 2013, translation by Gabriele Chaitkin in [On the Theory of the Transfinite](https://jamesrmeyer.com/infinite/cantor-religion-transfinite).
 
 [^14]: This quote always reminded me of [Godel's Incompleteness Theorem](https://en.wikipedia.org/wiki/G%C3%B6del%27s_incompleteness_theorems)
+
+[^15]: Both [Agrippa](https://en.wikipedia.org/wiki/Camillo_Agrippa) and Descartes were Swordman and Mathematicians with a passion for Geometry. Unlike Agrippa, Descartes did not leaving any written on the art of combat with a sword. If he had because he would have namechecked in the Princess Bride. They are unlikely to have met since Descartes was around four years old when Agrippa died. <br><br>
+A paper by Kevin Delapp [Philosophical Duelism: Fencing in Early Modern Thought (2018)](https://www.pdcnet.org/jems/content/jems_2018_0007_0002_0031_0054) in the Journal of Early Modern Studies looks at influence of fencing on the development of early modern philosophers including Descartes. It is behind a paywall so I have not read it.
