@@ -25,12 +25,16 @@ If on the other hand it feels universal, simple, and ideal, it is the product of
 
 [![triangle choke (sankaku-jime) from Kodokan Judo ny Jigoro Kano - edited by Kodokan Editorial Committee (1986)](figs/trianglejudo.png)](https://archive.org/details/kodokan-judo/page/124)
 
-This is an overly simplistic classification.
-Humans are part of the universe, so when humans create something, the created thing is contained, and is a function of, what already exists, e.g. the triangle choke (sankaku-jime) only works because humans have arms and legs.
-It wouldn't be meaningful to talk about this triangle choke in a universe without life, arms, or legs.
+This science=divine/nature, art=human is an overly simplistic classification.
+Humans are part of the universe, so when humans create something, the created thing is contained, and is a function of, what already exists.
+The triangle choke (sankaku-jime) only works because humans have arms and legs.
+It wouldn't be meaningful to talk about this triangle choke in a universe without arms, or legs.
+We can't have arms and legs with life and evolution.
+But humans did not create life.
+Art is merely the part of the universe that is created by humans, but it emerges from the part of the universe that isn't created by humans.
 
 More specifically, we can define a hierarchy of creation, or what a 16th Century Italian would call divine creation.
-At the top of the hierarchy of reality we have eternal nature. Eternal nature gives rise to emergent nature, which in turn gives rise to humans, which gives rise to human ideas.
+At the top of the hierarchy we have eternal nature. Eternal nature gives rise to nature, which in turn gives rise to humans, which gives rise to human ideas.
 As shown below, the closer we get to eternal nature the greater the weirdness (from a human perspective).
 
 
