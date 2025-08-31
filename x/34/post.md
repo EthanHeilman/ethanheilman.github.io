@@ -26,7 +26,6 @@ If on the other hand it feels universal, simple, and ideal, it is the product of
 This distinction science=divine/nature, art=made by human is more complex than just two separate categories.
 When humans create something, the created thing is contained, and is a function of, what already exists, so while art is the part of the universe that is created by humans, it also emerges from the part of the universe that isn't created by humans.
 
-
 [![triangle choke (sankaku-jime) from Kodokan Judo ny Jigoro Kano - edited by Kodokan Editorial Committee (1986)](figs/trianglejudo.png)](https://archive.org/details/kodokan-judo/page/124)
 
 The human idea of the triangle choke (sankaku-jime) only works because humans have arms, legs and necks.
@@ -46,7 +45,7 @@ Hammers feel like the perfect tool because they were invented by humans specific
 
 ## Kronecker, Cantor and God
 
-Kronecker's quote about the integers being divine was not made so much because Kronecker wanted to elevate the reputation of the integers but because he wanted to damn infinity.
+Kronecker's quote about the integers being divine was not made so much because Kronecker wanted to elevate the reputation of the integers but because he wanted to damn infinity[^18].
 It was that reaction of horror at the creepy crawly bugs you see when you lift up the rock of Mathematics.
 The main target of Kronecker's campaign against infinity was the mathematician Cantor[^8] and his work on transfinites.
 Cantor viewed infinity in a much more positive light and he wasn't alone in this reaction.
@@ -71,7 +70,7 @@ I much prefer the notion put forward by Chesterton that it is gaps themselves wh
 Versions of this essay sat on my hard drive for the last few years and in private correspondence.
 I couldn't find a conclusion to draw these threads together so I'm leaving it as a vibes-based meandering through these ideas.
 
-This post originally came about because of a conversation with [Madars Virza](https://madars.org/) about my rejection of the Kronecker quote.  I bounced it off of a number of other people including Andrew Poelstra, Russell O’Connor, Karina Poelstra, Peter Berard over the years. The observations of the real number line are taken from conversations with my dad, [Ward Heilman](https://www.bridgew.edu/department/mathematics/dr-ward-heilman). Hopefully I got it mostly correct, any errors are my own.
+This post originally came about because of a conversation with [Madars Virza](https://madars.org/) about my rejection of the Kronecker quote.  I bounced it off of a number of other people including Andrew Poelstra, Russell O’Connor, aardaar, Karina Poelstra, Peter Berard over the years. The observations of the real number line are taken from conversations with my dad, [Ward Heilman](https://www.bridgew.edu/department/mathematics/dr-ward-heilman). Hopefully I got it mostly correct, any errors are my own.
 
 ### Related Essays
 
@@ -123,3 +122,5 @@ A paper by Kevin Delapp [Philosophical Duelism: Fencing in Early Modern Thought 
 [^16]: René Descartes, Meditation III, Meditations on First Philosophy, in which the existence of God and the immortality of the soul are demonstrated (1641), translation from [Catherine Wilson's Descartes’ Meditations an introduction (2003)](https://archive.org/stream/descartess-meditations-an-introduction/Descartes%E2%80%99s%20Meditations%20An%20Introduction_djvu.txt)
 
 [^17]: Consider what it would actually look like for humanity to have knowledge which humanity could not create. For instance imagine a human mind was told the solution to a mathematical problem that can easily be verified but would require more energy than our universe to compute. This would be strong evidence that this mathematical revelation was placed in our minds by an intelligence with greater computing power than our universe, i.e. a cryptographic proof for the existance of something godlike. I am aware of no such knowledge and such a relevation is very different than the knowledge of infinity.
+
+[^18]: Reddit user aardaar [argues](https://www.reddit.com/r/PhilosophyofMath/comments/1n3agfe/comment/nbk9zk1/) that my claim that Kronecker's quote was intended to damn the infinites may be unfounded. It is probably the case that aardaar is correct here, Kronecker may have disliked infinity but his privledging of the integers need not be inspired by this dislike. I'm fond that sentence so I'm going to investigate the question more deeply before removing it. I want to thank aardaar for this critique, it is always the things which seem obviously true which contain the greatest errors.
