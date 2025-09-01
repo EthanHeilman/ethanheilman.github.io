@@ -70,7 +70,7 @@ I much prefer the notion put forward by Chesterton that it is gaps themselves wh
 Versions of this essay sat on my hard drive for the last few years and in private correspondence.
 I couldn't find a conclusion to draw these threads together so I'm leaving it as a vibes-based meandering through these ideas.
 
-This post originally came about because of a conversation with [Madars Virza](https://madars.org/) about my rejection of the Kronecker quote.  I bounced it off of a number of other people including Andrew Poelstra, Russell O’Connor, aardaar, Karina Poelstra, Peter Berard over the years. The observations of the real number line are taken from conversations with my dad, [Ward Heilman](https://www.bridgew.edu/department/mathematics/dr-ward-heilman). Hopefully I got it mostly correct, any errors are my own.
+This post originally came about because of a conversation with [Madars Virza](https://madars.org/) about my rejection of the Kronecker quote.  I bounced it off of a number of other people including Andrew Poelstra, Russell O’Connor, [aardaar](https://www.reddit.com/user/aardaar/), Karina Poelstra, Peter Berard over the years. The observations of the real number line are taken from conversations with my dad, [Ward Heilman](https://www.bridgew.edu/department/mathematics/dr-ward-heilman). Hopefully I got it mostly correct, any errors are my own.
 
 ### Related Essays
 
