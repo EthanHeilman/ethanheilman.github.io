@@ -3,11 +3,15 @@
         <img src="figs/dragons.png" alt="NASA announces dragons are real" style="max-width:800px; width:100%;">
 </div>
 
-GitHub Actions (GHA) is an automation service provided by GitHub where git repos can be configured to automatically run programs against the code in the repository. Typically used for running automated tests against proposed changes or to automatically build and deploy software artifacts as part of a [CI/CD pipeline](https://en.wikipedia.org/wiki/CI/CD). GitHub-actions is far more powerful than it appears at first. In this post I will look at an off-label use of GitHub Actions which allows it to be used as an oracle.
+One day while browsing the web you see an article on nasa.gov that says “scientists discover dragons are real.” You want to tell your friends that NASA is saying dragons are real, but then NASA deletes the article. You need a way to cryptographically prove nasa.gov had that article even after it is removed. To do this you need an oracle (more specifically in this case you want a notary).
 
-One day while browsing the web you see an article on nasa.gov that says “scientists discover dragons are real.” You want to tell your friends that NASA is saying dragons are real, but then NASA deletes the article. You need a way to cryptographically prove nasa.gov had that article even after it is removed. To do this you need an oracle (more specifically in this case you want a TLS Notary).
+In this blog post we present a design for an oracle to notarize web content using Github Actions.
+This allows a party prove what content was on a website long into the future without requiring that anyone trust that party, instead all they need to do is trust Github Actions.
 
-While the above example is silly, oracles are an extremely useful and sought after security primitive for everything from software supply chain security, to blockchains and verifiable computation. We touch on these applications at the end of the post including how to use this oracle in OpenPubkey.
+GitHub Actions (GHA) is an automation service provided by GitHub where git repos can be configured to automatically run programs against the code in the repository. Typically used for running automated tests against proposed changes or to automatically build and deploy software artifacts as part of a [CI/CD pipeline](https://en.wikipedia.org/wiki/CI/CD).
+GitHub-actions is far more powerful than it appears at first. In this post I will look at an off-label use of GitHub Actions which allows it to be used as an oracle.
+Such oracles are a useful and  highly sought after security primitive for everything from software supply chain security, to blockchains and verifiable computation.
+We discuss these applications at the end of the post including how to use this oracle in OpenPubkey.
 
 ## What our GitHub Action’s oracle does
 
@@ -121,9 +125,7 @@ GitHub makes an excellent trusted third party because you probably already trust
 
 ## Related Work
 
-Work in progress...
+* [Town Crier: An Authenticated Data Feed for Smart Contracts (2016)](https://eprint.iacr.org/2016/168.pdf), [town-crier.org](https://www.town-crier.org/), uses Trusted Hardward to notarize web content.
 
-* [Town Crier: An Authenticated Data Feed for Smart Contracts (2016)](https://eprint.iacr.org/2016/168.pdf), [town-crier.org](https://www.town-crier.org/)
-
-* TLS Notary, [tlsnotary.org](https://tlsnotary.org/)
+* TLS Notary, [tlsnotary.org](https://tlsnotary.org/) uses Multi-Party Computation (MPC) so that a third party can notarize content without reveal that content to the notary.
 

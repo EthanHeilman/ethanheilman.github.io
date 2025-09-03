@@ -17,9 +17,13 @@
         <img src="figs/dragons.png" alt="NASA announces dragons are real" style="max-width:800px; width:100%;">
 </div>
 
-<p>GitHub Actions (GHA) is an automation service provided by GitHub where git repos can be configured to automatically run programs against the code in the repository. Typically used for running automated tests against proposed changes or to automatically build and deploy software artifacts as part of a <a href="https://en.wikipedia.org/wiki/CI/CD">CI/CD pipeline</a>. GitHub-actions is far more powerful than it appears at first. In this post I will look at an off-label use of GitHub Actions which allows it to be used as an oracle.</p>
-<p>One day while browsing the web you see an article on nasa.gov that says “scientists discover dragons are real.” You want to tell your friends that NASA is saying dragons are real, but then NASA deletes the article. You need a way to cryptographically prove nasa.gov had that article even after it is removed. To do this you need an oracle (more specifically in this case you want a TLS Notary).</p>
-<p>While the above example is silly, oracles are an extremely useful and sought after security primitive for everything from software supply chain security, to blockchains and verifiable computation. We touch on these applications at the end of the post including how to use this oracle in OpenPubkey.</p>
+<p>One day while browsing the web you see an article on nasa.gov that says “scientists discover dragons are real.” You want to tell your friends that NASA is saying dragons are real, but then NASA deletes the article. You need a way to cryptographically prove nasa.gov had that article even after it is removed. To do this you need an oracle (more specifically in this case you want a notary).</p>
+<p>In this blog post we present a design for an oracle to notarize web content using Github Actions.
+This allows a party prove what content was on a website long into the future without requiring that anyone trust that party, instead all they need to do is trust Github Actions.</p>
+<p>GitHub Actions (GHA) is an automation service provided by GitHub where git repos can be configured to automatically run programs against the code in the repository. Typically used for running automated tests against proposed changes or to automatically build and deploy software artifacts as part of a <a href="https://en.wikipedia.org/wiki/CI/CD">CI/CD pipeline</a>.
+GitHub-actions is far more powerful than it appears at first. In this post I will look at an off-label use of GitHub Actions which allows it to be used as an oracle.
+Such oracles are a useful and  highly sought after security primitive for everything from software supply chain security, to blockchains and verifiable computation.
+We discuss these applications at the end of the post including how to use this oracle in OpenPubkey.</p>
 <h2>What our GitHub Action’s oracle does</h2>
 <p>The oracle we create from GitHub Actions should have the following properties:</p>
 <ul>
@@ -102,13 +106,12 @@
 <p>We specifically invented this approach because our project OpenPubkey would benefit from being able to prove the JWKS.</p>
 <p>GitHub makes an excellent trusted third party because you probably already trust GitHub. Even if you don’t use GitHub, much of the source code of the software you use is stored and controlled by GitHub. Projects that don’t use GitHub use dependencies are on GitHub. There are very few systems that are secure against a malicious GitHub.</p>
 <h2>Related Work</h2>
-<p>Work in progress...</p>
 <ul>
 <li>
-<p><a href="https://eprint.iacr.org/2016/168.pdf">Town Crier: An Authenticated Data Feed for Smart Contracts (2016)</a>, <a href="https://www.town-crier.org/">town-crier.org</a></p>
+<p><a href="https://eprint.iacr.org/2016/168.pdf">Town Crier: An Authenticated Data Feed for Smart Contracts (2016)</a>, <a href="https://www.town-crier.org/">town-crier.org</a>, uses Trusted Hardward to notarize web content.</p>
 </li>
 <li>
-<p>TLS Notary, <a href="https://tlsnotary.org/">tlsnotary.org</a></p>
+<p>TLS Notary, <a href="https://tlsnotary.org/">tlsnotary.org</a> uses Multi-Party Computation (MPC) so that a third party can notarize content without reveal that content to the notary.</p>
 </li>
 </ul><hr /></div>
 </div>
