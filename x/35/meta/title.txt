@@ -1,1 +1,1 @@
-Turing Github Actions into an oracle
+Turning Github Actions into an oracle
