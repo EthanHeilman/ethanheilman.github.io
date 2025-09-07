@@ -3,32 +3,39 @@
         <img src="figs/dragons.png" alt="NASA announces dragons are real" style="max-width:800px; width:100%;">
 </div>
 
-One day while browsing the web you see an article on nasa.gov that says “scientists discover dragons are real.” You want to tell your friends that NASA is saying dragons are real, but then NASA deletes the article. You need a way to cryptographically prove nasa.gov had that article even after it is removed. To do this you need an oracle (more specifically in this case you want a notary).
+> One day while browsing the web you see an article on nasa.gov that says “scientists discover dragons are real.” You want to tell your friends that NASA is saying dragons are real, but then NASA deletes the article. You need a way to cryptographically prove nasa.gov had that article even after it is removed. To do this you need an oracle, more specifically need a TLS notary.
 
-In this blog post we present a design for an oracle to notarize web content using Github Actions.
-This allows a party prove what content was on a website long into the future without requiring that anyone trust that party, instead all they need to do is trust Github Actions.
+[GitHub Actions (GHA)](https://github.com/features/actions)[^1] is far more powerful than it appears at first.
+In this post I will look at an off-label use of GitHub Actions which allows it to be used as an oracle that can sign and notarize web content, including a TLS notary.
+This allows a party to prove what content was on a website long into the future without requiring that anyone trust that party. All anyone needs to trust is trust Github; not a github repo or a specific Github Action, but Github. At the end we show how remove Github as a trusted party[^2].
 
-GitHub Actions (GHA) is an automation service provided by GitHub where git repos can be configured to automatically run programs against the code in the repository. Typically used for running automated tests against proposed changes or to automatically build and deploy software artifacts as part of a [CI/CD pipeline](https://en.wikipedia.org/wiki/CI/CD).
-GitHub-actions is far more powerful than it appears at first. In this post I will look at an off-label use of GitHub Actions which allows it to be used as an oracle.
-Such oracles are a useful and  highly sought after security primitive for everything from software supply chain security, to blockchains and verifiable computation.
-We discuss these applications at the end of the post including how to use this oracle in OpenPubkey.
+The incredible James Carnegie (kipz) has written a working implementation of the ideas in this blog post:
+
+* URL Oracle - A Github Action that implements a TLS notary for any URL" [github.com/kipz/url-oracle](https://github.com/kipz/url-oracle/)
+* BBC Technology News Oracle - An example use of URL Oracle that creates and verifies attestations for the BBC Technology RSS feed content to ensures the integrity and authenticity of BBC Technology news content through cryptographic attestations. [github.com/kipz/bbc-tech-news-oracle](https://github.com/kipz/bbc-tech-news-oracle/tree/main)
+
+**Disclaimer:** While the features of GitHub Actions and GitLab-CI enable this functionality, this is an off-label use.
+This is preliminary research, do not use this without first consulting with your cryptographer.
+If you notice an increased appetite for trusted third parties, discontinue use immediately.
 
 ## What our GitHub Action’s oracle does
+
+While TLS notary is our main use case the functionality provided by this design goes well beyond a notary and provides an oracle for general purpose attestation of computation, i.e. [Trusted Computing](https://en.wikipedia.org/wiki/Trusted_Computing)!
+Such oracles are a useful and highly sought after security primitive for everything from software supply chain security, to blockchains and to cryptography.
+We discuss these applications at the end of the post including how to use this oracle in OpenPubkey.
 
 The oracle we create from GitHub Actions should have the following properties:
 
 * **General Purpose:** It will execute any program you give it.
-* **Attestation:** It will attest to the program it executed and the output of that project by signing the hash of the program and the hash of the output of the program.
+* **Attestation:** It will attest to the program it executed and the output of that program by signing the hash of the program and the hash of the output of the program.
 * **Publicly Verifiable:** This signature can be verified using GitHub’s public key.
 * **Only Trust GitHub:** The person who manages, configures and triggers the GitHub Action can not make the oracle lie or attest to the wrong program or output.
 
-```
-GitHub Actions (Program P): → GitHub’s Signature on: (SHA-1(P), SHA-1(Output of P))
-```
+**GitHub Actions (Program P):** → GitHub’s Signature on: `(SHA-1(P), SHA-1(Output of P))`
 
-Once we show how to build this oracle, we use the oracle on itself to make it more powerful. This approach allows us to verify signatures on a GitHub Action oracle’s attestations after GitHub rotates their  public keys. We also eliminate GitHub Actions as a trusted party by turning GitLab-CI into a second oracle such that both must be compromised for security to be lost.
-
-**Disclaimer:** While the features of GitHub Actions and GitLab-CI enable this functionality, this is an off-label use. This is preliminary research, do not use this without first consulting with your cryptographer. If you notice an increased appetite for trusted third parties, discontinue use immediately.
+Once we show how to build this oracle and use the oracle on itself to make it more powerful.
+This approach allows us to verify signatures on a GitHub Action oracle’s attestations after GitHub rotates their public keys.
+We also eliminate GitHub Actions as a trusted party by turning GitLab-CI into a second oracle such that both must be compromised for security to be lost.
 
 **Is SHA-1 safe?** No, [but the SHA-1 hash function used by GitHub and git is not actually SHA-1](https://github.blog/news-insights/company-news/sha-1-collision-detection-on-github-com/), but SHA1-DC, a variant of SHA-1 that has been [hardened against collision attacks](https://github.com/cr-marcstevens/sha1collisiondetection).
 
@@ -129,3 +136,6 @@ GitHub makes an excellent trusted third party because you probably already trust
 
 * TLS Notary, [tlsnotary.org](https://tlsnotary.org/) uses Multi-Party Computation (MPC) so that a third party can notarize content without reveal that content to the notary.
 
+[^1]: GitHub Actions (GHA) is an automation service provided by GitHub where git repos can be configured to automatically run programs against the code in the repository. Typically used for running automated tests against proposed changes or to automatically build and deploy software artifacts as part of a [CI/CD pipeline](https://en.wikipedia.org/wiki/CI/CD).
+
+[^2]: "Trust No One"
