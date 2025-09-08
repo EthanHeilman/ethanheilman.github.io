@@ -127,10 +127,6 @@ All new ID Token signatures verify under the new public key with the old public 
 This means if we use our oracle, a ID Token today can attest to the state of JWKS which includes the public key used today and the public key used two weeks ago.
 This enables us to attest to the public key used three weeks ago, which then allows that ID Token to attest to the public key used six weeks ago and so on.
 
-<div>
-        <img src="figs/oracle-diagram.png" alt="network flow diagram of how the oracle functions" style="max-width:800px; width:100%;">
-</div>
-
 There is one issue with this approach.
 If GitHub for some unexpected reason were to rotate both keys at once it would break the chain.
 This could be addressed by having overlapping GitHub Actions that continuously request ID Tokens, so that if at least one of our oracles is running when the rollover happens it can be attested to the previous state of the JWKS.
@@ -149,7 +145,7 @@ The ID Token produced by the oracle attests to all previous logs, so we can prov
 This enables us to chain attestations backwards indefinitely in time.
 
 <div>
-        <img src="figs/the-value-of-logs.png" alt="Use logs to recover from key rotation" style="max-width:800px; width:100%;">
+        <img src="figs/the-value-logs.png" alt="Use logs to recover from key rotation" style="max-width:800px; width:100%;">
 </div>
 
 A by-product of using our oracle to chain attestations backwards using github logs is that it allows us to create a [timestamping authority](https://en.wikipedia.org/wiki/Trusted_timestamping).
