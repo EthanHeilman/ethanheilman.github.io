@@ -115,14 +115,14 @@ In the above scheme, once the public key that verifies GitHub’s signature on t
 <p>There are two solutions for this.
 First, we could leverage GitHub’s key rotation policy to chain attestations about JWKS backwards by making attestations about the keys in the JWKS URI.
 Second, we could use the fact that GitHub Action output is stored in logs which can be downloaded by a program running in a GitHub Action.</p>
-<div>
-        <img src="figs/git-chain.png" alt="chaining github attestations together" style="max-width:800px; width:100%;">
-</div>
-
 <p>GitHub always has two public keys at the JWKS URI. An old public key and a new public key.
 All new ID Token signatures verify under the new public key with the old public key existing to ensure previously issued ID Tokens have a verification grace period.
 This means if we use our oracle, a ID Token today can attest to the state of JWKS which includes the public key used today and the public key used two weeks ago.
 This enables us to attest to the public key used three weeks ago, which then allows that ID Token to attest to the public key used six weeks ago and so on.</p>
+<div>
+        <img src="figs/git-chain.png" alt="chaining github attestations together" style="max-width:800px; width:100%;">
+</div>
+
 <p>There is one issue with this approach.
 If GitHub for some unexpected reason were to rotate both keys at once it would break the chain.
 This could be addressed by having overlapping GitHub Actions that continuously request ID Tokens, so that if at least one of our oracles is running when the rollover happens it can be attested to the previous state of the JWKS.
