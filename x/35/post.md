@@ -3,7 +3,7 @@
         <img src="figs/dragons.png" alt="NASA announces dragons are real" style="max-width:800px; width:100%;">
 </div>
 
-**tl;dr** *- Instead of a complex Trusted Execution Environments like Intel SGX or AWS Nitro Enclave you just use Github Actions.*
+**tl;dr** *- Instead of a complex Trusted Execution Environments like Intel SGX or AWS Nitro Enclave just use Github Actions.*
 
 > One day while browsing the web you see an article on nasa.gov that says “scientists discover dragons are real.” You want to tell your friends that NASA is saying dragons are real, but then NASA deletes the article. You need a way to cryptographically prove nasa.gov had that article even after it is removed. To do this you need an oracle, more specifically need a TLS notary.
 
@@ -163,7 +163,7 @@ GitLab-CI does not provide the same audience functionality as GitHub, but we can
         <img src="figs/web-of-truth.png" alt="Having multiple OPs attest to each other JWKS" style="max-width:800px; width:100%;">
 </div>
 
-Instead of a complex and expensive Trusted Execution Environments (TEE) like [intel SGX](https://en.wikipedia.org/wiki/Software_Guard_Extensions) or [AWS Nitro Enclave](https://aws.amazon.com/ec2/nitro/nitro-enclaves/) you just use Github Actions.
+Instead of a complex and expensive Trusted Execution Environments (TEE) like [intel SGX](https://en.wikipedia.org/wiki/Software_Guard_Extensions) or [AWS Nitro Enclave](https://aws.amazon.com/ec2/nitro/nitro-enclaves/) just use Github Actions.
 You might ask, "you can, but should you?" and I leave that question to the reader.
 There was a pretty bad cache poisoning attack in Github Actions (see Adnan Khan's [The Monsters in Your Build Cache - GitHub Actions Cache Poisoning ()](https://adnanthekhan.com/2024/05/06/the-monsters-in-your-build-cache-github-actions-cache-poisoning/) and Barak Brudo's [GitHub Cache Poisoning](https://scribesecurity.com/blog/github-cache-poisoning/) and likely there is a lot of attack surface.
 However this approach can always be combined so that their no single point of failure.
