@@ -19,7 +19,7 @@ The incredible James Carnegie ([kipz](https://github.com/kipz)) has written a wo
 * **BBC Technology News Oracle** - An example use of URL Oracle that creates and verifies attestations for the BBC Technology RSS feed content to ensures the integrity and authenticity of BBC Technology news content through cryptographic attestations. [github.com/kipz/bbc-tech-news-oracle](https://github.com/kipz/bbc-tech-news-oracle/tree/main)
 
 **Disclaimer:** While the features of GitHub Actions and GitLab-CI enable this functionality, this is an off-label use.
-This is preliminary research, do not use this without first consulting with your cryptographer.
+This is preliminary research, do not use this without first consulting with your personal cryptographer.
 If you notice an increased appetite for trusted third parties, discontinue use immediately.
 
 ## What our GitHub Action’s oracle does
@@ -109,7 +109,6 @@ Anyone who sees (idt,nasa-data) can verify that the oracle attests to the front 
 GitHub rotates the keys that sign their ID Token’s every few weeks.
 In the above scheme, once the public key that verifies GitHub’s signature on the ID Token is rotated off GitHub’s JWKS URI, no one will be able to verify GitHub’s signature.
 
-
 <div>
         <img src="figs/life-of-jwks.png" alt="How JWKS works and how rotations happen" style="max-width:800px; width:100%;">
 </div>
@@ -117,7 +116,6 @@ In the above scheme, once the public key that verifies GitHub’s signature on t
 There are two solutions for this.
 First, we could leverage GitHub’s key rotation policy to chain attestations about JWKS backwards by making attestations about the keys in the JWKS URI.
 Second, we could use the fact that GitHub Action output is stored in logs which can be downloaded by a program running in a GitHub Action.
-
 
 GitHub always has two public keys at the JWKS URI. An old public key and a new public key.
 All new ID Token signatures verify under the new public key with the old public key existing to ensure previously issued ID Tokens have a verification grace period.
@@ -158,6 +156,10 @@ To remove trust in GitHub Actions we build a GitLab-CI oracle.
 GitLab-CI provides very similar functionality to GitHub Actions.
 Build an oracle out of GitLab-CI and have our GitLab-CI oracle check the GitHub’s oracle and have the GitHub oracle check the GitLab-CI oracle.
 GitLab-CI does not provide the same audience functionality as GitHub, but we can use [the technique we discuss here to achieve similar functionality](https://web.archive.org/web/20240807093138/https://www.bastionzero.com/blog/generalizing-openpubkey-to-any-identity-provider).
+
+As shown in the figure below, the lines in red are the security dependencies, e.g. Github ID Tokens depends on GitHub Action that creates them and depends public key in the GitHub JWKS URI which can verify them.
+The lines not in red show attestation relationships such as a GitHub/GitLab ID Token attesting to all the past GitHub logs or the GitHub logs attesting to the Program Output.
+Orange lines are GitHub ID Token attestations, black lines are GitHub log attestations, blue lines are GitLab-CI ID Token attestations.
 
 <div>
         <img src="figs/web-of-truth.png" alt="Having multiple OPs attest to each other JWKS" style="max-width:800px; width:100%;">
