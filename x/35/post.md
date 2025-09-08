@@ -3,6 +3,8 @@
         <img src="figs/dragons.png" alt="NASA announces dragons are real" style="max-width:800px; width:100%;">
 </div>
 
+**tl;dr** - Instead of a complex Trusted Execution Environments (TEE) like [intel SGX](https://en.wikipedia.org/wiki/Software_Guard_Extensions) or [AWS Nitro Enclave](https://aws.amazon.com/ec2/nitro/nitro-enclaves/) you just use Github Actions.
+
 > One day while browsing the web you see an article on nasa.gov that says “scientists discover dragons are real.” You want to tell your friends that NASA is saying dragons are real, but then NASA deletes the article. You need a way to cryptographically prove nasa.gov had that article even after it is removed. To do this you need an oracle, more specifically need a TLS notary.
 
 [GitHub Actions (GHA)](https://github.com/features/actions)[^1] is far more powerful than it appears at first.
@@ -150,7 +152,7 @@ This enables us to chain attestations backwards indefinitely in time.
         <img src="figs/the-value-of-logs.png" alt="Use logs to recover from key rotation" style="max-width:800px; width:100%;">
 </div>
 
-A by-product of using our oracle to chain attestations backwards using github logs is that it allows us to create a timestamping authority.
+A by-product of using our oracle to chain attestations backwards using github logs is that it allows us to create a [timestamping authority](https://en.wikipedia.org/wiki/Trusted_timestamping).
 Since each ID Token contains the date at which it was issued, it not only attests to the program’s output, but also the time at which it was run.
 
 ## What if I don’t want to trust GitHub?

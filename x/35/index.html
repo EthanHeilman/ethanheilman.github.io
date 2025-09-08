@@ -17,6 +17,7 @@
         <img src="figs/dragons.png" alt="NASA announces dragons are real" style="max-width:800px; width:100%;">
 </div>
 
+<p><strong>tl;dr</strong> - Instead of a complex Trusted Execution Environments (TEE) like <a href="https://en.wikipedia.org/wiki/Software_Guard_Extensions">intel SGX</a> or <a href="https://aws.amazon.com/ec2/nitro/nitro-enclaves/">AWS Nitro Enclave</a> you just use Github Actions.</p>
 <blockquote>
 <p>One day while browsing the web you see an article on nasa.gov that says “scientists discover dragons are real.” You want to tell your friends that NASA is saying dragons are real, but then NASA deletes the article. You need a way to cryptographically prove nasa.gov had that article even after it is removed. To do this you need an oracle, more specifically need a TLS notary.</p>
 </blockquote>
@@ -144,7 +145,7 @@ This enables us to chain attestations backwards indefinitely in time.</p>
         <img src="figs/the-value-of-logs.png" alt="Use logs to recover from key rotation" style="max-width:800px; width:100%;">
 </div>
 
-<p>A by-product of using our oracle to chain attestations backwards using github logs is that it allows us to create a timestamping authority.
+<p>A by-product of using our oracle to chain attestations backwards using github logs is that it allows us to create a <a href="https://en.wikipedia.org/wiki/Trusted_timestamping">timestamping authority</a>.
 Since each ID Token contains the date at which it was issued, it not only attests to the program’s output, but also the time at which it was run.</p>
 <h2>What if I don’t want to trust GitHub?</h2>
 <p>To remove trust in GitHub Actions we build a GitLab-CI oracle.
