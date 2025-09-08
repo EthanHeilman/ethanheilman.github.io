@@ -16,7 +16,7 @@ At the end we show how remove Github as a trusted party[^2].
 The incredible James Carnegie ([kipz](https://github.com/kipz)) has written a working implementation of the ideas in this blog post:
 
 * **URL Oracle** - A Github Action that implements a TLS notary for any URL" [github.com/kipz/url-oracle](https://github.com/kipz/url-oracle/)
-* **BBC Technology News Oracle** - An example use of URL Oracle that creates and verifies attestations for the BBC Technology RSS feed content to ensures the integrity and authenticity of BBC Technology news content through cryptographic attestations. [github.com/kipz/bbc-tech-news-oracle](https://github.com/kipz/bbc-tech-news-oracle/tree/main)
+* **BBC Technology News Oracle** - An example use of URL Oracle that creates and verifies attestations for the BBC Technology RSS feed content to ensures the integrity and authenticity of BBC Technology news content through cryptographic attestations. [github.com/kipz/bbc-tech-news-oracle](https://github.com/kipz/bbc-tech-news-oracle/)
 
 **Disclaimer:** While the features of GitHub Actions and GitLab-CI enable this functionality, this is an off-label use.
 This is preliminary research, do not use this without first consulting with your personal cryptographer.
