@@ -3,12 +3,12 @@
         <img src="figs/dragons.png" alt="NASA announces dragons are real" style="max-width:800px; width:100%;">
 </div>
 
-**tl;dr** - Instead of a complex Trusted Execution Environments (TEE) like [intel SGX](https://en.wikipedia.org/wiki/Software_Guard_Extensions) or [AWS Nitro Enclave](https://aws.amazon.com/ec2/nitro/nitro-enclaves/) you just use Github Actions.
+**tl;dr** *- Instead of a complex Trusted Execution Environments like Intel SGX or AWS Nitro Enclave you just use Github Actions.*
 
 > One day while browsing the web you see an article on nasa.gov that says “scientists discover dragons are real.” You want to tell your friends that NASA is saying dragons are real, but then NASA deletes the article. You need a way to cryptographically prove nasa.gov had that article even after it is removed. To do this you need an oracle, more specifically need a TLS notary.
 
 [GitHub Actions (GHA)](https://github.com/features/actions)[^1] is far more powerful than it appears at first.
-In this post I will look at an off-label use of GitHub Actions which allows it to be used as an oracle that can sign and notarize web content, including a TLS notary[^0].
+In this post I will look at an off-label use of GitHub Actions which allows it to be used as an oracle that can sign and notarize web content, including a TLS notary.
 This allows a party to prove what content was on a website long into the future without requiring that anyone trust that party.
 All anyone needs to trust is trust Github; not a github repo or a specific Github Action, but Github.
 At the end we show how remove Github as a trusted party[^2].
