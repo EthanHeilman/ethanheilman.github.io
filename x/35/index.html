@@ -13,7 +13,7 @@
 </div>
 <div class='box_container'>
 <div class='text_container'>
-<h1>Turning Github Actions into an oracle</h1><p>08-02-2025 7:23PM (ET) 09-07-2025 6:39PM (ET) (edited)</p><hr /><div>
+<h1>Turning Github Actions into an oracle</h1><p>08-02-2025 7:23PM (ET) 09-07-2025 10:02PM (ET) (edited)</p><hr /><div>
         <img src="figs/dragons.png" alt="NASA announces dragons are real" style="max-width:800px; width:100%;">
 </div>
 
@@ -21,12 +21,14 @@
 <p>One day while browsing the web you see an article on nasa.gov that says “scientists discover dragons are real.” You want to tell your friends that NASA is saying dragons are real, but then NASA deletes the article. You need a way to cryptographically prove nasa.gov had that article even after it is removed. To do this you need an oracle, more specifically need a TLS notary.</p>
 </blockquote>
 <p><a href="https://github.com/features/actions">GitHub Actions (GHA)</a><sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> is far more powerful than it appears at first.
-In this post I will look at an off-label use of GitHub Actions which allows it to be used as an oracle that can sign and notarize web content, including a TLS notary.
-This allows a party to prove what content was on a website long into the future without requiring that anyone trust that party. All anyone needs to trust is trust Github; not a github repo or a specific Github Action, but Github. At the end we show how remove Github as a trusted party<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>.</p>
-<p>The incredible James Carnegie (kipz) has written a working implementation of the ideas in this blog post:</p>
+In this post I will look at an off-label use of GitHub Actions which allows it to be used as an oracle that can sign and notarize web content, including a TLS notary[^0].
+This allows a party to prove what content was on a website long into the future without requiring that anyone trust that party.
+All anyone needs to trust is trust Github; not a github repo or a specific Github Action, but Github.
+At the end we show how remove Github as a trusted party<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>.</p>
+<p>The incredible James Carnegie (<a href="https://github.com/kipz">kipz</a>) has written a working implementation of the ideas in this blog post:</p>
 <ul>
-<li>URL Oracle - A Github Action that implements a TLS notary for any URL" <a href="https://github.com/kipz/url-oracle/">github.com/kipz/url-oracle</a></li>
-<li>BBC Technology News Oracle - An example use of URL Oracle that creates and verifies attestations for the BBC Technology RSS feed content to ensures the integrity and authenticity of BBC Technology news content through cryptographic attestations. <a href="https://github.com/kipz/bbc-tech-news-oracle/tree/main">github.com/kipz/bbc-tech-news-oracle</a></li>
+<li><strong>URL Oracle</strong> - A Github Action that implements a TLS notary for any URL" <a href="https://github.com/kipz/url-oracle/">github.com/kipz/url-oracle</a></li>
+<li><strong>BBC Technology News Oracle</strong> - An example use of URL Oracle that creates and verifies attestations for the BBC Technology RSS feed content to ensures the integrity and authenticity of BBC Technology news content through cryptographic attestations. <a href="https://github.com/kipz/bbc-tech-news-oracle/tree/main">github.com/kipz/bbc-tech-news-oracle</a></li>
 </ul>
 <p><strong>Disclaimer:</strong> While the features of GitHub Actions and GitLab-CI enable this functionality, this is an off-label use.
 This is preliminary research, do not use this without first consulting with your cryptographer.
@@ -43,33 +45,29 @@ We discuss these applications at the end of the post including how to use this o
 <li><strong>Only Trust GitHub:</strong> The person who manages, configures and triggers the GitHub Action can not make the oracle lie or attest to the wrong program or output.</li>
 </ul>
 <p><strong>GitHub Actions (Program P):</strong> → GitHub’s Signature on: <code>(SHA-1(P), SHA-1(Output of P))</code></p>
-<p>Once we show how to build this oracle and use the oracle on itself to make it more powerful.
-This approach allows us to verify signatures on a GitHub Action oracle’s attestations after GitHub rotates their public keys.
-We also eliminate GitHub Actions as a trusted party by turning GitLab-CI into a second oracle such that both must be compromised for security to be lost.</p>
 <p><strong>Is SHA-1 safe?</strong> No, <a href="https://github.blog/news-insights/company-news/sha-1-collision-detection-on-github-com/">but the SHA-1 hash function used by GitHub and git is not actually SHA-1</a>, but SHA1-DC, a variant of SHA-1 that has been <a href="https://github.com/cr-marcstevens/sha1collisiondetection">hardened against collision attacks</a>.</p>
-<h2>GitHub Actions</h2>
+<h2>Background on GitHub Actions</h2>
 <p>GitHub Actions works by running a program in a github repo based on a workflow configuration file in that repo. Github spins up a container, downloads the repo into that container and then runs commands specified in the workflow config file. For instance for our oracle we tell it to checkout the repo, setup go, and run the main.go file.</p>
-<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Checkout code</span>
-<span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v4</span>
+<div class="codehilite"><pre><span></span><code><span class="nt">steps</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Checkout code</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">uses</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v4</span>
 
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Set up Go</span>
-<span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-go@v4</span>
-<span class="w">      </span><span class="nt">with</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">go-version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.20.8</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Set up Go</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">uses</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-go@v4</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">with</span><span class="p p-Indicator">:</span>
+<span class="w">    </span><span class="nt">go-version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.20.8</span>
 
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run Oracle</span>
-<span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">go run main.go</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run Oracle</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">run</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">go run main.go</span>
 </code></pre></div>
 
-<p>GitHub provides the ability for a program running in a GitHub Action to request an OIDC (OpenID Connect) ID Token from GitHub. Requesting this ID Token is simple:</p>
-<div class="codehilite"><pre><span></span><code>core.getIDToken(audience)
-</code></pre></div>
-
-<p>where audience can be any arbitrary string chosen by the program. GitHub Actions will then return an ID Token signed by GitHub. GitHub ID Token’s look like:</p>
+<p>GitHub provides the ability for a program running in a GitHub Action to request an OpenID Connect ID Token from GitHub.
+Requesting this ID Token is simple: <code>core.getIDToken(audience)</code>, where audience can be any arbitrary string chosen by the program.
+GitHub Actions will then return an ID Token signed by GitHub<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup>.
+GitHub ID Token’s look like:</p>
 <div class="codehilite"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;aud&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;audie</span><span class="kc">n</span><span class="err">ce</span><span class="w"> </span><span class="err">s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="err">speci</span><span class="kc">f</span><span class="err">ied</span><span class="w"> </span><span class="err">by</span><span class="w"> </span><span class="err">program&gt;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;sha&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">SHA</span><span class="mi">-1</span><span class="w"> </span><span class="err">o</span><span class="kc">f</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">repo</span>
+<span class="w">  </span><span class="nt">&quot;sha&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;SHA</span><span class="mi">-1</span><span class="w"> </span><span class="err">o</span><span class="kc">f</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">repo&gt;</span>
 <span class="w">  </span><span class="nt">&quot;repository&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;octo-org/octo-repo&quot;</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;workflow&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;example-workflow&quot;</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;job_workflow_sha&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;SHA</span><span class="mi">-1</span><span class="w"> </span><span class="err">work</span><span class="kc">fl</span><span class="err">ow</span><span class="w"> </span><span class="err">commi</span><span class="kc">t</span><span class="err">&gt;</span><span class="p">,</span>
@@ -80,47 +78,109 @@ We also eliminate GitHub Actions as a trusted party by turning GitLab-CI into a 
 <span class="p">}</span>
 </code></pre></div>
 
-<p>The ID Token also contains an RSA signature. Following OIDC convention GitHub publishes the public keys needed to verify their signature on ID Tokens at a <a href="https://token.actions.githubusercontent.com/.well-known/jwks">well-known JWKS URI</a>.</p>
 <h2>How to turn GitHub Actions into an oracle</h2>
 <p>An oracle needs to sign two things:</p>
 <ul>
 <li>The hash of the program it ran</li>
-<li>The hash of output it got when it ran the program.</li>
+<li>The hash of output it got from the program when it ran the program.</li>
 </ul>
-<p>The ID Token already contains the hash of the program. The only thing the ID Token is missing is the hash program output. When requesting an ID Token from GitHub, the program specifies a string of its choice, which GitHub sets as the audience in the ID Token. To turn GitHub into an oracle, the program requests an ID Token with an audience set to the hash of the program's output.</p>
+<p>The ID Token already contains the hash of the program.
+The only thing missing is the hash program output.
+Remember when requesting an ID Token from GitHub the program specifies a string of its choice and GitHub sets that string as the audience in the ID Token.
+Thus, to turn GitHub into an oracle, the program requests an ID Token with an audience set to the hash of the program's output.</p>
 <p>For example to create a GitHub Action in which GitHub attests to the front page of nasa.gov, create a workflow file in a GitHub repository that:</p>
 <ol>
 <li>Downloads <a href="https://nasa.gov">https://nasa.gov</a> as nasa-data</li>
 <li>Requests an ID Token from GitHub: <code>idt = core.getIDToken(SHA256(nasa-data))</code></li>
-<li>Posts (idt, cnn-data) to somewhere public</li>
+<li>Posts (idt, nasa-data) somewhere public</li>
 </ol>
-<p>Anyone who sees (idt,nasa-data) can verify that the oracle attest to the front page of (idt,nasa-data):</p>
+<p>Anyone who sees (idt,nasa-data) can verify that the oracle attests to the front page of (idt,nasa-data):</p>
+<div>
+        <img src="figs/oracle-diagram.png" alt="network flow diagram of how the oracle functions" style="max-width:800px; width:100%;">
+</div>
+
 <ol>
-<li><strong>Check ID Token:</strong> Perform standard OIDC verification on the ID Token, idt, including downloading GitHub’s public key from their JWKS URI and verifying the signature on idt.</li>
+<li><strong>Check ID Token:</strong> Perform standard OIDC verification on the ID Token, idt, including downloading GitHub’s public key from their JWKS<sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup> URI (<a href="https://token.actions.githubusercontent.com/.well-known/jwks">token.actions.githubusercontent.com/.well-known/jwks</a>) and verifying the signature on idt.</li>
 <li><strong>Check Program:</strong> Use the ID Token <code>repo</code> claim to find the GitHub repo which created this idt. Check that the code of the program that ran is correct and that this code hashes to the <code>sha</code> claim in idt.</li>
-<li><strong>Check Program output:</strong> SHA256(cnn-data) and check that it matches the audience claim in idt.</li>
+<li><strong>Check Program output:</strong> SHA256(nasa-data) and check that it matches the audience claim in idt.</li>
 </ol>
 <h2>Dealing with key rotations</h2>
-<p>GitHub rotates the keys that sign their ID Token’s every few weeks. In the above scheme, once the public key that verifies GitHub’s signature on the ID Token is rotated off GitHub’s JWKS URI, no one will be able to verify GitHub’s signature.</p>
-<p>There are two solutions for this. First, we could leverage GitHub’s key rotation policy to chain attestations about JWKS backwards by making attestations about the keys in the JWKS URI. Second, we could use the fact that GitHub Action output is stored in logs which can be downloaded by a program running in a GitHub Action.</p>
-<p>GitHub always has two public keys at the JWKS URI. An old public key and a new public key. All new ID Token signatures verify under the new public key with the old public key existing to ensure previously issued ID Tokens have a verification grace period. This means if we use our oracle, a ID Token today can attest to the state of JWKS which includes the public key used today and the public key used two weeks ago. This enables us to attest to the public key used three weeks ago, which then allows that ID Token to attest to the public key used six weeks ago and so on.</p>
-<p>There is one issue with this approach. If GitHub for some unexpected reason were to rotate both keys at once it would break the chain. This could be addressed by having overlapping GitHub Actions that continuously request ID Tokens, so that if at least one of our oracles is running when the rollover happens it can be attested to the previous state of the JWKS. I don’t care for this overlapping GitHub Actions approach as it is not robust to GitHub going down while rotating both keys at the same moment.</p>
-<p>Fortunately there is a far better approach. When a program runs in a GitHub Action, that program’s output is logged by GitHub and those logs can be read by programs running in a GitHub Action. Our GitHub Action program can attest to the current GitHub Action public keys in the program output and then write the ID Token to this log. As GitHub records the SHA-1 hash of the program in the log, the log functions as an attestation of the program and the program output. The log is not signed, but it is controlled by GitHub.</p>
-<p>We can take this even further, each time our GitHub Action oracle runs, it downloads the past logs, and attests them as program output in the ID Token. Thus, GitHub’s signature now covers the past logs and covers the past state of GitHub’s public keys. The ID Token produced by the oracle attests to all previous logs, so we can prove the content of a log even after the 90 day window after which GitHub deletes the log. This enables us to chain attestations backwards indefinitely in time.</p>
-<p>A by-product of using our oracle to chain attestations backwards using github logs is that it allows us to create a timestamping authority. Since each ID Token contains the date at which it was issued, it not only attests to the program’s output, but also the time at which it was run.</p>
+<p>GitHub rotates the keys that sign their ID Token’s every few weeks.
+In the above scheme, once the public key that verifies GitHub’s signature on the ID Token is rotated off GitHub’s JWKS URI, no one will be able to verify GitHub’s signature.</p>
+<div>
+        <img src="figs/life-of-jwks.png" alt="How JWKS works and how rotations happen" style="max-width:800px; width:100%;">
+</div>
+
+<p>There are two solutions for this.
+First, we could leverage GitHub’s key rotation policy to chain attestations about JWKS backwards by making attestations about the keys in the JWKS URI.
+Second, we could use the fact that GitHub Action output is stored in logs which can be downloaded by a program running in a GitHub Action.</p>
+<div>
+        <img src="figs/git-chain.png" alt="chaining github attestations together" style="max-width:800px; width:100%;">
+</div>
+
+<p>GitHub always has two public keys at the JWKS URI. An old public key and a new public key.
+All new ID Token signatures verify under the new public key with the old public key existing to ensure previously issued ID Tokens have a verification grace period.
+This means if we use our oracle, a ID Token today can attest to the state of JWKS which includes the public key used today and the public key used two weeks ago.
+This enables us to attest to the public key used three weeks ago, which then allows that ID Token to attest to the public key used six weeks ago and so on.</p>
+<div>
+        <img src="figs/oracle-diagram.png" alt="network flow diagram of how the oracle functions" style="max-width:800px; width:100%;">
+</div>
+
+<p>There is one issue with this approach.
+If GitHub for some unexpected reason were to rotate both keys at once it would break the chain.
+This could be addressed by having overlapping GitHub Actions that continuously request ID Tokens, so that if at least one of our oracles is running when the rollover happens it can be attested to the previous state of the JWKS.
+This is a complete solution as it is not robust to GitHub going down while rotating both keys at the same moment.</p>
+<p>Fortunately there is a far better approach.
+When a program runs in a GitHub Action, that program’s output is logged by GitHub and those logs can be read by programs running in a GitHub Action.
+Our GitHub Action program can attest to the current GitHub Action public keys in the program output and then write the ID Token to this log.
+As GitHub records the SHA-1 hash of the program in the log,
+the log functions as an attestation of the program and the program output.
+The log is not signed, but it is controlled by GitHub.</p>
+<p>We can take this even further, each time our GitHub Action oracle runs, it downloads the past logs, and attests them as program output in the ID Token.
+Thus, GitHub’s signature now covers the past logs and covers the past state of GitHub’s public keys.
+The ID Token produced by the oracle attests to all previous logs, so we can prove the content of a log even after the 90 day window after which GitHub deletes the log.
+This enables us to chain attestations backwards indefinitely in time.</p>
+<div>
+        <img src="figs/the-value-of-logs.png" alt="Use logs to recover from key rotation" style="max-width:800px; width:100%;">
+</div>
+
+<p>A by-product of using our oracle to chain attestations backwards using github logs is that it allows us to create a timestamping authority.
+Since each ID Token contains the date at which it was issued, it not only attests to the program’s output, but also the time at which it was run.</p>
 <h2>What if I don’t want to trust GitHub?</h2>
-<p>To remove trust in GitHub Actions we build a GitLab-CI oracle. GitLab-CI provides very similar functionality to GitHub Actions. Build an oracle out of GitLab-CI and have our GitLab-CI oracle check the GitHub’s oracle and have the GitHub oracle check the GitLab-CI oracle. GitLab-CI does not provide the same audience functionality as GitHub, but we can use <a href="https://web.archive.org/web/20240807093138/https://www.bastionzero.com/blog/generalizing-openpubkey-to-any-identity-provider">the technique we discuss here to achieve similar functionality</a>.</p>
+<p>To remove trust in GitHub Actions we build a GitLab-CI oracle.
+GitLab-CI provides very similar functionality to GitHub Actions.
+Build an oracle out of GitLab-CI and have our GitLab-CI oracle check the GitHub’s oracle and have the GitHub oracle check the GitLab-CI oracle.
+GitLab-CI does not provide the same audience functionality as GitHub, but we can use <a href="https://web.archive.org/web/20240807093138/https://www.bastionzero.com/blog/generalizing-openpubkey-to-any-identity-provider">the technique we discuss here to achieve similar functionality</a>.</p>
+<div>
+        <img src="figs/web-of-truth.png" alt="Having multiple OPs attest to each other JWKS" style="max-width:800px; width:100%;">
+</div>
+
+<p>Instead of a complex and expensive Trusted Execution Environments (TEE) like <a href="https://en.wikipedia.org/wiki/Software_Guard_Extensions">intel SGX</a> or <a href="https://aws.amazon.com/ec2/nitro/nitro-enclaves/">AWS Nitro Enclave</a> you just use Github Actions.
+You might ask, "you can, but should you?" and I leave that question to the reader.
+There was a pretty bad cache poisoning attack in Github Actions (see Adnan Khan's <a href="https://adnanthekhan.com/2024/05/06/the-monsters-in-your-build-cache-github-actions-cache-poisoning/">The Monsters in Your Build Cache - GitHub Actions Cache Poisoning ()</a> and Barak Brudo's <a href="https://scribesecurity.com/blog/github-cache-poisoning/">GitHub Cache Poisoning</a> and likely there is a lot of attack surface.
+However this approach can always be combined so that their no single point of failure.
+If you AWS Nitro Enclaves + Github Actions is stronger than Github Actions.
+By combining more and more oracles together you can build a truly impressive level of security.</p>
 <h2>Why are oracles valuable?</h2>
 <p>Oracles solve a number of problems at the expense of requiring that the oracle be trusted. For instance, let’s say you want to run a computation on some secret data, you want to prove that the output of the computation is correct, but you want to keep parts of the data used to run the computation. Just give the oracle your program, the data, and it will sign an attestation that a particular program, when run with access to the secret data, produced a particular output.</p>
-<p>We specifically invented this approach because our project OpenPubkey would benefit from being able to prove the JWKS.</p>
+<p>We specifically invented the Github Actions oracle approach because our project <a href="https://github.com/openpubkey/openpubkey">OpenPubkey</a> would benefit from being able to prove the JWKS.</p>
 <p>GitHub makes an excellent trusted third party because you probably already trust GitHub. Even if you don’t use GitHub, much of the source code of the software you use is stored and controlled by GitHub. Projects that don’t use GitHub use dependencies are on GitHub. There are very few systems that are secure against a malicious GitHub.</p>
 <h2>Related Work</h2>
+<p>There has been much work on TLS notaries.
+<a href="https://eprint.iacr.org/2016/168.pdf">Town Crier: An Authenticated Data Feed for Smart Contracts (2016)</a> <a href="https://www.town-crier.org/">town-crier.org</a> which uses a TEE (Trusted Execution Environment) to notarize web content.
+TLS Notary, <a href="https://tlsnotary.org/">tlsnotary.org</a> uses <a href="https://en.wikipedia.org/wiki/Secure_multi-party_computation">Multi-Party Computation (MPC)</a> so that a third party can notarize content without having to reveal that content to the notary.
+<a href="https://en.wikipedia.org/wiki/Chainlink_(blockchain_oracle)">Chainlink</a> is a blockchain-based oracle and TLS notary built our of a network of many oracles which are are incentivized and punished if they misreport.</p>
+<p>The Sui and Aptos blockchains both treat the content in JWKS URIs as consensus critical and consensus nodes function as oracles reporting the current content on JWKS URIs when they produce blocks.
+Become of this these blockchains produce a long term archive log of these states as part of their blockchains.
+I have <a href="https://github.com/openpubkey/openpubkey/pull/102">an draft PR in OpenPubkey to use Sui as an archival JWKS oracle</a>.
+Unfortunately they don't support the github or gitlab JWKS URI.</p>
+<h2>See Also</h2>
 <ul>
 <li>
-<p><a href="https://eprint.iacr.org/2016/168.pdf">Town Crier: An Authenticated Data Feed for Smart Contracts (2016)</a>, <a href="https://www.town-crier.org/">town-crier.org</a>, uses Trusted Hardward to notarize web content.</p>
+<p><a href="https://www.ethanheilman.com/x/30/index.html">OpenPubkey (Augmenting OpenID Connect with User held Signing Keys): Why I think it is the most important security research I’ve done</a></p>
 </li>
 <li>
-<p>TLS Notary, <a href="https://tlsnotary.org/">tlsnotary.org</a> uses Multi-Party Computation (MPC) so that a third party can notarize content without reveal that content to the notary.</p>
+<p><a href="https://www.ethanheilman.com/x/4/index.html">Castle meet Cannon: What to do after you lose?</a></p>
 </li>
 </ul>
 <div class="footnote">
@@ -131,6 +191,12 @@ We also eliminate GitHub Actions as a trusted party by turning GitLab-CI into a 
 </li>
 <li id="fn:2">
 <p>"Trust No One"&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p>Following OIDC convention GitHub publishes the public keys needed to verify their signature on ID Tokens at a <a href="https://token.actions.githubusercontent.com/.well-known/jwks">well-known JWKS URI</a>.&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:4">
+<p>JWKS (JSON Web Key Set) defined in <a href="https://datatracker.ietf.org/doc/html/rfc7517">RFC 7517 - JSON Web Keys</a>&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div><hr /></div>
