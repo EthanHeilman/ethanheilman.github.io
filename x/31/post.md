@@ -228,7 +228,9 @@ I didn't include missile swarms in the game since I suspect that many of the thi
 
 ## Future work
 
-To my shame, I haven't actually done the work to see if there is a Nash equilibrium between the missile and laser strategies although I know someone who has looked in it and may publish results later. It would be fun to do a continuous version of the game where people could submit missile and laser strategies and create a leader board.
+**Edit (2026):** My friend Russell O’Connor has done to work and solved the [Nash Equilibrium for Terminal Maneuvers](https://r6.ca/blog/20260402T135216Z.html).
+
+To my shame, I haven't actually done the work to see if there is a Nash equilibrium between the missile and laser strategies. It would be fun to do a continuous version of the game where people could submit missile and laser strategies and create a leader board.
 
 ## Final thoughts
 
