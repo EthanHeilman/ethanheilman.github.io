@@ -139,7 +139,7 @@ def post_html_template(canonical_url, title, pubdate, lastedit, next_post, prev_
             processEscapes: true
         }
         });"""
-    html_post_template += "<script src=\"https://polyfill.io/v3/polyfill.min.js?features=es6\"></script>"
+    html_post_template += "<script src=\"https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?version=4.8.0&features=es6\"></script>"
     html_post_template += "<script type=\"text/javascript\" src=\"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML\"></script>"
     html_post_template += "<script type=\"text/x-mathjax-config\">{mjconfig}</script>"
 
