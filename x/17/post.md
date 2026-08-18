@@ -143,7 +143,7 @@ This interpretation of COLLECTION as targeting/reporting rather than interceptio
 
 For an activity to count as COLLECTION within USSID-18 must count as both targeted and reported.
 
-[DoD regulation 5240.1-R](fas.org/irp/doddir/dod/d5240_1_r.pdf), mentioned in the section on 'COLLECTION as reporting', also derives its authority from EO 12333, and it also uses a definition 'COLLECTION as reporting' which appears to be incompatible with EO 12333.
+[DoD regulation 5240.1-R](https://fas.org/irp/doddir/dod/d5240_1_r.pdf), mentioned in the section on 'COLLECTION as reporting', also derives its authority from EO 12333, and it also uses a definition 'COLLECTION as reporting' which appears to be incompatible with EO 12333.
 
 Conclusion:
 =====
