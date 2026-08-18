@@ -20,15 +20,15 @@
 
   <!-- Highlighted Blog Posts -->
   <url>
-    <loc>https://www.ethanheilman.com/x/ls/pq-bitcoin.html</loc>
+    <loc>https://www.ethanheilman.com/x/32/index.html</loc>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://www.ethanheilman.com/x/ls/privacy-systems.html</loc>
+    <loc>https://www.ethanheilman.com/x/12/index.html</loc>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://www.ethanheilman.com/x/ls/authentication-internals.html</loc>
+    <loc>https://www.ethanheilman.com/x/31/index.html</loc>
     <priority>0.3</priority>
   </url>
 
