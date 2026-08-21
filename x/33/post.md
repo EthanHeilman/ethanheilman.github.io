@@ -57,7 +57,7 @@ OPKSSH does not require any code changes to the SSH server or client. The only c
 
 Let’s look at an example of Alice (alice@example.com) using OPKSSH to SSH into a server:
 
-1. lice runs opkssh login. This command automatically generates an ephemeral public key and private key for Alice. Then it runs the OpenPubkey protocol by opening a browser window and having Alice log in through their SSO provider, e.g., Google.
+1. Alice runs opkssh login. This command automatically generates an ephemeral public key and private key for Alice. Then it runs the OpenPubkey protocol by opening a browser window and having Alice log in through their SSO provider, e.g., Google.
 
 2. If Alice SSOs successfully, OPKSSH will now have a PK Token that commits to Alice’s ephemeral public key and Alice’s identity. Essentially, this PK Token says “alice@example.com authenticated her identity and her public key is 0x123…”.
 
